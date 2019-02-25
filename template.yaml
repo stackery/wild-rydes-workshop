@@ -50,7 +50,7 @@ Resources:
       Description: !Sub
         - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
         - ResourceName: Request Unicorn
-      CodeUri: handlers/get_unicorn.handler
+      CodeUri: Handlers/get_unicorn.handler
       Handler: request_unicorn.handler
       Runtime: python3.6
       MemorySize: 3008
