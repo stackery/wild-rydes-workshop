@@ -21,75 +21,16 @@ Resources:
       Policies:
         - AWSXrayWriteOnlyAccess
         - S3CrudPolicy:
-            BucketName: !Ref ObjectStore
+            BucketName: !Ref FrontendContent
       Environment:
         Variables:
-          BUCKET_NAME: !Ref ObjectStore
-          BUCKET_ARN: !GetAtt ObjectStore.Arn
-  Api:
-    Type: AWS::Serverless::Api
+          BUCKET_NAME: !Ref FrontendContent
+          BUCKET_ARN: !GetAtt FrontendContent.Arn
+  PopulateFrontendContentDeployTrigger:
+    Type: Custom::FunctionDeployTrigger
     Properties:
-      Name: !Sub
-        - ${ResourceName} From Stack ${StackTagName} Environment ${EnvironmentTagName}
-        - ResourceName: Api
-      StageName: !Ref EnvironmentAPIGatewayStageName
-      DefinitionBody:
-        swagger: '2.0'
-        info: {}
-        paths:
-          /unicorn:
-            get:
-              x-amazon-apigateway-integration:
-                httpMethod: POST
-                type: aws_proxy
-                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RequestUnicorn.Arn}/invocations
-              responses: {}
-      EndpointConfiguration: REGIONAL
-  GetUnicorn:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${AWS::StackName}-RequestUnicorn
-      Description: !Sub
-        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
-        - ResourceName: Request Unicorn
-      CodeUri: src/get_unicorn.handler
-      Handler: request_unicorn.handler
-      Runtime: python3.6
-      MemorySize: 3008
-      Timeout: 30
-      Tracing: Active
-      Policies:
-        - AWSXrayWriteOnlyAccess
-        - DynamoDBCrudPolicy:
-            TableName: !Ref UnicornsTable
-      Events:
-        ApiGETunicorn:
-          Type: Api
-          Properties:
-            Path: /unicorn
-            Method: GET
-            RestApiId: !Ref Api
-      Environment:
-        Variables:
-          TABLE_NAME: !Ref UnicornsTable
-          TABLE_ARN: !GetAtt UnicornsTable.Arn
-    Metadata:
-      StackeryName: Request Unicorn
-  UnicornsTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      AttributeDefinitions:
-        - AttributeName: ${self:custom.unicorn_hash_key}
-          AttributeType: S
-      BillingMode: PAY_PER_REQUEST
-      KeySchema:
-        - AttributeName: ${self:custom.unicorn_hash_key}
-          KeyType: HASH
-      StreamSpecification:
-        StreamViewType: NEW_AND_OLD_IMAGES
-      TableName: !Sub ${AWS::StackName}-UnicornsTable
-    Metadata:
-      StackeryName: Unicorns Table
+      ServiceToken: !GetAtt PopulateFrontendContent.Arn
+      DeploymentTimestamp: !Ref DeploymentTimestamp
 Parameters:
   StackTagName:
     Type: String
@@ -97,6 +38,6 @@ Parameters:
   EnvironmentTagName:
     Type: String
     Description: Environment Name (injected by Stackery at deployment time)
-  EnvironmentAPIGatewayStageName:
-    Type: String
-    Description: Environment name used for API Gateway Stage names (injected by Stackery at deployment time)
+  DeploymentTimestamp:
+    Type: Number
+    Description: Deployment preparation timestamp in milliseconds Since Epoch (injected by Stackery at deployment time)
