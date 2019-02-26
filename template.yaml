@@ -5,6 +5,8 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-frontendcontent
+      WebsiteConfiguration:
+        IndexDocument: index.html
   PopulateFrontendContent:
     Type: AWS::Serverless::Function
     Properties:
