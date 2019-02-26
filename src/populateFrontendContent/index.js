@@ -10,7 +10,7 @@ const s3 = new AWS.S3();
 exports.handler = async message => {
   try {
     await Promise.all([
-      uploadStaticContent(),
+      //uploadStaticContent(),
       uploadConfig()
     ]);
 
