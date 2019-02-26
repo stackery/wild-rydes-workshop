@@ -1,6 +1,31 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
 Resources:
+  FrontendContent:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::StackName}-frontendcontent
+  PopulateFrontendContent:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-PopulateFrontendContent
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: PopulateFrontendContent
+      CodeUri: src/populateFrontendContent
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+        - S3CrudPolicy:
+            BucketName: !Ref ObjectStore
+      Environment:
+        Variables:
+          BUCKET_NAME: !Ref ObjectStore
+          BUCKET_ARN: !GetAtt ObjectStore.Arn
   Api:
     Type: AWS::Serverless::Api
     Properties:
@@ -20,37 +45,14 @@ Resources:
                 uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RequestUnicorn.Arn}/invocations
               responses: {}
       EndpointConfiguration: REGIONAL
-  LoadTable:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${AWS::StackName}-LoadTable
-      Description: !Sub
-        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
-        - ResourceName: Load Table
-      CodeUri: Handlers/LoadTable
-      Handler: handlers/load_table.handler
-      Runtime: python3.6
-      MemorySize: 3008
-      Timeout: 30
-      Tracing: Active
-      Policies:
-        - AWSXrayWriteOnlyAccess
-        - DynamoDBCrudPolicy:
-            TableName: !Ref UnicornsTable
-      Environment:
-        Variables:
-          TABLE_NAME: !Ref UnicornsTable
-          TABLE_ARN: !GetAtt UnicornsTable.Arn
-    Metadata:
-      StackeryName: Load Table
-  RequestUnicorn:
+  GetUnicorn:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-RequestUnicorn
       Description: !Sub
         - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
         - ResourceName: Request Unicorn
-      CodeUri: Handlers/get_unicorn.handler
+      CodeUri: src/get_unicorn.handler
       Handler: request_unicorn.handler
       Runtime: python3.6
       MemorySize: 3008

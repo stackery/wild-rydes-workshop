@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "cfn-custom-resource": "^4.0.11",
+    "recursive-readdir": "^2.2.2"
+  }
+}
