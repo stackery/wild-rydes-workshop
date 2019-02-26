@@ -76,6 +76,14 @@ async function uploadConfig() {
     }).promise();
   } catch (err) {
     console.log('Failed to upload config.js');
+    console.log('Params:');
+    console.log(JSON.stringify({
+      Bucket: process.env.BUCKET_NAME,
+      Key: 'js/config.js',
+      Body: configString,
+      ContentType: mime.lookup('config.js'),
+      ACL: 'public-read'
+    }, null, 2));
     throw err;
   }
 }
