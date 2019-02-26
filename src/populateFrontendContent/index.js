@@ -17,6 +17,8 @@ exports.handler = async message => {
       Body: await fs.readFile(file)
     }));
 
+    await Promise.all(promises);
+
     // Send success signal back to CloudFormation
     await cfnCR.sendSuccess('PopulateFrontendContent', {}, message);
 
