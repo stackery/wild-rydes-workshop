@@ -4,6 +4,7 @@ Resources:
   FrontendContent:
     Type: AWS::S3::Bucket
     Properties:
+      BucketName: !Sub ${AWS::StackName}-frontendcontent
       WebsiteConfiguration:
         IndexDocument: index.html
   PopulateFrontendContent:

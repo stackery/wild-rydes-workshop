@@ -11,7 +11,7 @@ exports.handler = async message => {
   try {
     await Promise.all([
       uploadStaticContent(),
-      //uploadConfig()
+      uploadConfig()
     ]);
 
     // Send success signal back to CloudFormation
