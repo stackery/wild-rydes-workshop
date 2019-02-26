@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const util = require('util');
 const AWS = require('aws-sdk');
 const cfnCR = require('cfn-custom-resource');
@@ -15,7 +16,7 @@ exports.handler = async message => {
     // Upload files asynchronously to frontend content object store
     const promises = files.map(async file => s3.putObject({
       Bucket: process.env.BUCKET_NAME,
-      Key: file,
+      Key: path.relative('static', file),
       Body: await readFile(file)
     }).promise());
 
