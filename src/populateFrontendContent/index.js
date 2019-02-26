@@ -65,12 +65,17 @@ async function uploadConfig() {
   // Make the content retrievable from global `_config` variable
   const configString = `window._config = ${JSON.stringify(config, null, 2)}`;
 
-  // Upload to frontend content bucket
-  await s3.putObject({
-    Bucket: process.env.BUCKET_NAME,
-    Key: 'js/config.js',
-    Body: configString,
-    ContentType: mime.lookup('config.js'),
-    ACL: 'public-read'
-  }).promise();
+  try {
+    // Upload to frontend content bucket
+    await s3.putObject({
+      Bucket: process.env.BUCKET_NAME,
+      Key: 'js/config.js',
+      Body: configString,
+      ContentType: mime.lookup('config.js'),
+      ACL: 'public-read'
+    }).promise();
+  } catch (err) {
+    console.log('Failed to upload config.js');
+    throw err;
+  }
 }
