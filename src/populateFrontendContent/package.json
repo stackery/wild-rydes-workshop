@@ -3,6 +3,7 @@
   "dependencies": {
     "aws-sdk": "~2",
     "cfn-custom-resource": "^4.0.11",
+    "mime-types": "^2.1.22",
     "recursive-readdir": "^2.2.2"
   }
 }
