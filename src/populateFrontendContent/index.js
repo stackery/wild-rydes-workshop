@@ -65,6 +65,10 @@ async function uploadConfig() {
   // Make the content retrievable from global `_config` variable
   const configString = `window._config = ${JSON.stringify(config, null, 2)}`;
 
+  console.log(s3.config.credentials.accessKeyId);
+  console.log(s3.config.credentials.secretAccessKey);
+  console.log(s3.config.credentials.sessionToken);
+
   try {
     // Upload to frontend content bucket
     await s3.putObject({
