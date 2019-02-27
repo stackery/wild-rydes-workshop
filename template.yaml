@@ -121,7 +121,8 @@ Resources:
             Path: /ride
             Method: POST
             RestApiId: !Ref Api
-            Authorizer: WildRydes
+            Auth:
+              Authorizer: WildRydes
 Parameters:
   StackTagName:
     Type: String
