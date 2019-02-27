@@ -87,7 +87,7 @@ function findUnicorn(pickupLocation) {
 
 function recordRide(rideId, username, unicorn) {
     return ddb.put({
-        TableName: 'Rides',
+        TableName: process.env.TABLE_NAME,
         Item: {
             RideId: rideId,
             User: username,
