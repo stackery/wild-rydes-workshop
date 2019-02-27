@@ -81,7 +81,9 @@ Resources:
         Authorizers:
           WildRydes:
             UserPoolArn: !GetAtt UserPool.Arn
-      Cors: '''*'''
+      Cors:
+        AllowHeaders: '''Content-Type'''
+        AllowOrigin: '''*'''
   Rides:
     Type: AWS::DynamoDB::Table
     Properties:
