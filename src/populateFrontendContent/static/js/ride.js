@@ -22,6 +22,9 @@ WildRydes.map = WildRydes.map || {};
         $.ajax({
             method: 'POST',
             url: _config.api.invokeUrl,
+            headers: {
+                Authorization: authToken
+            },
             data: JSON.stringify({
                 PickupLocation: {
                     Latitude: pickupLocation.latitude,
