@@ -79,7 +79,6 @@ Resources:
         Authorizers:
           WildRydes:
             UserPoolArn: !GetAtt UserPool.Arn
-        DefaultAuthorizer: WildRydes
       Cors: '''*'''
   Rides:
     Type: AWS::DynamoDB::Table
@@ -122,6 +121,7 @@ Resources:
             Path: /ride
             Method: POST
             RestApiId: !Ref Api
+            Authorizer: WildRydes
 Parameters:
   StackTagName:
     Type: String
