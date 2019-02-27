@@ -10,7 +10,7 @@ const s3 = new AWS.S3();
 exports.handler = async message => {
   try {
     await Promise.all([
-      //uploadStaticContent(),
+      uploadStaticContent(),
       uploadConfig()
     ]);
 
@@ -65,29 +65,12 @@ async function uploadConfig() {
   // Make the content retrievable from global `_config` variable
   const configString = `window._config = ${JSON.stringify(config, null, 2)}`;
 
-  console.log(s3.config.credentials.accessKeyId);
-  console.log(s3.config.credentials.secretAccessKey);
-  console.log(s3.config.credentials.sessionToken);
-
-  try {
-    // Upload to frontend content bucket
-    await s3.putObject({
-      Bucket: process.env.BUCKET_NAME,
-      Key: 'js/config.js',
-      Body: configString,
-      ContentType: mime.lookup('config.js'),
-      ACL: 'public-read'
-    }).promise();
-  } catch (err) {
-    console.log('Failed to upload config.js');
-    console.log('Params:');
-    console.log(JSON.stringify({
-      Bucket: process.env.BUCKET_NAME,
-      Key: 'js/config.js',
-      Body: configString,
-      ContentType: mime.lookup('config.js'),
-      ACL: 'public-read'
-    }, null, 2));
-    throw err;
-  }
+  // Upload to frontend content bucket
+  await s3.putObject({
+    Bucket: process.env.BUCKET_NAME,
+    Key: 'js/config.js',
+    Body: configString,
+    ContentType: mime.lookup('config.js'),
+    ACL: 'public-read'
+  }).promise();
 }
