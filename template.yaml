@@ -23,7 +23,7 @@ Resources:
         - AWSXrayWriteOnlyAccess
         - S3CrudPolicy:
             BucketName: !Ref FrontendContent
-        - Version: '2012-10-17'
+        - Version: 2012-10-17
           Statement:
             - Effect: Allow
               Action: s3:PutObjectACL
@@ -48,6 +48,8 @@ Resources:
       AliasAttributes:
         - email
         - preferred_username
+      AutoVerifiedAttributes:
+        - email
       UserPoolName: !Sub ${AWS::StackName}-UserPool
   UserPoolClient:
     Type: AWS::Cognito::UserPoolClient
