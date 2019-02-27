@@ -80,6 +80,7 @@ Resources:
           WildRydes:
             UserPoolArn: !GetAtt UserPool.Arn
         DefaultAuthorizer: WildRydes
+      Cors: '''*'''
   Rides:
     Type: AWS::DynamoDB::Table
     Properties:
