@@ -74,6 +74,8 @@ Resources:
                 type: aws_proxy
                 uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RequestUnicorn.Arn}/invocations
               responses: {}
+              security:
+                - WildRydes: []
       EndpointConfiguration: REGIONAL
       Auth:
         Authorizers:
@@ -121,8 +123,6 @@ Resources:
             Path: /ride
             Method: POST
             RestApiId: !Ref Api
-            Auth:
-              Authorizer: WildRydes
 Parameters:
   StackTagName:
     Type: String
