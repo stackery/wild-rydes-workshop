@@ -28,7 +28,7 @@ Resources:
           Statement:
             - Effect: Allow
               Action: s3:PutObjectACL
-              Resource: !Sub ${YOUR-OBJECT-STORE-ID.Arn}/*
+              Resource: !Sub ${FrontendContent.Arn}/*
       Environment:
         Variables:
           BUCKET_NAME: !Ref FrontendContent
