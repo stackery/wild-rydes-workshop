@@ -80,6 +80,10 @@ exports.handler = async (event, context) => {
 let _apiKey;
 async function getUnicornStableApiKey() {
     if (!_apiKey) {
+        if (!('SECRETS_NAMESPACE' in process.env)) {
+            throw new Error('SECRETS_NAMESPACE environment variable is missing');
+        }
+
         const secretsManager = new AWS.SecretsManager();
 
         // SECRETS_NAMESPACE is the namespace for this Stackery environment.
@@ -105,20 +109,34 @@ async function findUnicorn(pickupLocation) {
     // Retrieve unicorn stable API key from AWS Secrets Manager
     const apiKey = await getUnicornStableApiKey();
 
-    const url = `${process.env.UNICORN_STABLE_API}/unicorn`;
+    if (!('UNICORN_STABLE_API' in process.env)) {
+        throw new Error('UNICORN_STABLE_API environment variable is missing');
+    }
 
-    console.log(`Making request to url ${url}`);
+    // API may be like 'foo.example.com/path/prefix'. We would then need to make
+    // a request to 'https://foo.example.com/path/prefix/unicorn'. This
+    // calculates the hostname and full path for the request we need to make.
+    const match = process.env.UNICORN_STABLE_API.match(/([^/]+)(\/.*)?/);
+
+    if (!match) {
+        throw new Error('Invalid unicorn stable API from UNICORN_STABLE_API environment variable');
+    }
+
+    const [ _, hostname, pathPrefix] = match;
+    const path = (pathPrefix || '') + '/unicorn';
+
+    console.log(`Making request to https://${hostname}${path}`);
 
     const options = {
-        hostname: process.env.UNICORN_STABLE_API,
-        path: '/unicorn',
+        hostname,
+        path,
         headers: {
             'x-api-key': apiKey
         }
     };
 
     return new Promise((resolve, reject) => {
-        https.get(options, res => {
+        get(options, res => {
             res.setEncoding('utf8');
             let body = '';
 
