@@ -24,13 +24,13 @@ Resources:
         - S3CrudPolicy:
             BucketName: !Ref FrontendContent
         - Statement:
-          - Effect: Allow
-            Action:
-              - s3:GetObjectAcl
-              - s3:PutObjectAcl
-            Resource:
-              - !Sub arn:${AWS::Partition}:s3:::${FrontendContent}
-              - !Sub arn:${AWS::Partition}:s3:::${FrontendContent}/*
+            - Effect: Allow
+              Action:
+                - s3:GetObjectAcl
+                - s3:PutObjectAcl
+              Resource:
+                - !Sub arn:${AWS::Partition}:s3:::${FrontendContent}
+                - !Sub arn:${AWS::Partition}:s3:::${FrontendContent}/*
       Environment:
         Variables:
           BUCKET_NAME: !Ref FrontendContent
@@ -117,10 +117,14 @@ Resources:
         - AWSXrayWriteOnlyAccess
         - DynamoDBCrudPolicy:
             TableName: !Ref Rides
+        - AWSSecretsManagerGetSecretValuePolicy:
+            SecretArn: !Sub arn:${AWS::Partition}:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:/${EnvironmentTagName}/*
       Environment:
         Variables:
           TABLE_NAME: !Ref Rides
           TABLE_ARN: !GetAtt Rides.Arn
+          SECRETS_NAMESPACE: !Sub /${EnvironmentTagName}/
+          UNICORN_STABLE_API: !Ref EnvConfigunicornStableApiAsString
       Events:
         ApiPOSTride:
           Type: Api
@@ -141,3 +145,9 @@ Parameters:
   EnvironmentAPIGatewayStageName:
     Type: String
     Description: Environment name used for API Gateway Stage names (injected by Stackery at deployment time)
+  EnvConfigunicornStableApiAsString:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /<EnvironmentName>/unicornStableApi
+Metadata:
+  EnvConfigParameters:
+    EnvConfigunicornStableApiAsString: unicornStableApi
