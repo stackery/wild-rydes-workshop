@@ -134,6 +134,55 @@ Now that we have configured access to the Unicorn Stables™ service we now need
         * It also adds an environment variable `SECRETS_NAMESPACE` to make it easier to locate the correct secrets for the environment the stack is deployed into
 1. Drag a wire from the PopulateFrontendContent Function to the Api resource to add the `API_URL` environment variable to the function
     * The PopulateFrontendContent Function uses the environment variable to generate js/config.js as part of the website content
+1. Authorize requests using the User Pool Client
+    * Requests to POST /ride must have a valid User Pool authentication token in the `Authorization` header
+    * Unfortunately, this is something that isn't nicely abstracted by AWS SAM yet, so we will manually edit the API resource settings
+    1. Switch to the "Template" edit mode
+    1. Locate the `Api` resource
+    1. Add an `Auth` property with the following details:
+        ```YAML
+        Auth:
+          Authorizers:
+            WildRydes:
+              UserPoolArn: !GetAtt UserPool.Arn
+        ```
+    1. Locate the POST /ride route under DefinitionBody -> paths -> /ride -> post
+    1. Add the following `security` property
+        ```YAML
+        security:
+          - WildRydes: []
+        ```
+    1. The complete `Api` resource definition look like (note that the order of the properties doesn't matter):
+        ```YAML
+        Api:
+          Type: AWS::Serverless::Api
+          Properties:
+            Name: !Sub
+              - ${ResourceName} From Stack ${StackTagName} Environment ${EnvironmentTagName}
+              - ResourceName: Api
+            StageName: !Ref EnvironmentAPIGatewayStageName
+            Auth:
+              Authorizers:
+                WildRydes:
+                  UserPoolArn: !GetAtt UserPool.Arn
+            DefinitionBody:
+              swagger: '2.0'
+              info: {}
+              paths:
+                /ride:
+                  post:
+                    x-amazon-apigateway-integration:
+                      httpMethod: POST
+                      type: aws_proxy
+                      uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RequestUnicorn.Arn}/invocations
+                    responses: {}
+                    security:
+                      - WildRydes: []
+            EndpointConfiguration: REGIONAL
+            Cors:
+              AllowHeaders: '''Authorization,Content-Type'''
+              AllowOrigin: '''*'''
+        ```
 1. Commit the changes to the stack
 1. Pull down the new changes using your favorite IDE / development tools
 1. Copy [src/requestUnicorn/index.js] from this repository into your repository
