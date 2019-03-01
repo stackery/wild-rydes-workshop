@@ -32,11 +32,11 @@
 1. Commit these changes
 1. Clone the stack repository using your favorite IDE / development tools
 1. Notice the repository has a scaffold for the PopulateFrontendContent function in `src/populateFrontendContent`
-1. Copy [src/populateFrontendContent/index.js] from this repository into your repository
+1. Copy [src/populateFrontendContent/index.js](src/populateFrontendContent/index.js) from this repository into your repository
     1. The code copies all the files in `src/populateFrontendContent/static/` into the FrontendContent Object Store
-1. Copy [src/populateFrontendContent/package.json] from this repository into your repository
+1. Copy [src/populateFrontendContent/package.json](src/populateFrontendContent/package.json) from this repository into your repository
     1. This file lists package dependencies of the populateFrontendContent function
-1. Copy the contents of [src/populateFrontendContent/static] into your repository
+1. Copy the contents of [src/populateFrontendContent/static](src/populateFrontendContent/static) into your repository
     * TODO: Make this a zipball people can download and extract into the function?
 1. Commit the new code and push it back up to the git repository
 1. Deploy the stack
@@ -185,7 +185,7 @@ Now that we have configured access to the Unicorn Stables™ service we now need
         ```
 1. Commit the changes to the stack
 1. Pull down the new changes using your favorite IDE / development tools
-1. Copy [src/requestUnicorn/index.js] from this repository into your repository
+1. Copy [src/requestUnicorn/index.js](src/requestUnicorn/index.js) from this repository into your repository
     * The code handles requests, performing the following actions:
         1. Validates the User Pool Client authentication token (provided via the `Authorization` header) and retrieves the username from it
         1. Retrieves the Unicorn Stables™ api key from AWS Secrets Manager and caches the value for subsequent requests
