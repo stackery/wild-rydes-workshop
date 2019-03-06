@@ -120,6 +120,11 @@ Now that we have configured access to the Unicorn Stables™ service we now need
 1. Add a Function resource to service api requests
     1. Update its "Logical ID" to `RequestUnicorn`
     1. Update its "Source Path" to `src/requestUnicorn`
+    1. Add an environment variable for the Unicorn Stables™ api service
+         1. Set the name to `UNICORN_STABLE_API`
+         1. Click the button to the right of the value field that has three dots and select "Config"
+               * This pulls the value from the Stackery environment configuration instead of specifying a static value
+         1. Enter `unicornStableApi` (it should auto-complete for you as you type)
     1. Save the settings
     1. Drag a wire from the "POST /ride" api route to the RequestUnicorn Function
 1. Add a Table resource for saving ride records
