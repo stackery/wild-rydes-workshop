@@ -66,6 +66,10 @@ Resources:
         - ${ResourceName} From Stack ${StackTagName} Environment ${EnvironmentTagName}
         - ResourceName: Api
       StageName: !Ref EnvironmentAPIGatewayStageName
+      Auth:
+        Authorizers:
+          WildRydes:
+            UserPoolArn: !GetAtt UserPool.Arn
       DefinitionBody:
         swagger: '2.0'
         info: {}
@@ -80,10 +84,6 @@ Resources:
               security:
                 - WildRydes: []
       EndpointConfiguration: REGIONAL
-      Auth:
-        Authorizers:
-          WildRydes:
-            UserPoolArn: !GetAtt UserPool.Arn
       Cors:
         AllowHeaders: '''Authorization,Content-Type'''
         AllowOrigin: '''*'''

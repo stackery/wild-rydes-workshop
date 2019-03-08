@@ -64,8 +64,8 @@
         * This adds an environment variable `USER_POOL_CLIENT_ID` to the Function
     1. The PopulateFrontendContent Function uses these environment variables to generate js/config.js as part of the website content
 1. Deploy the stack again
-1. Register as a new user (Chase: I think this should work without having the backend API set up, but can't remember. We can fix this if it doesn't work.)
-    1. Navigate to /register in your new website
+1. Register as a new user
+    1. Navigate to /register.html in your new website
     1. Register with your email address
     1. Retrieve a verification code from your email address and enter it in the verification screen
 
@@ -99,7 +99,7 @@ The Unicorn Stables™ service requires API keys. These are very confidential (w
     1. Click on "Add New Secret
     1. Enter `unicornStableApiKey` for the "Secret Name"
     1. Enter `AI9MFcqVQM7BtIIWeJvsy1U1hvWOykBoawqzqW2r` for the "Secret Value" (Oops! We shouldn't have committed the secret in this readme!)
-    1. Click "Update" to save the secret under the "development" namespace in the AWS account and region for this environment
+    1. Click "Update" to save the secret under the /development/ namespace in the AWS account and region for this environment
 
 #### Backend Api
 Now that we have configured access to the Unicorn Stables™ service we now need to create our own api to take user requests to have a unicorn delivered to their location and fulfill that request via a rental from Unicorn Stables™.
@@ -224,7 +224,7 @@ Now that we've provisioned a "development" version of the service, now let's pro
     1. Click on "Add New Secret
     1. Enter `unicornStableApiKey` for the "Secret Name"
     1. Enter `R7jeufY43d5sB9HYBNCKJ3N7pCjqFm7aNF9KxHF3` for the "Secret Value" (Oops! We committed the secret to this readme again!)
-    1. Click "Update" to save the secret under the "development" namespace in the AWS account and region for this environment
+    1. Click "Update" to save the secret under the /production/ namespace in the AWS account and region for this environment
 1. Deploy the stack to the "production" environment
     1. Use the back button or navigate to "Stacks" at the top of the Stackery dashboard, then select the "wild-rydes" stack
     1. Navigate to the "Deploy" view in the sidebar at the left
