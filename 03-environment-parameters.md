@@ -1,21 +1,33 @@
 # Environment Parameters
-You will provision a backend API for requesting unicorns sent to users on demand. The API will rent unicorns from a third party Unicorn Stables™ service. The service provides both development and production API endpoints and your function will need to know the correct value depending on whether it's the development or production deployment of the application.
+You will now manage Wild Rydes application configuration using *Environment Parameters*. This configuration is specific to the *development* environment. At a later point in this workshop you will add similar configuration but for the  production environment.
 
-Through the use of Stackery environments, you will define the API endpoint for the development service. When you get to creating the Wild Rydes backend API service you will configure a Lambda function environmental variable that will use this value.
+You will soon provision a backend API for requesting unicorns sent to users on demand. The API will rent unicorns from a third party Unicorn Stables™ service. The service provides both development and production API endpoints and your function will need to know the correct value depending on whether it's the development or production deployment of the application. Through the use of Stackery environments, you will define the API endpoint for the development service. When you get to creating the Wild Rydes backend API service you will configure a Lambda function environmental variable that will use this value.
+
+You'll then handle the management of the Unicorn Stables™ backend API keys. Instead of using *Environment Parameters* you'll use Stackery *Environment Secrets* which will store the API key value in AWS Secrets Manager which gives you greater control over who can access the key. This is because unlike the Unicorn Stables™ backend API endpoint, API keys are considered sensitive. Should these credentials be leaked to the wrong person they could order unicorns we did not intend to order. This means we want to restrict access to them, even internally.
+
+## AWS Services
+<!-- FIXME: link to Stackery resource docs? -->
+* AWS Systems Manager (SSM) Parameter Store.
+* AWS Secrets Manager
 
 ## Instructions
-1. Open the "development" environment configuration view
-    1. Navigate to "Environments" at the top of the Stackery dashboard
-    1. Click on the "development" environment
-1. Add a new parameter to the "Environment Parameters"
-    1. Stackery environment parameters are configured as JSON
-    1. Add a new property named `unicornStableApi` with the staging Unicorn Stables™ endpoint `hzi3xi7agi.execute-api.us-east-1.amazonaws.com/development`
-    * The parameters should look like the following when complete:
-        ```JSON
-        {
-          "unicornStableApi": "hzi3xi7agi.execute-api.us-east-1.amazonaws.com/development"
-        }
-        ```
-1. Click the "Save" button at the top of the sidebar on the left
+### 1. Add an Environment Parameter for Unicorn Stable API.
+Click on **ENVIRONMENTS** at the top of the Stackery screen to be brought to your list of AWS environments. Click on the "development" environment.
 
+<!-- FIXME: IMAGE -->
+
+*Environment Parameters* is a JSON formatted key value pair. The current value should be "_{}_". Replace the contents of *Environment Parameters* with the following:
+```JSON
+{
+  "unicornStableApi": "hzi3xi7agi.execute-api.us-east-1.amazonaws.com/development"
+}
+```
+
+Once you have done that, click the **Save** button in the upper left. This will save the contents of *Environment Parameters* as parameters in SSM Parameter Store.
+
+### 2. Add an Environment Secret for the API key
+Scroll down the page to the *Environment Secrets* section. Click the **Add New Secret** button on the right. In the new screen that appears enter the following and then click the **Update** button.
+
+* **SECRET NAME:** *unicornStableApiKey*
+* **SECRET VALUE**: *AI9MFcqVQM7BtIIWeJvsy1U1hvWOykBoawqzqW2r*
 
