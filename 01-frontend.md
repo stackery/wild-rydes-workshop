@@ -1,10 +1,15 @@
 # Frontend Content
 In this step of the workshop you will create and deploy the Wild Rydes frontend. The frontend is composed of an AWS S3 bucket and a Lambda function that is triggered on deployment which will populate the S3 bucket with the Wild Rydes static content.
 
+## AWS Services
+
+* AWS S3
+* AWS Lambda
+
 ## Instructions
 
 ### 1. Add an Object Store resource
-Add an "Object Store" resource (an AWS S3 Bucket) to serve the website content. Click the **Add Resource** button in the top right of screen to reveal the resources menu. Then click on the *Object Store* resource. This will add the Object Store resource to the canvas.
+Add an "Object Store" resource (an AWS S3 Bucket) to serve the website content. Click the **Add Resource** button in the top right of screen to reveal the resources menu. Then click on the *Object Store* resource to add it to the canvas and your application stack. Alternatively you can also drag and place the resource on the canvas.
 
 ![Add Object Store](./images/01-object-store.png)
 
@@ -18,7 +23,7 @@ AWS S3 bucket names must be globally unique, no two accounts can have a bucket w
 <!-- FIXME: IMAGE -->
 
 <!-- FIXME: remove once Stackery pushes out change to add AWS::AccountId automatically
-Find the *FrontendContent* resource (you can use Ctrl+F to search for it) and append `${AWS::AccountId}` to the existing **BucketName** value. Once you've done that, click the **Commit** button and then click the **Commit and Push** button.
+Find the *FrontendContent* resource (you can use Ctrl+F to search for it) and append `${AWS::AccountId}` to the existing **BucketName** value.
 
 Old resource:
 
@@ -38,6 +43,8 @@ FrontendContent:
     BucketName: !Sub ${AWS::StackName}-frontendcontent-${AWS::AccountId}
 ```
 -->
+
+Once you've done that, click the **Commit** button on the left of the screen and then click the **Commit and Push** button.
 
 ### 2. Add a Function resource
 Add a Function resource (an AWS Lambda Function) to update the website's static content. This function will copy the contents of a directory in the project source code to the Object Store we've just configured. You will also configure this Function resource to be triggered on every deployment of the stack.
