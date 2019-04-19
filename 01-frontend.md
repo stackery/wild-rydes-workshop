@@ -71,6 +71,7 @@ Scroll further down in the settings and check off **TRIGGER ON FIRST DEPLOY** an
 
 Clone your application repository using Git via the command line or favorite IDE / development tools to your computer. You will now locally edit the code of the _populateFrontendContent_ function. In the upper left of your screen underneath the stack name is a link to your code repository. Click the link to navigate to it and follow the GitHub instructions for cloning it to your computer.
 
+
 <!-- FIXME: IMAGE -->
 
 If you browse the contents of the project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function reslource in _src/populateFrontendContent_
@@ -93,9 +94,9 @@ git clone https://github.com/stackery/wild-rydes.git workshop-wild-rydes
 
 Copy the following files and directories from the workshop to your application stack's directory.
 
-* *src/populateFrontendContent/index.js*
-* *src/populateFrontendContent/package.json*
-* *src/populateFrontendContent/static/*
+* *[src/populateFrontendContent/index.js]*(src/populateFrontendContent/index.js)
+* *[src/populateFrontendContent/package.json]*(src/populateFrontendContent/package.json)
+* *[src/populateFrontendContent/static/]*(src/populateFrontendContent/static/)
 
 You can do this by running the following commands on Linux or Macos.
 
