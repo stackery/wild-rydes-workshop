@@ -2,31 +2,36 @@
 Now that we've provisioned a development version of the service, you will provision a production version. You'll repeat many of the previous steps you've just completed. When finished you'll have an entirely new production instance of Wild Rydes running along side your development instance.
 
 ## Instructions
-1. Create a "production" environment
-    1. Navigate to the Environments view at the top of the dashboard screen.
-    1. Click the "Add an Environment" button
-    1. Name the environment `production`
-        * Feel free to change the AWS Account (if you've linked multiple accounts) or region to your liking
-    1. Click "Create"
-1. Navigate to the "production" environment
-1. Add a new property named `unicornStableApi` with the production Unicorn Stables™ endpoint `6k83qcdlb1.execute-api.us-east-1.amazonaws.com/development`
-    1. The parameters should look like the following when complete:
-        ```JSON
-        {
-          "unicornStableApi": "6k83qcdlb1.execute-api.us-east-1.amazonaws.com/development"
-        }
-        ```
-    1. Click the "Save" button at the top of the sidebar on the left
-1. Scroll to the "Environment Secrets" section at the bottom of the page
-1. Add a new secret for the API key
-    1. Click on "Add New Secret
-    1. Enter `unicornStableApiKey` for the "Secret Name"
-    1. Enter `R7jeufY43d5sB9HYBNCKJ3N7pCjqFm7aNF9KxHF3` for the "Secret Value" (Oops! We committed the secret to this readme again!)
-    1. Click "Update" to save the secret under the /production/ namespace in the AWS account and region for this environment
-1. Deploy the stack to the "production" environment
-    1. Use the back button or navigate to "Stacks" at the top of the Stackery dashboard, then select the "wild-rydes" stack
-    1. Navigate to the "Deploy" view in the sidebar at the left
-    1. Prepare and deploy the stack in the "production" environment
-1. Test requesting a unicorn in production (don't go crazy, remember real unicorns are super expensive!)
-    * Find the FrontendContent website location from the deployment view
+### 1. Create a "production" environment
+Navigate to the *Environments* view at the top of the dashboard screen. Click the **Add an Environment** button. Choose an AWS account that you have linked to Stackery in the drop down menu. (Your development and production environments can live in the same account or be separate AWS accounts.) Name the environment `production` and then click **Create**.
 
+### 2. Add a "production" Environment Parameter for Unicorn Stable API.
+Click on ENVIRONMENTS at the top of the Stackery screen to be brought to your list of AWS environments. Click on the "development" environment.
+
+```JSON
+{
+  "unicornStableApi": "6k83qcdlb1.execute-api.us-east-1.amazonaws.com/development"
+}
+```
+
+Once you have done that, click the **Save** button in the upper left. This will save the contents of *Environment Parameters* as parameters in SSM Parameter Store.
+
+### 3. Add a "production" Environment Secret for the API key
+
+Scroll down the page to the *Environment Secrets* section. Click the **Add New Secret** button on the right. In the new screen that appears enter the following and then click the **Update** button.
+
+* **SECRET NAME:** *unicornStableApiKey*
+* **SECRET VALUE**: *R7jeufY43d5sB9HYBNCKJ3N7pCjqFm7aNF9KxHF3*
+
+
+### 4. Deploy the stack to the "production" environment
+
+You'll now deploy the wild-rydes stack to the "production" environment. In Stackery click **Deploy** view in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the production environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**.
+
+Once the preparation completes click the **Deploy** button to open CloudFormation.
+
+
+### 5. Test requesting a unicorn in production.
+Now you can visit your Wild Rydes website that you have deployed.
+
+Once the deployment is complete, switch to the View view in the left sidebar of Stackery. Double-click the *FrontendContent* Object Store resource to view its details. On the details page click on the **Website Hosting Address** link to open the website. You can now walk through the signup process and login to request a unicorn just as you did in the development environment.
