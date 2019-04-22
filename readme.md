@@ -26,7 +26,7 @@ At a minimum you will probably need to create a Stackery account. Follow the ins
 
 
 ### 1. Create a Github account
-If you do not already have a GitHub account. You will store the workshop's code in Github. Stackery will also deploy your code from GitHub. _NOTE: Stackery supports multiple code repository platforms such as Gitlab, Bitbucket, and AWS CodePipeline. This workshop uses GitHub only to simplify instructions but you are free to choose one of the other supported providers.._
+If you do not already have a GitHub account, create one. You will store the workshop's code in Github. Stackery will also deploy your code from GitHub. _NOTE: Stackery supports multiple code repository platforms such as Gitlab, Bitbucket, and AWS CodePipeline. This workshop uses GitHub only to simplify instructions but you are free to choose one of the other supported providers._
 
 Create a free individual account by clicking on the link below. On that page you will create a username, enter your email, and set a password for your account.
 
@@ -41,19 +41,23 @@ To create an AWS account, click on the link below and follow the signup screens.
 
 * [Create an AWS account](https://portal.aws.amazon.com/billing/signup)
 
-**You will need to enter a credit card to complete account setup.** You card will not be charged unless your account exceeds the free tier usage limits. All of the resources you will launch as part of this workshop are eligible for the [AWS free tier](https://aws.amazon.com/free/) if your account is less than 12 months old. See the AWS Free Tier page for more details.
+**You will need to enter a credit card to complete account setup.** Your card will not be charged unless your account exceeds the free tier usage limits. All of the resources you will launch as part of this workshop are eligible for the [AWS free tier](https://aws.amazon.com/free/) if your account is less than 12 months old. See the [AWS Free Tier](https://aws.amazon.com/free/) page for more details.
 
 
-### 3. Create a Stackery account and _Wild Rydes_ stack
+### 3. Create a Stackery account
 
-Finally create a Stackery account and link your AWS and Github accounts to it. After that you will create the `Wild Rydes` application stack.
+Finally create a Stackery account and link your AWS and Github accounts to it.
 
 
 #### Create Stackery Account
 
-Click on the link below. Once signup is completes you'll be redirected to the application's welcome page. While on the welcome page, check your mail for an email verification message. You'll need to verify your email before you proceed. Once you have completed this, click the **Next Step** button.
+Click on the link below to bring you to the Stackery signup page.
 
 * [Create a Stackery account](https://stackery.io/sign-up)
+
+<!-- FIXME: IMAGE -->
+
+Once sign up is completed you'll be redirected to the application's welcome page. While on the welcome page, check your mail for an email verification message. You'll need to verify your email before you proceed. Once you have completed this, click the **Next Step** button.
 
 
 #### Link Stackery to GitHub
@@ -70,7 +74,7 @@ Now link your AWS account to Stackery. Click on the **Link my AWS account** butt
 <!-- FIXME: move image to repo -->
 ![AWS link](https://docs.stackery.io/docs/assets/quickstart/aws1.png)
 
-This will open up the CloudFormation console with pre-populated parameters. In order to proceed, click the checkmark saying you acknowledge the creation of IAM resources, then click the Create stack button. This process will take a few minutes as CloudFormation creates the appropriate roles.
+This will open up the CloudFormation console (you may be required to login first) with pre-populated parameters. In order to proceed, click the check mark saying you acknowledge the creation of IAM resources, then click the **Create stack** button. This process will take a few minutes as CloudFormation creates the appropriate roles.
 
 ![AWS CFN](https://docs.stackery.io/docs/assets/quickstart/aws2.png)
 
@@ -80,9 +84,25 @@ Once you have completed all these steps you should be ready to use Stackery!
 
 Create a stack named `stackery-wild-rydes` with a new Git repository using a blank stack template.
 
-Click stacks in the upper left of the Stackery application. This will bring you to the stack management page. The stack management page should be populated with some sample stacks you check check out at a later time.
+Click **STACKS** in the upper left of the Stackery application.
 
-Click the **Add Stack** button in the upper right to add a Stack. In the prompt that appears start by selecting GitHub as your hosting provider. After doing so the prompt will expand. Then enter `stackery-wild-rydes` in the **STACK NAME** prompt. For **REPO SOURCE** make sure *Create New Repo* is selected. And if you're a member of multiple Hithub organizations, select the organization to create the Git repository in. Finally, for **STACK BLUEPRINT** select *Blank*.
+![Stackery Stacks](./images/00-stacks.png)
+
+
+
+This will bring you to the stack management page. The stack management page should be populated with some sample stacks you check check out at a later time. Click the **Add Stack** button in the upper right to add a Stack.
+
+![Stackery Stacks List](./images/00-stacks-list.png)
+
+
+
+In the prompt that appears start by selecting GitHub as your hosting provider. After doing so the prompt will expand. Then enter `stackery-wild-rydes` in the **STACK NAME** prompt. For **REPO SOURCE** make sure *Create New Repo* is selected. And if you're a member of multiple GitHub organizations, select the organization to create the Git repository in. Finally, for **STACK BLUEPRINT** select *Blank*.
+
+![New Stack](./images/00-new-stack.png)
+
+
 
 Finally click **ADD STACK** to create the stack and be placed on the stack's canvass.
+
+![New Stack](./images/00-stackery-canvas.png)
 
