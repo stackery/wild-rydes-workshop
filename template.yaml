@@ -7,3 +7,39 @@ Resources:
       BucketName: !Sub ${AWS::StackName}-frontendc-${AWS::AccountId}
       WebsiteConfiguration:
         IndexDocument: index.html
+  PopulateFrontendContent:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-PopulateFrontendContent
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: PopulateFrontendContent
+      CodeUri: src/populate_frontend_content
+      Handler: handler.handler
+      Runtime: python3.6
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+        - S3CrudPolicy:
+            BucketName: !Ref FrontendContent
+      Environment:
+        Variables:
+          BUCKET_NAME: !Ref FrontendContent
+          BUCKET_ARN: !GetAtt FrontendContent.Arn
+  PopulateFrontendContentDeployTrigger:
+    Type: Custom::FunctionDeployTrigger
+    Properties:
+      ServiceToken: !GetAtt PopulateFrontendContent.Arn
+      DeploymentTimestamp: !Ref DeploymentTimestamp
+Parameters:
+  StackTagName:
+    Type: String
+    Description: Stack Name (injected by Stackery at deployment time)
+  EnvironmentTagName:
+    Type: String
+    Description: Environment Name (injected by Stackery at deployment time)
+  DeploymentTimestamp:
+    Type: Number
+    Description: Deployment preparation timestamp in milliseconds Since Epoch (injected by Stackery at deployment time)
