@@ -78,11 +78,11 @@ Once you have completed all these steps you should be ready to use Stackery!
 
 ### 4. Create the Wild Rydes stack.
 
-Create a stack named `wild-rydes` with a new Git repository using a blank stack template.
+Create a stack named `stackery-wild-rydes` with a new Git repository using a blank stack template.
 
 Click stacks in the upper left of the Stackery application. This will bring you to the stack management page. The stack management page should be populated with some sample stacks you check check out at a later time.
 
-Click the **Add Stack** button in the upper right to add a Stack. In the prompt that appears start by selecting GitHub as your hosting provider. After doing so the prompt will expand. Then enter `wild-rydes` in the **STACK NAME** prompt. For **REPO SOURCE** make sure *Create New Repo* is selected. And if you're a member of multiple Hithub organizations, select the organization to create the Git repository in. Finally, for **STACK BLUEPRINT** select *Blank*.
+Click the **Add Stack** button in the upper right to add a Stack. In the prompt that appears start by selecting GitHub as your hosting provider. After doing so the prompt will expand. Then enter `stackery-wild-rydes` in the **STACK NAME** prompt. For **REPO SOURCE** make sure *Create New Repo* is selected. And if you're a member of multiple Hithub organizations, select the organization to create the Git repository in. Finally, for **STACK BLUEPRINT** select *Blank*.
 
 Finally click **ADD STACK** to create the stack and be placed on the stack's canvass.
 

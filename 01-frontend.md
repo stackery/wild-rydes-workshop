@@ -76,8 +76,8 @@ Clone your application repository using Git via the command line or favorite IDE
 
 If you browse the contents of the project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function reslource in _src/populateFrontendContent_
 ```
-$ tree wild-rydes
-wild-rydes
+$ tree stackery-wild-rydes
+stackery-wild-rydes
 ├── src
 │   └── populateFrontendContent
 │       ├── README.md
@@ -89,7 +89,7 @@ Next clone this workshop to your computer. You will be copying the code from the
 
 <!-- FIXME: Perhaps we change the stackery repo name? -->
 ```
-git clone https://github.com/stackery/wild-rydes.git workshop-wild-rydes
+git clone https://github.com/stackery/wild-rydes-workshop.git wild-rydes-workshop
 ```
 
 Copy the following files and directories from the workshop to your application stack's directory.
@@ -101,22 +101,22 @@ Copy the following files and directories from the workshop to your application s
 You can do this by running the following commands on Linux or Macos.
 
 ```
-$ cp workshop-wild-rydes/src/populateFrontendContent/index.js wild-rydes/src/populateFrontendContent
-$ cp workshop-wild-rydes/src/populateFrontendContent/package.json wild-rydes/src/populateFrontendContent
-$ cp -R workshop-wild-rydes/src/populateFrontendContent/static wild-rydes/src/populateFrontendContent
+$ cp wild-rydes-workshop/src/populateFrontendContent/index.js stackery-wild-rydes/src/populateFrontendContent
+$ cp wild-rydes-workshop/src/populateFrontendContent/package.json stackery-wild-rydes/src/populateFrontendContent
+$ cp -R wild-rydes-workshop/src/populateFrontendContent/static stackery-wild-rydes/src/populateFrontendContent
 ```
 
 Finally, commit the new code and push it back up to your git repository.
 
 ```
-$ cd wild-rydes
+$ cd stackery-wild-rydes
 $ git add src/populateFrontendContent
 $ git commit -m "Add populateFrontendContent function"
 $ git push
 ```
 
 ### 4. Deploy the stack
-You'll now deploy the *wild-rydes* stack to AWS. Stackery will package your code repository and deploy it using AWS CloudFormation.
+You'll now deploy the *stackery-wild-rydes* stack to AWS. Stackery will package your code repository and deploy it using AWS CloudFormation.
 
 In Stackery click **Deploy** view in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the **development** environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**.
 <!-- FIXME: IMAGE -->

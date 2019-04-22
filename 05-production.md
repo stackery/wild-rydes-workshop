@@ -26,7 +26,7 @@ Scroll down the page to the *Environment Secrets* section. Click the **Add New S
 
 ### 4. Deploy the stack to the "production" environment
 
-You'll now deploy the wild-rydes stack to the "production" environment. In Stackery click **Deploy** view in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the production environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**.
+You'll now deploy the *stackery-wild-rydes* stack to the "production" environment. In Stackery click **Deploy** view in the left sidebar to enter the *Deploy* view. Next click **Prepare new deployment** for the production environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**.
 
 Once the preparation completes click the **Deploy** button to open CloudFormation.
 

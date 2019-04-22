@@ -3,7 +3,7 @@ You'll now add the backend service for handling ride requests from Wild Rydes us
 
 
 ## Instructions
-Go back to the *wild-rydes* stack editor. Start by clicking on **STACKS** in the upper left menu bar, then selecting the *wild-rydes* stack, and finally clicking on **EDIT** on the left sidebar.
+Go back to the *stackery-wild-rydes* stack editor. Start by clicking on **STACKS** in the upper left menu bar, then selecting the *stackery-wild-rydes* stack, and finally clicking on **EDIT** on the left sidebar.
 
 
 ### 1. Add a Rest API resource
@@ -120,19 +120,19 @@ Update the *RequestUnicorn* Function code so it is functional. The code accepts 
 * Records the ride to the *Rides* DynamoDB table
 * Returns with the response for the website request
 
-Start by updating your local *wild-rydes* GitHub clone (created in module 1) so it has all the changes you've made over the past few workshop modules.
+Start by updating your local *stackery-wild-rydes* GitHub clone (created in module 1) so it has all the changes you've made over the past few workshop modules.
 
 ```
-$ cd wild-rydes     # if not already in the directory.
+$ cd stackery-wild-rydes     # if not already in the directory.
 $ git fetch origin
 $ git rebase origin/master
 ```
 
 Now copy [src/requestUnicorn/index.js](src/requestUnicorn/index.js) from the workshop directory, which you also created in module 1, into your project directory.
 
-*Note: Make sure you are still in the wild-rydes project directory when you run the following command.*
+*Note: Make sure you are still in the stackery-wild-rydes project directory when you run the following command.*
 ```
-$ cp ../workshop-wild-rydes/src/requestUnicorn/index.js ./src/requestUnicorn/index.js
+$ cp ../wild-rydes-workshop/src/requestUnicorn/index.js ./src/requestUnicorn/index.js
 ```
 
 ```
@@ -142,7 +142,7 @@ $ git push -v
 ```
 
 ### 8. Deploy updated Wild Rydes
-You'll now deploy the wild-rydes stack. In Stackery click **Deploy** view in the left sidebar to enter the *Deploy* view. Next click **Prepare new deployment** for the production environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**.
+You'll now deploy the *stackery-wild-rydes* stack. In Stackery click **Deploy** view in the left sidebar to enter the *Deploy* view. Next click **Prepare new deployment** for the production environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**.
 
 Once the preparation completes click the **Deploy** button to open CloudFormation.
 
