@@ -15,7 +15,7 @@ Return to the visual editor by clicking **EDIT** in the left sidebar from the te
 
 ### 1. Add a User Pool resource
 
-Add a Cognito User Pool resource to manage *Wild Rydes* users. Click the **Add Resource** button in the top right of screen. Then click on the _User Pool_ resource (or drag it) onto the canvas. This will add a new resource named _UserPool_ to the canvas. When you add the _UserPool_ resource to the canvas it will expand and contain a number of events. These events can be connected to Lambda functions if you want them to trigger custom actions during the signup or login process. _You won’t need to worry about these events in this workshop._
+Add a Cognito User Pool resource to manage *Wild Rydes* users. Click the **Add Resource** button in the top right of screen. Then click on the _User Pool_ resource (or drag it) onto the canvas. This will add a new resource named _UserPool_ to the canvas. When you add the _UserPool_ resource to the canvas it will expand and contain a number of events. These events can be connected to Lambda functions if you want them to trigger custom actions during the sign-up or login process. _You won’t need to worry about these events in this workshop._
 
 ![Add User Pool](./images/02-user-pool.png)
 
@@ -35,7 +35,7 @@ Add a User Pool Client resource to the application stack. Connecting a User Pool
 
 
 
-Next, drag a wire from the _UserPoolClient_ resource to the _UserPool_ resource. (Make sure you drag the line from the right end of the _UserPoolClient_ to the left end of the _UserPool_. You can rearrange resouyrces on the canvas to make dragging the line between resources easier.)
+Next, drag a wire from the _UserPoolClient_ resource to the _UserPool_ resource. (Make sure you drag the line from the right end of the _UserPoolClient_ to the left end of the _UserPool_. You can rearrange resources on the canvas to make dragging the line between resources easier.)
 
 ![User Pool Client Relationship](./images/02-user-pool-client-to-user-pool.png)
 

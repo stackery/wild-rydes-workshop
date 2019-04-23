@@ -25,7 +25,7 @@ Click on the newly added resource, which should be named *Api*, to open up it's 
 
 
 
-Next check off **ENABLE CORS**. Next to the **CORS ACCESS CONTROL HEADERS** box change the dropdown  menu from `Literal` to `YAML`. You will then add the following to the **CORS ACCESS CONTROL HEADERS** box and then click ther **Save** button.
+Next check off **ENABLE CORS**. Next to the **CORS ACCESS CONTROL HEADERS** box change the dropdown  menu from `Literal` to `YAML`. You will then add the following to the **CORS ACCESS CONTROL HEADERS** box and then click the **Save** button.
 
 ```
 AllowOrigin: '''*'''
@@ -69,7 +69,7 @@ Next drag a wire from the *RequestUnicorn* Function to the *Rides* Table. This w
 
 
 
-### 4. Add a Secrets resource to RequestUnicorn Function
+### 4. Add a Secrets resource to *RequestUnicorn* Function
 
 Add a Secrets resource from the *Add Resources* menu to allow the *RequestUnicorn* Function to access the Unicorn Stables™ API key.  Drag a wire from the *RequestUnicorn* Function to the new Secrets resource. This adds a permission for the function to read secrets from AWS Secrets Manager. It also adds an environment variable `SECRETS_NAMESPACE` to make it easier to locate the correct secrets for the environment the stack is deployed into.
 
@@ -90,13 +90,13 @@ Drag a wire from the *PopulateFrontendContent* Function to the *Api* resource. D
 
 Requests to *POST /ride* must have a valid User Pool authentication token in the `Authorization` header. Unfortunately, this is something that isn't nicely abstracted by AWS SAM yet, so we will manually edit the *Api* resource settings.
 
-Start by changing from the *Visua*l to *Template* editor mode by clicking on **Template** in the upper left. In the template editor find the *Api* resource (it will be named *Api* and have a *Type* attribute with the value `AWS::Serverless::Api`). You can use *Ctrl+f* to search the file for this. Add the following authentication configuration under the *Properties* key.
+Start by changing from the *Visual* to *Template* editor mode by clicking on **Template** in the upper left. In the template editor find the *Api* resource (it will be named *Api* and have a *Type* attribute with the value `AWS::Serverless::Api`). You can use *Ctrl+f* to search the file for this. Add the following authentication configuration under the *Properties* key.
 
 ```YAML
 Auth:
   Authorizers:
-  	WildRydes:
-    	UserPoolArn: !GetAtt UserPool.Arn
+    WildRydes:
+        UserPoolArn: !GetAtt UserPool.Arn
 ```
 
 Next locate the *POST /ride* route under *DefinitionBody -> paths -> /ride -> post* path in the YAML and add the following *security* property:
@@ -104,7 +104,7 @@ Next locate the *POST /ride* route under *DefinitionBody -> paths -> /ride -> po
 security:
     - WildRydes: []
 ```
-The complete *Api* resource definition look like it doies below. *(NOTE: that the order of the properties doesn't matter)*
+The complete *Api* resource definition look like it does below. *(NOTE: that the order of the properties doesn't matter)*
 ```YAML
   Api:
     Type: AWS::Serverless::Api
@@ -148,7 +148,7 @@ Finally, commit your changes by clicking the **Commit** button and in the popup 
 Update the *RequestUnicorn* Function code so it is functional. The code accepts requests and performs the following actions:
 
 * Validates the User Pool Client authentication token (provided via the *Authorization* header from API Gateway) and retrieves the username from it
-* Retrieves the Unicorn Stables™ api key from AWS Secrets Manager and caches the value for subsequent requests
+* Retrieves the Unicorn Stables™ API key from AWS Secrets Manager and caches the value for subsequent requests
 * Makes a request to the Unicorn Stables™ endpoint to rent a unicorn
 * Records the ride to the *Rides* DynamoDB table
 * Returns with the response to the frontend website request

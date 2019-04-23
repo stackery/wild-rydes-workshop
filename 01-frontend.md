@@ -3,6 +3,8 @@ In this step of the workshop you will create and deploy the *Wild Rydes* fronten
 
 ## AWS Services
 
+<!-- FIXME: link to Stackery resource docs? -->
+
 * AWS S3
 * AWS Lambda
 * AWS Cloudformation
@@ -62,7 +64,7 @@ Clone your application repository using Git via the command line or favorite IDE
 $ git clone <YOUR_PROJECT_URL>
 ```
 
-If you browse the contents of the project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function reslource in _src/populateFrontendContent_
+If you browse the contents of the project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function resource in _src/populateFrontendContent_
 
 ```
 $ tree stackery-wild-rydes
