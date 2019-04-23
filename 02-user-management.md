@@ -51,7 +51,7 @@ Start by connecting the _PopulateFrontendContent_ Function to the _UserPool_ res
 
 
 
-Doing these actions will add environmental variable to the function called **USER_POOL_ID** and **USER_POOL_CLIENT_ID** 
+Doing these actions will add environmental variable to the function called **USER_POOL_ID** and **USER_POOL_CLIENT_ID**.
 
 ![User Pool Env Vars](./images/02-user-pool-env-vars.png)
 

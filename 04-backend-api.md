@@ -45,7 +45,7 @@ Add a Function from the *Add Resources* menu and then click on the newly added r
 
 
 
-Scroll down to **ENVIRONMENT VARIABLES**. Add one named `UNICORN_STABLE_API`. On the right in the dropdown that says **Literal** change it to **Param** and then enter the value `unicornStableApi`. Then click **Save**.
+Scroll down to **ENVIRONMENT VARIABLES**. Add one named `UNICORN_STABLE_API`. On the right in the dropdown that says **Literal** change it to **Param** and then enter the value `unicornStableApi`. This will have Stackery pull the value for *unicornStableApi* that you entered in Environment Parameters in the previous module. Then click **Save**.
 
 ![Function environmental Variables](./images/04-function-env.png)
 
@@ -147,7 +147,7 @@ Finally, commit your changes by clicking the **Commit** button and in the popup 
 
 Update the *RequestUnicorn* Function code so it is functional. The code accepts requests and performs the following actions:
 
-* Validates the User Pool Client authentication token (provided via the *Authorization* header from API Gateway) and retrieves the username from it
+* Retrieves the username from the *Authorization* header from API Gateway
 * Retrieves the Unicorn Stables™ API key from AWS Secrets Manager and caches the value for subsequent requests
 * Makes a request to the Unicorn Stables™ endpoint to rent a unicorn
 * Records the ride to the *Rides* DynamoDB table
@@ -179,7 +179,7 @@ $ git push -v
 
 You'll now deploy the updated *stackery-wild-rydes* stack. Click **Deploy** in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the **development** environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**. Once the preparation completes (this should take about 20 seconds), click the **Deploy** button to open AWS CloudFormation. Then click the **Execute** button in the CloudFormation Console.
 
-
+*NOTE: So far we’ve always used the UI for doing deployments. Stackery also provides a CLI if you’re more inclined to use something like that. Read about the [`stackery deploy` command here](https://docs.stackery.io/docs/api/cli/stackery_deploy/).*
 
 ### 9. Request a unicorn
 
