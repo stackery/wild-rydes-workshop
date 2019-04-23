@@ -85,9 +85,9 @@ git clone https://github.com/stackery/wild-rydes-workshop.git wild-rydes-worksho
 
 Copy the following files and directories from the workshop to your application stack's directory.
 
-* *[src/populateFrontendContent/index.js]*(src/populateFrontendContent/index.js)
-* *[src/populateFrontendContent/package.json]*(src/populateFrontendContent/package.json)
-* *[src/populateFrontendContent/static/]*(src/populateFrontendContent/static/)
+* [src/populateFrontendContent/index.js](./src/populateFrontendContent/index.js)
+* [src/populateFrontendContent/package.json](./src/populateFrontendContent/package.json)
+* [src/populateFrontendContent/static/](./src/populateFrontendContent/static/)
 
 You can do this by running the following commands on Linux or Macos.
 
