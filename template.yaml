@@ -28,11 +28,27 @@ Resources:
         Variables:
           BUCKET_NAME: !Ref FrontendContent
           BUCKET_ARN: !GetAtt FrontendContent.Arn
+          USER_POOL_CLIENT_ID: !Ref UserPoolClient
   PopulateFrontendContentDeployTrigger:
     Type: Custom::FunctionDeployTrigger
     Properties:
       ServiceToken: !GetAtt PopulateFrontendContent.Arn
       DeploymentTimestamp: !Ref DeploymentTimestamp
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+      AliasAttributes:
+        - email
+        - preferred_username
+      UserPoolName: !Sub ${AWS::StackName}-UserPool
+      AutoVerifiedAttributes:
+        - email
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref UserPool
 Parameters:
   StackTagName:
     Type: String
