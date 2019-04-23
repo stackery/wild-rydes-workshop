@@ -23,7 +23,7 @@ Add a Cognito User Pool resource to manage *Wild Rydes* users. Click the **Add R
 
 Now double-click on the *UserPool* resource to open up it’s configuration window. Enable the **AUTO-VERIFY EMAILS** setting and then clock **Save**.
 
-![User Pool Verify](/Users/tom/Source/stackery/wild-rydes-workshop/images/02-user-pool-verify.png)
+![User Pool Verify](./images/02-user-pool-verify.png)
 
 
 
@@ -53,7 +53,7 @@ Start by connecting the _PopulateFrontendContent_ Function to the _UserPool_ res
 
 Doing these actions will add environmental variable to the function called **USER_POOL_ID** and **USER_POOL_CLIENT_ID** 
 
-![User Pool Env Vars](/Users/tom/Source/stackery/wild-rydes-workshop/images/02-user-pool-env-vars.png)
+![User Pool Env Vars](./images/02-user-pool-env-vars.png)
 
 
 
