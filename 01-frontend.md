@@ -42,7 +42,7 @@ Next in the Function's settings, set the **LOGICAL ID** field enter the value `P
 ![Function Config](./images/01-function-config.png)
 
 
-Scroll further down in the settings and check off **TRIGGER ON FIRST DEPLOY** and **TRIGGER ON EVERY DEPLOY**. This will create an [AWS CloudFormation CustomResource](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cfn-customresource.html) in the stack that will trigger the function on deployments and updates. After you've done this, click the **Save** Button.
+Scroll further down in the settings and check the **TRIGGER ON FIRST DEPLOY** and **TRIGGER ON EVERY DEPLOY** box. This will create an [AWS CloudFormation CustomResource](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cfn-customresource.html) in the stack that will trigger the function on deployments and updates. After you've done this, click the **Save** Button.
 
 ![Function Config Deploy](./images/01-function-config-deploy.png)
 

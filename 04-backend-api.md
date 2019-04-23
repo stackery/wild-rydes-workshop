@@ -102,7 +102,7 @@ Auth:
 Next locate the *POST /ride* route under *DefinitionBody -> paths -> /ride -> post* path in the YAML and add the following *security* property:
 ```YAML
 security:
-    - WildRydes: []
+  - WildRydes: []
 ```
 The complete *Api* resource definition look like it does below. *(NOTE: that the order of the properties doesn't matter)*
 ```YAML
@@ -157,8 +157,7 @@ Start by updating your local *stackery-wild-rydes* GitHub clone (created in modu
 
 ```
 $ cd stackery-wild-rydes     # if not already in the directory.
-$ git fetch origin
-$ git rebase origin/master
+$ git pull --rebase origin master
 ```
 
 Now copy [src/requestUnicorn/index.js](src/requestUnicorn/index.js) from the workshop directory (also created in module 1) into your project directory.
