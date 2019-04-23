@@ -10,6 +10,14 @@ The application architecture uses the following AWS services.
 * [S3](https://aws.amazon.com/s3/) - Object store for hosting frontend.
 * [Cognito](https://aws.amazon.com/cognito/) - user management, authentication, and authorization.
 
+## Table of Contents
+
+1) [Frontend](./01-frontend.md)
+1) [User Management](./02-user-management.md)
+1) [Environment Parameters & Secrets](./03-environment-parameters.md)
+1) [Backend API](./04-backend-api.md)
+1) [Production Deployment](./05-production.md)
+
 ## Setup / Prerequisites
 
 To complete this workshop you will need the following:
