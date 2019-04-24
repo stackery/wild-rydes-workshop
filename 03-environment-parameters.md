@@ -42,3 +42,10 @@ Now click on **SECRETS** in the left sidebar. *Environment Secrets* section. Cli
 * **SECRET VALUE**: *AI9MFcqVQM7BtIIWeJvsy1U1hvWOykBoawqzqW2r*
 
 ![Env Secrets](./images/03-env-secrets.png)
+
+## Next Steps
+
+Proceed to the next module in this workshop:
+
+* [Backend API](./04-backend-api.md)
+

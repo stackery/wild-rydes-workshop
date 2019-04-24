@@ -74,3 +74,9 @@ Next, Click the **Let’s Ride** button where you’ll be directed to a new page
 
 Don't be alarmed when you login and are presented with an error. There's still more work to go!
 
+## Next Steps
+
+Proceed to the next module in this workshop:
+
+* [Environment Parameters & Secrets](./03-environment-parameters.md)
+
