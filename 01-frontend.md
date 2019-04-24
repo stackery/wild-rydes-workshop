@@ -140,3 +140,10 @@ Once the deployment is complete, switch to the **View** view in the left sidebar
 The website should appear, though it's missing resources it needs to be fully functional.
 
 ![Wild Rydes](./images/01-wild-rydes.png)
+
+## Next Steps
+
+Proceed to the next module in this workshop:
+
+* [User Management](./02-user-management.md)
+

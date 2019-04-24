@@ -10,6 +10,8 @@ The application architecture uses the following AWS services.
 * [S3](https://aws.amazon.com/s3/) - Object store for hosting frontend.
 * [Cognito](https://aws.amazon.com/cognito/) - user management, authentication, and authorization.
 
+Before you begin this workshop please make sure you have completed the steps in the *Setup / Prerequisites* section of this documentation.
+
 ## Table of Contents
 
 1) [Frontend](./01-frontend.md)
@@ -113,4 +115,10 @@ In the prompt that appears start by selecting GitHub as your hosting provider. A
 Finally click **ADD STACK** to create the stack and be placed on the stack's canvass.
 
 ![New Stack](./images/00-stackery-canvas.png)
+
+## Next Steps
+
+Proceed to the next module in this workshop:
+
+* [Frontend](./01-frontend.md)
 

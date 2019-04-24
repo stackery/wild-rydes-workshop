@@ -187,4 +187,9 @@ Head back to the *Wild Rydes* website. If the error message from module 2 is sti
 
 ![Wild Rydes Pickup](./images/04-wild-rydes-pickup.png)
 
+## Next Steps
+
+Proceed to the next module in this workshop:
+
+* [Production Deployment](./05-production.md)
 
