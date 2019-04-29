@@ -14,7 +14,7 @@ Click on **ENVIRONMENTS** at the top of the Stackery screen to be brought to you
 }
 ```
 
-Once you have done that, click the **Save** button in the upper left. This will save the contents of *Environment Parameters* as parameters in SSM Parameter Store.
+Once you have done that, click the **Save** button in the lower right. This will save the contents of *Environment Parameters* as parameters in SSM Parameter Store.
 
 ### 3. Add a *production* Environment Secret for the API key
 
