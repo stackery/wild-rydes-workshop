@@ -16,7 +16,7 @@ Add an *Object Store* resource (an AWS S3 Bucket) to serve the website content. 
 
 ![Add Object Store](./images/01-object-store.png)
 
-Next, double-click on the Object Store resouce on the canvas to edit it's settings. Set the **CLOUDFORMATION LOGICAL ID** fields to `FrontendContent`. Then click **ENABLE WEBSITE HOSTING** and leave the value of **INDEX DOCUMENT** as `index.html`. Finally save the Settings.
+Next, double-click on the Object Store resource on the canvas to edit its settings. Set the **CLOUDFORMATION LOGICAL ID** fields to `FrontendContent`. Then click **ENABLE WEBSITE HOSTING** and leave the value of **INDEX DOCUMENT** as `index.html`. Finally save the Settings.
 
 ![Configure Object Store](./images/01-object-store-config.png)
 
@@ -109,7 +109,11 @@ $ git push
 ### 4. Deploy the stack
 You'll now deploy the *stackery-wild-rydes* stack to AWS. Stackery will package your code repository and deploy it using AWS CloudFormation.
 
-In Stackery click **Deploy** view in the left sidebar to enter the *Deploy* view. Next click **Prepare new deployment** for the **development** environment.
+If you are still in the **Edit** view in Stackery, you'll notice the app has detected your remote changes. Click the **refresh** link to ensure you're on the latest version:
+
+![Refresh](./images/01-refresh.png)
+
+Then, click the **Deploy** view in the left sidebar to enter the *Deploy* view. Next click **Prepare new deployment** for the **development** environment.
 
 ![Deploy](./images/01-deploy.png)
 

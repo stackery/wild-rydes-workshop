@@ -28,7 +28,7 @@ Then on the left sidebar click on **PARAMETERS**. *Environment Parameters* is a 
 }
 ```
 
-Once you have done that, click the **Save** button in the upper left. This will save the contents of *Environment Parameters* as parameters in AWS SSM Parameter Store.
+Once you have done that, click the **Save** button in the lower right. This will save the contents of *Environment Parameters* as parameters in AWS SSM Parameter Store.
 
 ![Env Params](./images/03-env-params.png)
 

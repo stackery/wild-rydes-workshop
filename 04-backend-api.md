@@ -177,7 +177,7 @@ $ git push -v
 
 ### 8. Deploy updated Wild Rydes
 
-You'll now deploy the updated *stackery-wild-rydes* stack. Click **Deploy** in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the **development** environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**. Once the preparation completes (this should take about 20 seconds), click the **Deploy** button to open AWS CloudFormation. Then click the **Execute** button in the CloudFormation Console.
+You'll now deploy the updated *stackery-wild-rydes* stack. In the **Edit** view, refresh your stack as you have made remote changes. Click **Deploy** in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the **development** environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**. Once the preparation completes (this should take about 20 seconds), click the **Deploy** button to open AWS CloudFormation. Then click the **Execute** button in the CloudFormation Console.
 
 *NOTE: So far we’ve always used the UI for doing deployments. Stackery also provides a CLI if you’re more inclined to use something like that. Read about the [`stackery deploy` command here](https://docs.stackery.io/docs/api/cli/stackery_deploy/).*
 
