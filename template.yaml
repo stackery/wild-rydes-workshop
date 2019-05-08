@@ -298,12 +298,6 @@ Resources:
             Events:
               - s3:ObjectCreated:*
               - s3:ObjectRemoved:*
-      Environment:
-        Variables:
-          BUCKET_NAME: !Ref RideReceipts
-          BUCKET_ARN: !GetAtt RideReceipts.Arn
-          BUCKET_NAME_2: !Ref UnicornSalaries
-          BUCKET_ARN_2: !GetAtt UnicornSalaries.Arn
   UnicornSalaries:
     Type: AWS::S3::Bucket
     Properties:
