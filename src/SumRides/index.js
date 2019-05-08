@@ -7,15 +7,15 @@ exports.handler = async (event, context) => {
   console.log(JSON.stringify(event, undefined, 2));
   await Promise.all(
     event.Records
-      .map(record => JSON.parse(record['Sns']['Message']))
+      .map(record => record.dynamodb.NewImage)
       .map(countRide)
   );
 };
 
-async function countRide(message) {
+async function countRide(newImage) {
   let params = {
     TableName: process.env.TABLE_NAME,
-    Key: { Name: message.UnicornName },
+    Key: { Name: newImage.UnicornName["S"] },
     UpdateExpression: "ADD #counter :increment",
     ExpressionAttributeNames: { '#counter': 'RideCount' },
     ExpressionAttributeValues: { ':increment': 1 }
