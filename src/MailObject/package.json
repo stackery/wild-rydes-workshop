@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "aws-sdk": "~2"
   }
 }
