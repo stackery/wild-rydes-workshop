@@ -20,7 +20,7 @@ function uploadReceipt(message) {
     Tagging: `email=${message.Email}&time=${message.RequestTime}&subject=Receipt%20For%20Unicorn%20Ride`,
     Body: (
 `
-Receipet for ride ${message.RideId}:
+Receipt for ride ${message.RideId}:
 -----------------------------------
 Rider: ${message.user}
 Unicorn: ${message.UnicornName}
