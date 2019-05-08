@@ -25,7 +25,7 @@ async function mailObject(s3Obj) {
     {},
     ...Array.from(getTaggingResult.TagSet, (tag) => ({[tag.Key]: tag.Value}))
   );
-  let objBody = await s3.getObject(params).promise().Body;
+  let getObjResult = await s3.getObject(params).promise();
 
 
   // let sendParams = {
@@ -52,7 +52,7 @@ async function mailObject(s3Obj) {
     to: objTags.email,
     from: 'info@wildrydes.com',
     subject: objTags.subject,
-    text: objBody,
+    text: getObjResult.Body,
     mail_settings: {
       sandbox_mode: {
         enable: true
