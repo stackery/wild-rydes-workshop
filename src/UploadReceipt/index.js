@@ -10,18 +10,17 @@ exports.handler = async (event, context) => {
       .map(record => JSON.parse(record['Sns']['Message']))
       .map(uploadReceipt)
   );
-
-  return {};
 };
 
 function uploadReceipt(message) {
-  s3.putObject({
+  console.log(`uploading receipt for message ${JSON.stringify(message)}`);
+  return s3.putObject({
     Bucket: process.env.BUCKET_NAME,
     Key: `${message.RideId}`,
-    Tagging: `email=${message.Email}&time=${message.RequestTime}`,
+    Tagging: `email=${message.Email}&time=${message.RequestTime}&subject=Receipt%20For%20Unicorn%20Ride`,
     Body: (
 `
-Recipet for ride ${message.RideId}:
+Receipet for ride ${message.RideId}:
 -----------------------------------
 Rider: ${message.user}
 Unicorn: ${message.UnicornName}
@@ -31,5 +30,5 @@ Price: 0 USD
 Had a good ride? don't forget to rate us in the app store!
 `
     )
-  }).promise()
+  }).promise();
 }
