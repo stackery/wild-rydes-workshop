@@ -119,12 +119,16 @@ Resources:
             TableName: !Ref Rides
         - AWSSecretsManagerGetSecretValuePolicy:
             SecretArn: !Sub arn:${AWS::Partition}:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:/${EnvironmentTagName}/*
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt UnicornDispatched.TopicName
       Environment:
         Variables:
           TABLE_NAME: !Ref Rides
           TABLE_ARN: !GetAtt Rides.Arn
           SECRETS_NAMESPACE: !Sub /${EnvironmentTagName}/
           UNICORN_STABLE_API: !Ref EnvConfigunicornStableApiAsString
+          TOPIC_NAME: !GetAtt UnicornDispatched.TopicName
+          TOPIC_ARN: !Ref UnicornDispatched
       Events:
         ApiPOSTride:
           Type: Api
@@ -132,6 +136,152 @@ Resources:
             Path: /ride
             Method: POST
             RestApiId: !Ref Api
+  UnicornDispatched:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub ${AWS::StackName}-UnicornDispatched
+  SendRideNotification:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-SendRideNotification
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: SendRideNotification
+      CodeUri: src/SendRideNotification
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+      Events:
+        UnicornDispatched:
+          Type: SNS
+          Properties:
+            Topic: !Ref UnicornDispatched
+  UploadReceipt:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-UploadReceipt
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: UploadReceipt
+      CodeUri: src/UploadReceipt
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+        - S3CrudPolicy:
+            BucketName: !Ref RideReceipts
+      Events:
+        UnicornDispatched:
+          Type: SNS
+          Properties:
+            Topic: !Ref UnicornDispatched
+      Environment:
+        Variables:
+          BUCKET_NAME: !Ref RideReceipts
+          BUCKET_ARN: !GetAtt RideReceipts.Arn
+  RideReceipts:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::StackName}-riderecei-${AWS::AccountId}
+  MailReceipt:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-MailReceipt
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: MailReceipt
+      CodeUri: src/MailReceipt
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+      Events:
+        RideReceipts:
+          Type: S3
+          Properties:
+            Bucket: !Ref RideReceipts
+            Events:
+              - s3:ObjectCreated:*
+              - s3:ObjectRemoved:*
+  SumRides:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-SumRides
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: SumRides
+      CodeUri: src/SumRides
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UnicornStats
+      Events:
+        Rides:
+          Type: DynamoDB
+          Properties:
+            Stream: !GetAtt Rides.StreamArn
+            StartingPosition: TRIM_HORIZON
+            BatchSize: 1
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref UnicornStats
+          TABLE_ARN: !GetAtt UnicornStats.Arn
+  UnicornStats:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: name
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: name
+          KeyType: HASH
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+      TableName: !Sub ${AWS::StackName}-UnicornStats
+  CalcSalaries:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-CalcSalaries
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: CalcSalaries
+      CodeUri: src/CalcSalaries
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UnicornStats
+      Events:
+        Timer:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 minute)
+          Metadata:
+            StackeryName: UnicornPaycheckTrigger
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref UnicornStats
+          TABLE_ARN: !GetAtt UnicornStats.Arn
 Parameters:
   StackTagName:
     Type: String
