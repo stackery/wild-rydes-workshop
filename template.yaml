@@ -286,8 +286,13 @@ Resources:
       Tracing: Active
       Policies:
         - AWSXrayWriteOnlyAccess
-        - S3ReadPolicy:
-            BucketName: '*'
+        - Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+                - s3:GetObjectTagging
+              Resource:
+                - '*'
       Events:
         RideReceipts:
           Type: S3
