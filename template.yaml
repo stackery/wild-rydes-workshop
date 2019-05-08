@@ -280,7 +280,6 @@ Resources:
         - AWSXrayWriteOnlyAccess
         - S3ReadPolicy:
             BucketName: '*'
-        - SESCrudPolicy
       Events:
         RideReceipts:
           Type: S3
