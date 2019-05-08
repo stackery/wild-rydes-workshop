@@ -4,6 +4,7 @@ const get = require('https').get;
 const AWS = require('aws-sdk');
 
 const ddb = new AWS.DynamoDB.DocumentClient();
+const sns = new AWS.SNS();
 
 exports.handler = async (event, context) => {
     try {
@@ -132,16 +133,23 @@ async function findUnicorn(pickupLocation) {
 }
 
 function recordRide(rideId, username, unicorn) {
-    return ddb.put({
-        TableName: process.env.TABLE_NAME,
-        Item: {
+    let item = {
             RideId: rideId,
             User: username,
             Unicorn: unicorn,
             UnicornName: unicorn.Name,
             RequestTime: new Date().toISOString(),
-        },
+    }
+    let ddbPromise = ddb.put({
+        TableName: process.env.TABLE_NAME,
+        Item: item,
     }).promise();
+    let snsPromise = sns.publish({
+      TopicArn: process.env.TOPIC_ARN,
+      Message: JSON.stringify(item)
+    }).promise()
+
+    return Promise.all([ddbPromise, snsPromise])
 }
 
 function toUrlString(buffer) {
