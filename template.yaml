@@ -100,6 +100,8 @@ Resources:
       StreamSpecification:
         StreamViewType: NEW_AND_OLD_IMAGES
       TableName: !Sub ${AWS::StackName}-Rides
+    Metadata:
+      StackeryName: Rides
   RequestUnicorn:
     Type: AWS::Serverless::Function
     Properties:
@@ -190,6 +192,10 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-riderecei-${AWS::AccountId}
+      WebsiteConfiguration:
+        IndexDocument: index.html
+    Metadata:
+      StackeryName: RideReceipts
   SumRides:
     Type: AWS::Serverless::Function
     Properties:
@@ -231,6 +237,8 @@ Resources:
       StreamSpecification:
         StreamViewType: NEW_AND_OLD_IMAGES
       TableName: !Sub ${AWS::StackName}-UnicornStats
+    Metadata:
+      StackeryName: UnicornStats
   CalcSalaries:
     Type: AWS::Serverless::Function
     Properties:
@@ -299,6 +307,10 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-unicornsa-${AWS::AccountId}
+      WebsiteConfiguration:
+        IndexDocument: index.html
+    Metadata:
+      StackeryName: UnicornSalaries
 Parameters:
   StackTagName:
     Type: String
