@@ -278,11 +278,9 @@ Resources:
       Tracing: Active
       Policies:
         - AWSXrayWriteOnlyAccess
-        - S3CrudPolicy:
-            BucketName: !Ref RideReceipts
-        - S3CrudPolicy:
-            BucketName: !Ref UnicornSalaries
-        - ses:SendEmail
+        - S3ReadPolicy:
+            BucketName: '*'
+        - SESCrudPolicy
       Events:
         RideReceipts:
           Type: S3
