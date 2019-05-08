@@ -152,7 +152,7 @@ function recordRide(rideId, username, email, unicorn) {
         Email: email,
         User: username,
         RequestTime: requestTime,
-        UnicornName: unicorn.name
+        UnicornName: unicorn.name,
       })
     }).promise();
 

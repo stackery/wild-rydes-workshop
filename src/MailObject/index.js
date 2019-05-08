@@ -52,7 +52,7 @@ async function mailObject(s3Obj) {
     to: objTags.email,
     from: 'info@wildrydes.com',
     subject: objTags.subject,
-    text: getObjResult.Body,
+    text: getObjResult.Body.toString('utf-8'),
     mail_settings: {
       sandbox_mode: {
         enable: true

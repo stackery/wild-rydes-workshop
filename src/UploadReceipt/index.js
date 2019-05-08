@@ -22,10 +22,10 @@ function uploadReceipt(message) {
 `
 Receipt for ride ${message.RideId}:
 -----------------------------------
-Rider: ${message.user}
+Rider: ${message.User}
 Unicorn: ${message.UnicornName}
 Time: ${message.RequestTime}
-Price: 0 USD
+Price: Free!
 
 Had a good ride? don't forget to rate us in the app store!
 `
