@@ -190,29 +190,6 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-riderecei-${AWS::AccountId}
-  MailReceipt:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: !Sub ${AWS::StackName}-MailReceipt
-      Description: !Sub
-        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
-        - ResourceName: MailReceipt
-      CodeUri: src/MailReceipt
-      Handler: index.handler
-      Runtime: nodejs8.10
-      MemorySize: 3008
-      Timeout: 30
-      Tracing: Active
-      Policies:
-        - AWSXrayWriteOnlyAccess
-      Events:
-        RideReceipts:
-          Type: S3
-          Properties:
-            Bucket: !Ref RideReceipts
-            Events:
-              - s3:ObjectCreated:*
-              - s3:ObjectRemoved:*
   SumRides:
     Type: AWS::Serverless::Function
     Properties:
@@ -271,6 +248,8 @@ Resources:
         - AWSXrayWriteOnlyAccess
         - DynamoDBCrudPolicy:
             TableName: !Ref UnicornStats
+        - S3CrudPolicy:
+            BucketName: !Ref UnicornSalaries
       Events:
         Timer:
           Type: Schedule
@@ -282,6 +261,42 @@ Resources:
         Variables:
           TABLE_NAME: !Ref UnicornStats
           TABLE_ARN: !GetAtt UnicornStats.Arn
+          BUCKET_NAME: !Ref UnicornSalaries
+          BUCKET_ARN: !GetAtt UnicornSalaries.Arn
+  MailObject:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-MailObject
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: MailObject
+      CodeUri: src/MailObject
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+      Events:
+        RideReceipts:
+          Type: S3
+          Properties:
+            Bucket: !Ref RideReceipts
+            Events:
+              - s3:ObjectCreated:*
+              - s3:ObjectRemoved:*
+        UnicornSalaries:
+          Type: S3
+          Properties:
+            Bucket: !Ref UnicornSalaries
+            Events:
+              - s3:ObjectCreated:*
+              - s3:ObjectRemoved:*
+  UnicornSalaries:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::StackName}-unicornsa-${AWS::AccountId}
 Parameters:
   StackTagName:
     Type: String
