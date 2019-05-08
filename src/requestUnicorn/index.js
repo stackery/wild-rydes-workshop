@@ -19,6 +19,7 @@ exports.handler = async (event, context) => {
         // included in the authentication token are provided in the request context.
         // This includes the username as well as other attributes.
         const username = event.requestContext.authorizer.claims['cognito:username'];
+        const email = event.requestContext.authorizer.claims['email'];
 
         // The body field of the event in a proxy integration is a raw string.
         // In order to extract meaningful values, we need to first parse this string
@@ -30,7 +31,7 @@ exports.handler = async (event, context) => {
 
         const unicorn = await findUnicorn(pickupLocation);
 
-        await recordRide(rideId, username, unicorn);
+        await recordRide(rideId, username, email, unicorn);
 
         // Because this Lambda function is called by an API Gateway proxy integration
         // the result object must use the following structure.
@@ -132,24 +133,30 @@ async function findUnicorn(pickupLocation) {
     });
 }
 
-function recordRide(rideId, username, unicorn) {
-    let item = {
+function recordRide(rideId, username, email, unicorn) {
+    const requestTime = new Date().toISOString();
+    let ddbPromise = ddb.put({
+        TableName: process.env.TABLE_NAME,
+        Item: {
             RideId: rideId,
             User: username,
             Unicorn: unicorn,
             UnicornName: unicorn.Name,
-            RequestTime: new Date().toISOString(),
-    }
-    let ddbPromise = ddb.put({
-        TableName: process.env.TABLE_NAME,
-        Item: item,
+            RequestTime: requestTime
+        },
     }).promise();
     let snsPromise = sns.publish({
       TopicArn: process.env.TOPIC_ARN,
-      Message: JSON.stringify(item)
-    }).promise()
+      Message: JSON.stringify({
+        RideId: rideId,
+        Email: email,
+        User: username,
+        RequestTime: requestTime,
+        UnicornName: unicorn.name
+      })
+    }).promise();
 
-    return Promise.all([ddbPromise, snsPromise])
+    return Promise.all([ddbPromise, snsPromise]);
 }
 
 function toUrlString(buffer) {
