@@ -179,6 +179,13 @@ Resources:
         - AWSXrayWriteOnlyAccess
         - S3CrudPolicy:
             BucketName: !Ref RideReceipts
+        - Statement:
+            - Effect: Allow
+              Action:
+                - s3:PutObjectTagging
+              Resource:
+                - !Sub arn:${AWS::Partition}:s3:::${RideReceipts}
+                - !Sub arn:${AWS::Partition}:s3:::${RideReceipts}/*
       Events:
         UnicornDispatched:
           Type: SNS
