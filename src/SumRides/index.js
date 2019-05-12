@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
 };
 
 async function countRide(newImage) {
-  let params = {
+  const params = {
     TableName: process.env.TABLE_NAME,
     Key: { Name: newImage.UnicornName["S"] },
     UpdateExpression: "ADD #counter :increment",
