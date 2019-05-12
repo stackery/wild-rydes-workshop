@@ -220,15 +220,6 @@ Resources:
         - AWSXrayWriteOnlyAccess
         - DynamoDBCrudPolicy:
             TableName: !Ref UnicornStats
-        - S3CrudPolicy:
-            BucketName: !Ref RideReceipts
-        - Statement:
-            - Effect: Allow
-              Action:
-                - s3:PutObjectTagging
-              Resource:
-                - !Sub arn:${AWS::Partition}:s3:::${RideReceipts}
-                - !Sub arn:${AWS::Partition}:s3:::${RideReceipts}/*
       Events:
         Rides:
           Type: DynamoDB
@@ -240,8 +231,6 @@ Resources:
         Variables:
           TABLE_NAME: !Ref UnicornStats
           TABLE_ARN: !GetAtt UnicornStats.Arn
-          BUCKET_NAME: !Ref RideReceipts
-          BUCKET_ARN: !GetAtt RideReceipts.Arn
   UnicornStats:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -276,6 +265,13 @@ Resources:
             TableName: !Ref UnicornStats
         - S3CrudPolicy:
             BucketName: !Ref UnicornSalaries
+        - Statement:
+            - Effect: Allow
+              Action:
+                - s3:PutObjectTagging
+              Resource:
+                - !Sub arn:${AWS::Partition}:s3:::${UnicornSalaries}
+                - !Sub arn:${AWS::Partition}:s3:::${UnicornSalaries}/*
       Events:
         Timer:
           Type: Schedule
