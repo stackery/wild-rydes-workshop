@@ -3,7 +3,6 @@ const get = require('https').get;
 
 const AWS = require('aws-sdk');
 
-const ddb = new AWS.DynamoDB.DocumentClient();
 const sns = new AWS.SNS();
 
 exports.handler = async (event, context) => {
@@ -31,7 +30,7 @@ exports.handler = async (event, context) => {
 
         const unicorn = await findUnicorn(pickupLocation);
 
-        await recordRide(rideId, username, email, unicorn);
+        await publishRide(rideId, username, email, unicorn);
 
         // Because this Lambda function is called by an API Gateway proxy integration
         // the result object must use the following structure.
@@ -133,30 +132,18 @@ async function findUnicorn(pickupLocation) {
     });
 }
 
-function recordRide(rideId, username, email, unicorn) {
+async function publishRide(rideId, username, email, unicorn) {
     const requestTime = new Date().toISOString();
-    let ddbPromise = ddb.put({
-        TableName: process.env.TABLE_NAME,
-        Item: {
-            RideId: rideId,
-            User: username,
-            Unicorn: unicorn,
-            UnicornName: unicorn.Name,
-            RequestTime: requestTime
-        },
-    }).promise();
-    let snsPromise = sns.publish({
+    await sns.publish({
       TopicArn: process.env.TOPIC_ARN,
       Message: JSON.stringify({
         RideId: rideId,
         Email: email,
         User: username,
         RequestTime: requestTime,
-        UnicornName: unicorn.Name,
+        Unicorn: unicorn,
       })
     }).promise();
-
-    return Promise.all([ddbPromise, snsPromise]);
 }
 
 function toUrlString(buffer) {
