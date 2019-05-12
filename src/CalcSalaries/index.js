@@ -28,9 +28,10 @@ async function handleItem(item) {
 }
 
 async function generateSalary(item) {
+  let time = new Date();
   await s3.putObject({
     Bucket: process.env.BUCKET_NAME,
-    Key: `${item.Name}`,
+    Key: `salaries/year=${time.getFullYear()}/month=${time.getMonth()}/day=${time.getDay()}/${item.Name}/hour=${time.getHours()}/minutes=${time.getMinutes()}/${item.Name}`,
     Tagging: `email=${item.Name}%40wildrydes.corn&subject=${item.Name}%20Rides%20Paycheck`,
     Body: (
       `
