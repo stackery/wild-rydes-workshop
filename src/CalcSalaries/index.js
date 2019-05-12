@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+const uuid = require('uuid');
 
 const ddb = new AWS.DynamoDB.DocumentClient();
 const s3 = new AWS.S3();
@@ -28,10 +29,9 @@ async function handleItem(item) {
 }
 
 async function generateSalary(item) {
-  let time = new Date();
   await s3.putObject({
     Bucket: process.env.BUCKET_NAME,
-    Key: `salaries/year=${time.getFullYear()}/month=${time.getMonth()}/day=${time.getDay()}/${item.Name}/hour=${time.getHours()}/minutes=${time.getMinutes()}/${item.Name}`,
+    Key: `${item.Name}/${uuid.v4()}`,
     Tagging: `email=${item.Name}%40wildrydes.corn&subject=${item.Name}%20Rides%20Paycheck`,
     Body: (
       `
@@ -39,7 +39,7 @@ Paycheck for ${item.Name}
 -----------------------------------
 Time: ${(new Date()).toISOString()}
 Rides: ${item.RideCount}
-Total Sum: ${item.RideCount * PAY_PER_RIDE}
+Total Amount: ${item.RideCount * PAY_PER_RIDE} USD
 
 WildRydes corp.
 `

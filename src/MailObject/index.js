@@ -28,26 +28,6 @@ async function mailObject(s3Obj) {
   let getObjResult = await s3.getObject(params).promise();
 
 
-  // let sendParams = {
-  //   Destination: {
-  //     ToAddresses: [
-  //       objTags.email,
-  //     ],
-  //   },
-  //   Message: {
-  //     Body: {
-  //       Text: {
-  //         Charset: "UTF-8",
-  //         Data: objBody,
-  //       },
-  //     },
-  //     Subject: {
-  //       Charset: "UTF-8",
-  //       Data: objTags.subject,
-  //     },
-  //   },
-  //   Source: "info@wildrydes.com"
-  // }
   const msg = {
     to: objTags.email,
     from: 'info@wildrydes.com',
@@ -60,7 +40,11 @@ async function mailObject(s3Obj) {
     }
   };
 
-  await sgMail.send(msg);
+  try {
+    await sgMail.send(msg);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 
