@@ -11,20 +11,21 @@ exports.handler = async (event, context) => {
 
   const scanParams = {
     TableName: process.env.TABLE_NAME,
-    FilterExpression: "#counter > 0",
+    FilterExpression: "#counter > :base",
     ExpressionAttributeNames: { '#counter': 'RideCount' },
-  }
+    ExpressionAttributeValues: { ':base': 0 }
+  };
 
   const scanResult = await ddb.scan(scanParams).promise();
+  console.log(scanResult.Items);
 
-  await Promise.all(
-    scanResult.Items
-      .map(generateSalary)
-      .map(decreaseRides)
-  )
-
-  return {};
+  await Promise.all(scanResult.Items.map(handleItem));
 };
+
+async function handleItem(item) {
+  await generateSalary(item);
+  await decreaseRides(item);
+}
 
 async function generateSalary(item) {
   await s3.putObject({
@@ -43,8 +44,6 @@ WildRydes corp.
 `
     )
   }).promise();
-
-  return item;
 }
 
 async function decreaseRides(item) {
@@ -54,7 +53,7 @@ async function decreaseRides(item) {
     UpdateExpression: "ADD #counter :decrement",
     ExpressionAttributeNames: { '#counter': 'RideCount' },
     ExpressionAttributeValues: { ':decrement': -(item.RideCount) }
-  }
+  };
 
   await ddb.update(params).promise();
 }
