@@ -19,7 +19,7 @@ async function recordRide(message) {
     Item: {
       RideId: message.RideId,
       User: message.User,
-      Unicorn: message.Unicorn,
+      Unicorn: message.RideDetail.Unicorn,
       RequestTime: message.RequestTime
     },
   }).promise();

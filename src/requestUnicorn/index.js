@@ -6,7 +6,7 @@ const AWS = require('aws-sdk');
 const sns = new AWS.SNS();
 const ddb = new AWS.DynamoDB.DocumentClient();
 
-const RIDE_LENGTH_SECONDS = 3 * 60;
+const RIDE_LENGTH_SECONDS = 30;
 exports.handler = async (event, context) => {
     try {
         if (!event.requestContext.authorizer) {
@@ -30,9 +30,9 @@ exports.handler = async (event, context) => {
 
         const pickupLocation = requestBody.PickupLocation;
 
-        const unicorn = validateUnicornAvailable(await findUnicorn(pickupLocation));
+        const rideDetail = await validateUnicornAvailable(await findUnicorn(pickupLocation));
 
-        await publishRide(rideId, username, email, unicorn);
+        await publishRide(rideId, username, email, rideDetail);
 
         // Because this Lambda function is called by an API Gateway proxy integration
         // the result object must use the following structure.
@@ -40,9 +40,8 @@ exports.handler = async (event, context) => {
             statusCode: 201,
             body: JSON.stringify({
                 RideId: rideId,
-                Unicorn: unicorn,
-                UnicornName: unicorn.Name,
-                Eta: '30 seconds',
+                RideDetail: rideDetail,
+                Eta: RIDE_LENGTH_SECONDS + ' seconds',
                 Rider: username,
             }),
             headers: {
@@ -134,7 +133,7 @@ async function findUnicorn(pickupLocation) {
     });
 }
 
-async function publishRide(rideId, username, email, unicorn) {
+async function publishRide(rideId, username, email, rideDetail) {
     const requestTime = new Date().toISOString();
     await sns.publish({
       TopicArn: process.env.TOPIC_ARN,
@@ -143,7 +142,7 @@ async function publishRide(rideId, username, email, unicorn) {
         Email: email,
         User: username,
         RequestTime: requestTime,
-        Unicorn: unicorn,
+        RideDetail: rideDetail
       })
     }).promise();
 }
@@ -158,8 +157,8 @@ async function validateUnicornAvailable(unicorn) {
     }
   };
   try {
-    let getResponse = await ddb.get(getParams).promise()
-    if (getResponse.Item.Expiration > seconds + RIDE_LENGTH_SECONDS) {
+    let getResponse = await ddb.get(getParams).promise();
+    if (getResponse.Item.Expiration > seconds) {
       return {Error: "Unicorn Unavailable"} // unicorn is occupied, fail.
     }
   } catch(err) {
@@ -175,7 +174,10 @@ async function validateUnicornAvailable(unicorn) {
     }
   };
 
-  await ddb.put(putParams).promise()
+  await ddb.put(putParams).promise();
+  return {
+    Unicorn: unicorn
+  };
 }
 
 function toUrlString(buffer) {

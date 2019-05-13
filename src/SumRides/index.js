@@ -1,15 +1,22 @@
 const AWS = require('aws-sdk');
+const epsagon = require('epsagon');
 
 const ddb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event, context) => {
-  // Log the event argument for debugging and for use in local development.
-  console.log(JSON.stringify(event, undefined, 2));
-  await Promise.all(
-    event.Records
-      .map(record => record.dynamodb.NewImage)
-      .map(countRide)
-  );
+  try {
+    // Log the event argument for debugging and for use in local development.
+    console.log(JSON.stringify(event, undefined, 2));
+    await Promise.all(
+      event.Records
+        .map(record => record.dynamodb.NewImage)
+        .map(countRide)
+    );
+  } catch (e) {
+    // we must never stop the stream processing
+    console.log(e);
+  }
+
 };
 
 async function countRide(newImage) {

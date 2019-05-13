@@ -23,7 +23,7 @@ function uploadReceipt(message) {
 Receipt for ride ${message.RideId}:
 -----------------------------------
 Rider: ${message.User}
-Unicorn: ${message.Unicorn.Name}
+Unicorn: ${message.RideDetail.Unicorn.Name}
 Time: ${message.RequestTime}
 Price: Free!
 

@@ -121,12 +121,16 @@ Resources:
             SecretArn: !Sub arn:${AWS::Partition}:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:/${EnvironmentTagName}/*
         - SNSPublishMessagePolicy:
             TopicName: !GetAtt UnicornDispatched.TopicName
+        - DynamoDBCrudPolicy:
+            TableName: !Ref OccupiedUnicorns
       Environment:
         Variables:
           SECRETS_NAMESPACE: !Sub /${EnvironmentTagName}/
           UNICORN_STABLE_API: !Ref EnvConfigunicornStableApiAsString
           TOPIC_NAME: !GetAtt UnicornDispatched.TopicName
           TOPIC_ARN: !Ref UnicornDispatched
+          TABLE_NAME: !Ref OccupiedUnicorns
+          TABLE_ARN: !GetAtt OccupiedUnicorns.Arn
       Events:
         ApiPOSTride:
           Type: Api
@@ -334,6 +338,24 @@ Resources:
           TABLE_ARN: !GetAtt Rides.Arn
     Metadata:
       StackeryName: RecordRide
+  OccupiedUnicorns:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: UnicornName
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: UnicornName
+          KeyType: HASH
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+      TableName: !Sub ${AWS::StackName}-OccupiedUnicorns
+      TimeToLiveSpecification:
+        AttributeName: Expiration
+        Enabled: true
+    Metadata:
+      StackeryName: OccupiedUnicorns
 Parameters:
   StackTagName:
     Type: String
