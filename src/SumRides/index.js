@@ -15,11 +15,11 @@ exports.handler = async (event, context) => {
 async function countRide(newImage) {
   const params = {
     TableName: process.env.TABLE_NAME,
-    Key: { Name: newImage.UnicornName["S"] },
+    Key: { Name: newImage.Unicorn.Name["S"] },
     UpdateExpression: "ADD #counter :increment",
     ExpressionAttributeNames: { '#counter': 'RideCount' },
     ExpressionAttributeValues: { ':increment': 1 }
-  }
+  };
 
   await ddb.update(params).promise();
 }

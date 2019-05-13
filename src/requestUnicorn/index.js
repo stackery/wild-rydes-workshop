@@ -4,7 +4,9 @@ const get = require('https').get;
 const AWS = require('aws-sdk');
 
 const sns = new AWS.SNS();
+const ddb = new AWS.DynamoDB.DocumentClient();
 
+const RIDE_LENGTH_SECONDS = 3 * 60;
 exports.handler = async (event, context) => {
     try {
         if (!event.requestContext.authorizer) {
@@ -28,7 +30,7 @@ exports.handler = async (event, context) => {
 
         const pickupLocation = requestBody.PickupLocation;
 
-        const unicorn = await findUnicorn(pickupLocation);
+        const unicorn = validateUnicornAvailable(await findUnicorn(pickupLocation));
 
         await publishRide(rideId, username, email, unicorn);
 
@@ -144,6 +146,36 @@ async function publishRide(rideId, username, email, unicorn) {
         Unicorn: unicorn,
       })
     }).promise();
+}
+
+async function validateUnicornAvailable(unicorn) {
+  let now = new Date();
+  let seconds = Math.round(now.getTime() / 1000);
+  const getParams = {
+    TableName: process.env.TABLE_NAME,
+    Key: {
+      UnicornName: unicorn.Name,
+    }
+  };
+  try {
+    let getResponse = await ddb.get(getParams).promise()
+    if (getResponse.Item.Expiration > seconds + RIDE_LENGTH_SECONDS) {
+      return {Error: "Unicorn Unavailable"} // unicorn is occupied, fail.
+    }
+  } catch(err) {
+    // item doesn't exist, carry on
+    console.log('unicorn not occupied')
+  }
+
+  const putParams = {
+    TableName: process.env.TABLE_NAME,
+    Item: {
+      UnicornName: unicorn.Name,
+      Expiration: seconds + RIDE_LENGTH_SECONDS
+    }
+  };
+
+  await ddb.put(putParams).promise()
 }
 
 function toUrlString(buffer) {
