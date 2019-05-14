@@ -20,7 +20,7 @@ Before you begin this workshop please make sure you have completed the steps in 
 1) [Backend API](./04-backend-api.md)
 1) [Production Deployment](./05-production.md)
 1) [Application Observability](06-application-observability.md)
-1) [Troubleshooting & Distributed Tracing](./07-troubleshooting-distributed-tracing)
+1) [Troubleshooting & Distributed Tracing](07-troubleshooting-distributed-tracing.md)
 1) [Performance Monitoring](./08-performance-monitoring)
 
 ## Setup / Prerequisites
