@@ -98,5 +98,5 @@ Explore the different functions' stats and invocations in your account using the
 
 Proceed to the next module in this workshop:
 
-* [Troubleshooting & Distributed Tracing](./07-troubleshooting-distributed-tracing)
+* [Troubleshooting & Distributed Tracing](07-troubleshooting-distributed-tracing.md)
 
