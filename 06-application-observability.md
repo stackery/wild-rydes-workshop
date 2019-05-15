@@ -5,11 +5,11 @@ stackery application.
 # Instructions
 ### 1. Update the application 
 In this step, we will use a more complex serverless application. to deploy it,
-switch to the `06-application-observability` branch of this repository:
+switch to the `monitoring` branch of this repository:
 ```
 cd ../wild-rydes-workshop/
 git fetch
-git checkout 06-application-observability
+git checkout monitoring
 cd -
 ```
 
@@ -21,7 +21,7 @@ cp ../wild-rydes-workshop/src ../wild-rydes-workshop/template.yaml .
 Commit and push the changes:
 ```
 git add -A
-git commit -m "add module 06 content"
+git commit -m "Added monitoring content"
 git push -v
 ```
 
@@ -74,6 +74,7 @@ then click **Prepare Deployment**. Once the preparation completes (this should
 take about 20 seconds), click the **Deploy** button to open AWS CloudFormation.
 Then click the **Execute** button in the CloudFormation Console.
 
+
 ### 4. Start monitoring with Epsagon
 Now that the integration is Done, you can click the "Monitor my application"
 in Epsagon to get to the Epsagon dashboard:
@@ -82,21 +83,22 @@ in Epsagon to get to the Epsagon dashboard:
 Epsagon will automatically start monitoring your application. Order some
 unicorn rides, and let's see whats going on in Epsagon!
 
-### 5. Have an Overview on your application
+
+### 5. View your application
 Epsagon will trace the invocations of your application. The first thing we will
 use it for is to get an understanding of how our application looks in real life.
 Click on the
-["Architecture Map"](https://dashboard.epsagon.com/applications/wild-rydes-production/architecture)
+[Architecture map](https://dashboard.epsagon.com/applications/stackery-wild-rydes-production/architecture)
 to have an overview of your application's architecture:
 ![Wild Rydes architecture](images/06-architecture.png)
 
 Explore the different functions' stats and invocations in your account using the
-["Functions"](https://dashboard.epsagon.com/functions) page
+[Functions](https://dashboard.epsagon.com/functions) page
 ![Wild Rydes functions](images/06-functions.png)
 
-## Next Steps
 
+## Next Steps
 Proceed to the next module in this workshop:
 
-* [Troubleshooting & Distributed Tracing](./07-troubleshooting-distributed-tracing)
+* [Troubleshooting & Distributed Tracing](07-troubleshooting-distributed-tracing.md)
 
