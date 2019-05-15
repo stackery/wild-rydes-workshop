@@ -13,7 +13,7 @@ requests, until you receive some "Unicorn not available" notifications.
 With Epsagon, we can trace the entire flow of the data throughout the
 application. We will start with a successful transaction.
 
-First, enter the ["Functions"](https://dashboard.epsagon.com/functions) page and
+First, enter the [Functions](https://dashboard.epsagon.com/functions) page and
 select `stackery-wild-rydes-production-RequestUnicorn`. there you can see all
 the API invocations in the system.
 ![Specific function view](./images/07-specific-function.png)
@@ -28,7 +28,7 @@ the data they contain. Let's give it a shot.
 
 Search for all the transactions where a unicorn with a specific name was
 dispatched. To do that, we can use the
-["Event search"](https://dashboard.epsagon.com/search). Search for all the
+[Event search](https://dashboard.epsagon.com/search). Search for all the
 transactions for your favorite unicorn:
 ![Search a unicorn](./images/07-search-unicorn.png)
 
@@ -36,9 +36,13 @@ transactions for your favorite unicorn:
 ### 4. Troubleshoot an error
 Next, select a transaction with an error .Troubleshoot the root cause of the
 error using it (don't fix it yet). You can filter errors in the system using
-the ["Event search"](https://dashboard.epsagon.com/search). Search for all the
+the [Event search](https://dashboard.epsagon.com/search). Search for all the
 events with resource type `lambda` and status `Error`:
 ![Events with errors](./images/07-filter-errors.png)
+
+Another way to view the issues in your application is the 
+[Issue manager](https://dashboard.epsagon.com/issues):
+![Issues](./images/07-issues-manager.png)
 <details>
 <summary> Open to reveal the solution</summary>
 <br>
