@@ -1,5 +1,4 @@
 const AWS = require('aws-sdk');
-const epsagon = require('epsagon');
 
 const ddb = new AWS.DynamoDB.DocumentClient();
 

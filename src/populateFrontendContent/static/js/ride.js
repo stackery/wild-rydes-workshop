@@ -45,7 +45,7 @@ WildRydes.map = WildRydes.map || {};
         var unicorn;
         var pronoun;
         console.log('Response received from API: ', result);
-        if (result.RideDetail.Error) {
+        if (!result.RideDetail.Unicorn) {
             displayUpdate("Unicorn not available, please try again");
             return;
         }

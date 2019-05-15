@@ -159,7 +159,7 @@ async function validateUnicornAvailable(unicorn) {
   try {
     let getResponse = await ddb.get(getParams).promise();
     if (getResponse.Item.Expiration > seconds) {
-      return {Error: "Unicorn Unavailable"} // unicorn is occupied, fail.
+      return {} // unicorn is occupied, fail.
     }
   } catch(err) {
     // item doesn't exist, carry on
