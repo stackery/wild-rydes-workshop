@@ -74,6 +74,7 @@ then click **Prepare Deployment**. Once the preparation completes (this should
 take about 20 seconds), click the **Deploy** button to open AWS CloudFormation.
 Then click the **Execute** button in the CloudFormation Console.
 
+
 ### 4. Start monitoring with Epsagon
 Now that the integration is Done, you can click the "Monitor my application"
 in Epsagon to get to the Epsagon dashboard:
@@ -82,20 +83,21 @@ in Epsagon to get to the Epsagon dashboard:
 Epsagon will automatically start monitoring your application. Order some
 unicorn rides, and let's see whats going on in Epsagon!
 
-### 5. Have an Overview on your application
+
+### 5. View your application
 Epsagon will trace the invocations of your application. The first thing we will
 use it for is to get an understanding of how our application looks in real life.
 Click on the
-["Architecture Map"](https://dashboard.epsagon.com/applications/stackery-wild-rydes-production/architecture)
+[Architecture map](https://dashboard.epsagon.com/applications/stackery-wild-rydes-production/architecture)
 to have an overview of your application's architecture:
 ![Wild Rydes architecture](images/06-architecture.png)
 
 Explore the different functions' stats and invocations in your account using the
-["Functions"](https://dashboard.epsagon.com/functions) page
+[Functions](https://dashboard.epsagon.com/functions) page
 ![Wild Rydes functions](images/06-functions.png)
 
-## Next Steps
 
+## Next Steps
 Proceed to the next module in this workshop:
 
 * [Troubleshooting & Distributed Tracing](07-troubleshooting-distributed-tracing.md)
