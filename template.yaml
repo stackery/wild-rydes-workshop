@@ -269,6 +269,7 @@ Resources:
           BUCKET_ARN: !GetAtt UnicornSalaries.Arn
           SECRETS_NAMESPACE: !Sub /${EnvironmentTagName}/
           SECRETS_NAMESPACE_2: !Sub /${EnvironmentTagName}/
+          UNICORN_STABLE_API: !Ref EnvConfigunicornStableApiAsString
   MailObject:
     Type: AWS::Serverless::Function
     Properties:
