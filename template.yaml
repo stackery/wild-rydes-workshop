@@ -252,6 +252,8 @@ Resources:
               Resource:
                 - !Sub arn:${AWS::Partition}:s3:::${UnicornSalaries}
                 - !Sub arn:${AWS::Partition}:s3:::${UnicornSalaries}/*
+        - AWSSecretsManagerGetSecretValuePolicy:
+            SecretArn: !Sub arn:${AWS::Partition}:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:/${EnvironmentTagName}/*
       Events:
         Timer:
           Type: Schedule
@@ -266,6 +268,7 @@ Resources:
           BUCKET_NAME: !Ref UnicornSalaries
           BUCKET_ARN: !GetAtt UnicornSalaries.Arn
           SECRETS_NAMESPACE: !Sub /${EnvironmentTagName}/
+          SECRETS_NAMESPACE_2: !Sub /${EnvironmentTagName}/
   MailObject:
     Type: AWS::Serverless::Function
     Properties:
