@@ -265,6 +265,7 @@ Resources:
           TABLE_ARN: !GetAtt UnicornStats.Arn
           BUCKET_NAME: !Ref UnicornSalaries
           BUCKET_ARN: !GetAtt UnicornSalaries.Arn
+          SECRETS_NAMESPACE: !Sub /${EnvironmentTagName}/
   MailObject:
     Type: AWS::Serverless::Function
     Properties:
