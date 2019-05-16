@@ -236,7 +236,7 @@ Resources:
       CodeUri: src/CalcSalaries
       Handler: index.handler
       Runtime: nodejs8.10
-      MemorySize: 128
+      MemorySize: 1024
       Timeout: 6
       Tracing: Active
       Policies:

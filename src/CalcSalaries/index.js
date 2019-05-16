@@ -25,7 +25,7 @@ async function handleItem(item) {
 }
 
 async function generateSalary(item) {
-  const unicornDetails = getUnicornDetails(item.Name);
+  const unicornDetails = await getUnicornDetails(item.Name);
   await s3.putObject({
     Bucket: process.env.BUCKET_NAME,
     Key: `${item.Name}/${uuid.v4()}`,
