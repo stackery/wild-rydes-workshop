@@ -1,6 +1,6 @@
 # Application Observability
 In this module, you will integrate [Epsagon](https://epsagon.com) with your
-stackery application.
+Stackery application.
 
 # Instructions
 ### 1. Update the application 
@@ -81,7 +81,7 @@ in Epsagon to get to the Epsagon dashboard:
 ![Start monitoring with Epsagon](images/06-epsagon-start-monitoring.png)
 
 Epsagon will automatically start monitoring your application. Order some
-unicorn rides, and let's see whats going on in Epsagon!
+unicorn rides, and let's see what's going on in Epsagon!
 
 
 ### 5. View your application
