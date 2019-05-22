@@ -17,6 +17,7 @@ First, enter the [Functions](https://dashboard.epsagon.com/functions) page and
 select `stackery-wild-rydes-production-RequestUnicorn`. there you can see all
 the API invocations in the system.
 ![Specific function view](./images/07-specific-function.png)
+
 Then, select a successful invocation. Note that you can drill into the data of
 every event.
 ![Specific invocation](./images/07-specific-invocation.png)
@@ -34,7 +35,7 @@ transactions for your favorite unicorn:
 
 
 ### 4. Troubleshoot an error
-Next, select a transaction with an error .Troubleshoot the root cause of the
+Next, select a transaction with an error. Troubleshoot the root cause of the
 error using it (don't fix it yet). You can filter errors in the system using
 the [Event search](https://dashboard.epsagon.com/search). Search for all the
 events with resource type `lambda` and status `Error`:
@@ -43,12 +44,16 @@ events with resource type `lambda` and status `Error`:
 Another way to view the issues in your application is the 
 [Issue manager](https://dashboard.epsagon.com/issues):
 ![Issues](./images/07-issues-manager.png)
+
+What is causing error? Find the root cause!
+
 <details>
 <summary> Open to reveal the solution</summary>
 <br>
-When a user requests a unicorn and the selected one is not available, a message
-is still being dispatched to the `UnicornDispached` SNS! This causes a faulty
-message to pass downstream and the next function malfunctions
+When a user requests a unicorn and the selected one is not available (the 
+OccupiedUnicorns DB reports it as busy), a message is still being dispatched
+to the `UnicornDispached` SNS! This causes a faulty message to pass downstream
+ and the next function malfunctions.
 </details>
 
 ### 5. Manually reporting errors
