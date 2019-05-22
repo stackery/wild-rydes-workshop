@@ -19,6 +19,10 @@ Before you begin this workshop please make sure you have completed the steps in 
 1) [Environment Parameters & Secrets](./03-environment-parameters.md)
 1) [Backend API](./04-backend-api.md)
 1) [Production Deployment](./05-production.md)
+1) [Application Observability](06-application-observability.md)
+1) [Distributed Tracing & Troubleshooting](07-troubleshooting-distributed-tracing.md)
+1) [Monitoring](./08-monitoring.md)
+1) [Performance Monitoring](./09-performance-monitoring.md)
 
 ## Setup / Prerequisites
 

@@ -35,3 +35,10 @@ Once the preparation completes click the **Deploy** button to open CloudFormatio
 Now you can visit your Wild Rydes website that you have deployed.
 
 Once the deployment is complete, switch to the View view in the left sidebar of Stackery. Double-click the *FrontendContent* Object Store resource to view its details. On the details page click on the **Website Hosting Address** link to open the website. You can now walk through the signup process and login to request a unicorn just as you did in the development environment.
+
+## Next Steps
+
+Proceed to the next module in this workshop:
+
+* [Application Observability](06-application-observability.md)
+
