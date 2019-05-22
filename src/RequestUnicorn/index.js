@@ -3,8 +3,10 @@ const get = require('https').get;
 
 const AWS = require('aws-sdk');
 
+const sns = new AWS.SNS();
 const ddb = new AWS.DynamoDB.DocumentClient();
 
+const RIDE_LENGTH_SECONDS = 30;
 exports.handler = async (event, context) => {
     try {
         if (!event.requestContext.authorizer) {
@@ -18,6 +20,7 @@ exports.handler = async (event, context) => {
         // included in the authentication token are provided in the request context.
         // This includes the username as well as other attributes.
         const username = event.requestContext.authorizer.claims['cognito:username'];
+        const email = event.requestContext.authorizer.claims['email'];
 
         // The body field of the event in a proxy integration is a raw string.
         // In order to extract meaningful values, we need to first parse this string
@@ -27,9 +30,9 @@ exports.handler = async (event, context) => {
 
         const pickupLocation = requestBody.PickupLocation;
 
-        const unicorn = await findUnicorn(pickupLocation);
+        const rideDetail = await validateUnicornAvailable(await findUnicorn(pickupLocation));
 
-        await recordRide(rideId, username, unicorn);
+        await publishRide(rideId, username, email, rideDetail);
 
         // Because this Lambda function is called by an API Gateway proxy integration
         // the result object must use the following structure.
@@ -37,9 +40,8 @@ exports.handler = async (event, context) => {
             statusCode: 201,
             body: JSON.stringify({
                 RideId: rideId,
-                Unicorn: unicorn,
-                UnicornName: unicorn.Name,
-                Eta: '30 seconds',
+                RideDetail: rideDetail,
+                Eta: RIDE_LENGTH_SECONDS + ' seconds',
                 Rider: username,
             }),
             headers: {
@@ -131,17 +133,51 @@ async function findUnicorn(pickupLocation) {
     });
 }
 
-function recordRide(rideId, username, unicorn) {
-    return ddb.put({
-        TableName: process.env.TABLE_NAME,
-        Item: {
-            RideId: rideId,
-            User: username,
-            Unicorn: unicorn,
-            UnicornName: unicorn.Name,
-            RequestTime: new Date().toISOString(),
-        },
+async function publishRide(rideId, username, email, rideDetail) {
+    const requestTime = new Date().toISOString();
+    await sns.publish({
+      TopicArn: process.env.TOPIC_ARN,
+      Message: JSON.stringify({
+        RideId: rideId,
+        Email: email,
+        User: username,
+        RequestTime: requestTime,
+        RideDetail: rideDetail
+      })
     }).promise();
+}
+
+async function validateUnicornAvailable(unicorn) {
+  let now = new Date();
+  let seconds = Math.round(now.getTime() / 1000);
+  const getParams = {
+    TableName: process.env.TABLE_NAME,
+    Key: {
+      UnicornName: unicorn.Name,
+    }
+  };
+  try {
+    let getResponse = await ddb.get(getParams).promise();
+    if (getResponse.Item.Expiration > seconds) {
+      return {} // unicorn is occupied, fail.
+    }
+  } catch(err) {
+    // item doesn't exist, carry on
+    console.log('unicorn not occupied')
+  }
+
+  const putParams = {
+    TableName: process.env.TABLE_NAME,
+    Item: {
+      UnicornName: unicorn.Name,
+      Expiration: seconds + RIDE_LENGTH_SECONDS
+    }
+  };
+
+  await ddb.put(putParams).promise();
+  return {
+    Unicorn: unicorn
+  };
 }
 
 function toUrlString(buffer) {

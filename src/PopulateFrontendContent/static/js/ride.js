@@ -45,7 +45,12 @@ WildRydes.map = WildRydes.map || {};
         var unicorn;
         var pronoun;
         console.log('Response received from API: ', result);
-        unicorn = result.Unicorn;
+        if (!result.RideDetail.Unicorn) {
+            displayUpdate("Unicorn not available, please try again");
+            return;
+        }
+
+        unicorn = result.RideDetail.Unicorn;
         pronoun = 'their';
         displayUpdate(unicorn.Name + ', your ' + unicorn.Color + ' unicorn, is on ' + pronoun + ' way.');
         animateArrival(function animateCallback() {
