@@ -7,7 +7,7 @@ const s3 = new AWS.S3();
 
 const PAY_PER_RIDE = 13;
 
-exports.handler = async (event, context) => {
+exports.handler = async () => {
   const scanParams = {
     TableName: process.env.TABLE_NAME,
     FilterExpression: "#counter > :base",

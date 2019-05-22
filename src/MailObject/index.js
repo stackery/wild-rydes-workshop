@@ -3,7 +3,7 @@ const sgMail = require('@sendgrid/mail');
 
 const s3 = new AWS.S3();
 
-exports.handler = async (event, context) => {
+exports.handler = async event => {
   await Promise.all(
     event.Records
       .map(record => record['s3'])

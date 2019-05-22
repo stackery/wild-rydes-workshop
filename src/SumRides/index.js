@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 
 const ddb = new AWS.DynamoDB.DocumentClient();
 
-exports.handler = async (event, context) => {
+exports.handler = async event => {
   try {
     await Promise.all(
       event.Records

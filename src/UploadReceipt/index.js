@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 
 const s3 = new AWS.S3();
 
-exports.handler = async (event, context) => {
+exports.handler = async event => {
   await Promise.all(
     event.Records
       .map(record => JSON.parse(record['Sns']['Message']))
