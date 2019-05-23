@@ -35,8 +35,9 @@ To complete this workshop you will need the following:
   * GitHub
   * AWS
   * Stackery
+  * Epsagon
 
-At a minimum you will probably need to create a Stackery account. Follow the instructions below to setup what you need to get started and complete this workshop.
+At a minimum you will need to create a Stackery account. Follow the instructions below to setup what you need to get started and complete this workshop.
 
 
 ### 1. Create a Github account
@@ -126,8 +127,12 @@ Proceed to the next module in this workshop:
 
 * [Frontend](./01-frontend.md)
 
-## FAQs
+## Troubleshooting
 
-* What if I hit an error while trying to `git clone`?
+* What if I hit an error while trying to `git clone` the workshop repo?
 
-* 2-factor auth in github + 
+You may see the following error when cloning the repo in your Mac terminal: `xcrun: error: invalid active developer path`. This means that you need XCode installed on your machine (even though we won't be using it in this workshop). To install the necessary tools to run git in the terminal, enter `xcode-select --install` and try cloning again when the installation completes.
+
+* Can't log into GitHub on the terminal
+
+If your GitHub account has two-factor authentication enabled, you will need to create an access token to log into your account in the terminal. Go to [github.com/settings/profile](https://github.com/settings/profile), click **Developer Settings**, then **Personal access tokens** and generate a new token. This will be your password when signing in to GitHub in the terminal.

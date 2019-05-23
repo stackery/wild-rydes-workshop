@@ -6,7 +6,8 @@ Stackery application.
 ### 1. Update the application 
 In this step, we will use a more complex serverless application. to deploy it,
 switch to the `monitoring` branch of this repository:
-```
+
+```bash
 cd ../wild-rydes-workshop/
 git fetch
 git checkout monitoring
@@ -14,19 +15,20 @@ cd -
 ```
 
 Now copy the content over to your local application:
-```
+```bash
 cp ../wild-rydes-workshop/src ../wild-rydes-workshop/template.yaml .
 ```
 
 Commit and push the changes:
-```
+
+```bash
 git add -A
 git commit -m "Added monitoring content"
 git push -v
 ```
 
 ### 2. Integrate Epsagon
-Next, lets integrate Epsagon to our application. To get started with Epsagon,
+Next, let's integrate Epsagon to our application. To get started with Epsagon,
 take the following steps. A more detailed guide can be found at 
 [the Epsagon documentation](https://docs.epsagon.com/docs/quickstart)
 
