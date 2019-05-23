@@ -16,7 +16,7 @@ Add an *Object Store* resource (an AWS S3 Bucket) to serve the website content. 
 
 ![Add Object Store](./images/01-object-store.png)
 
-Next, double-click on the Object Store resource on the canvas to edit its settings. Set the **CLOUDFORMATION LOGICAL ID** fields to `FrontendContent`. Then click **ENABLE WEBSITE HOSTING** and leave the value of **INDEX DOCUMENT** as `index.html`. Finally save the Settings.
+Next, double-click on the Object Store resource on the canvas to edit its settings. Set the **DISPLAY NAME** and **CLOUDFORMATION LOGICAL ID** fields to `FrontendContent`. Then click **ENABLE WEBSITE HOSTING** and leave the value of **INDEX DOCUMENT** as `index.html`. Finally save the Settings.
 
 ![Configure Object Store](./images/01-object-store-config.png)
 
@@ -37,7 +37,7 @@ To tell if you've drawn the relationship correctly, double-click on the Function
 
 ![Function S3 Environmental Variables](./images/01-function-s3-env-vars.png)
 
-Next in the Function's settings, set the **LOGICAL ID** field enter the value `PopulateFrontendContent`. Then update the **SOURCE PATH** field to `src/populateFrontendContent`. This path is where Stackery will create a scaffold for the function code inside the Git repository.
+Next in the Function's settings, for the **DISPLAY NAME** and **LOGICAL ID** fields enter the value `PopulateFrontendContent`. Then update the **SOURCE PATH** field to `src/populateFrontendContent`. This path is where Stackery will create a scaffold for the function code inside the Git repository.
 
 ![Function Config](./images/01-function-config.png)
 
@@ -89,12 +89,16 @@ Copy the following files and directories from the workshop to your application s
 * [src/populateFrontendContent/package.json](./src/populateFrontendContent/package.json)
 * [src/populateFrontendContent/static/](./src/populateFrontendContent/static/)
 
-You can do this by running the following commands on Linux or Macos.
+You can do this by running the following commands on Linux or MacOS.
 
+```bash
+cp wild-rydes-workshop/src/populateFrontendContent/index.js stackery-wild-rydes/src/populateFrontendContent
 ```
-$ cp wild-rydes-workshop/src/populateFrontendContent/index.js stackery-wild-rydes/src/populateFrontendContent
-$ cp wild-rydes-workshop/src/populateFrontendContent/package.json stackery-wild-rydes/src/populateFrontendContent
-$ cp -R wild-rydes-workshop/src/populateFrontendContent/static stackery-wild-rydes/src/populateFrontendContent
+```bash
+cp wild-rydes-workshop/src/populateFrontendContent/package.json stackery-wild-rydes/src/populateFrontendContent
+```
+```bash
+cp -R wild-rydes-workshop/src/populateFrontendContent/static stackery-wild-rydes/src/populateFrontendContent
 ```
 
 Finally, commit the new code and push it back up to your git repository.

@@ -126,3 +126,8 @@ Proceed to the next module in this workshop:
 
 * [Frontend](./01-frontend.md)
 
+## FAQs
+
+* What if I hit an error while trying to `git clone`?
+
+* 2-factor auth in github + 

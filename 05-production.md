@@ -26,7 +26,7 @@ Now click on **SECRETS** in the left sidebar. *Environment Secrets* section. Cli
 
 ### 4. Deploy the stack to the *production* environment
 
-You'll now deploy the *stackery-wild-rydes* stack to the production *environment*. In Stackery click **Deploy** view in the left sidebar to enter the *Deploy* view. Next click **Prepare new deployment** for the *production* environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**.
+You'll now deploy the *stackery-wild-rydes* stack to the production *environment*. In Stackery, navigate back to **Stacks** and your **stackery-wild-rides** stack. Click the **Deploy** view in the left sidebar to enter the *Deploy* view. Next click **Prepare new deployment** for the *production* environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**.
 
 Once the preparation completes click the **Deploy** button to open CloudFormation.
 
