@@ -10,13 +10,13 @@ In this step, we will use a more complex serverless application. To deploy it, s
 cd ../wild-rydes-workshop/
 git fetch
 git checkout monitoring
-cd -
 ```
 
 Now copy the content over to your local application:
 
 ```bash
-cp wild-rydes-workshop/src stackery-wild-rydes/src
+rm -r stackery-wild-rydes/src
+cp -a wild-rydes-workshop/src stackery-wild-rydes/src
 ```
 ```bash
 cp wild-rydes-workshop/template.yaml stackery-wild-rydes/template.yaml
@@ -25,6 +25,7 @@ cp wild-rydes-workshop/template.yaml stackery-wild-rydes/template.yaml
 Commit and push the changes:
 
 ```bash
+cd stackery-wild-rydes
 git add -A
 git commit -m "Added monitoring content"
 git push -v
