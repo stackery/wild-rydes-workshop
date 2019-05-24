@@ -61,7 +61,7 @@ Clone your application repository using Git via the command line or favorite IDE
 ![GitHub](./images/01-github.png)
 
 ```
-$ git clone <YOUR_PROJECT_URL>
+git clone <YOUR_PROJECT_URL>
 ```
 
 If you browse the contents of the project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function resource in _src/populateFrontendContent_
@@ -104,10 +104,10 @@ cp -R wild-rydes-workshop/src/populateFrontendContent/static stackery-wild-rydes
 Finally, commit the new code and push it back up to your git repository.
 
 ```
-$ cd stackery-wild-rydes
-$ git add src/populateFrontendContent
-$ git commit -m "Add populateFrontendContent function"
-$ git push
+cd stackery-wild-rydes
+git add src/populateFrontendContent
+git commit -m "Add populateFrontendContent function"
+git push
 ```
 
 ### 4. Deploy the stack
