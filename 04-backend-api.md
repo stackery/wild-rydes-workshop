@@ -1,5 +1,5 @@
 # Backend API
-You'll now add the backend service for handling ride requests from *Wild Rydes* users. You'll create an HTTP API that will take requests from your frontend. The backend willl reserve a unicorn and direct it to your user's location. Your backend API will use API Gateway to handle HTTP requests plus a Lambda function to process the request. You'll also see the Stackery environment variables you previously configured.
+You'll now add the backend service for handling ride requests from *Wild Rydes* users. You'll create an HTTP API that will take requests from your frontend. The backend will reserve a unicorn and direct it to your user's location. Your backend API will use API Gateway to handle HTTP requests plus a Lambda function to process the request. You'll also see the Stackery environment variables you previously configured.
 
 ## AWS Services
 
@@ -19,7 +19,7 @@ Go back to the *stackery-wild-rydes* stack editor. Start by clicking on **STACKS
 Add a Rest API resource to the application stack. Click **Add Resources** and then click on the Rest Api resource. This will add an AWS API Gateway to your stack which will handle web requests to the backend service.
 
 <!-- FIXME: We should explain CORS -->
-Click on the newly added resource, which should be named *Api*, to open up it's configuration. Modify the **Routes** setting so there is one route, a `POST` action to the `/ride` endpoint.
+Double-click on the newly added resource, which should be named *Api*, to open up its configuration. Modify the **Routes** setting so there is one route, a `POST` action to the `/ride` endpoint.
 
 ![Api resource](./images/04-api-resource.png)
 
@@ -63,7 +63,7 @@ Add a Table resource from the *Add Resources* menu and click on it to open the t
 
 ![DynamoDB Table](./images/04-dynamosb-table.png)
 
-Next drag a wire from the *RequestUnicorn* Function to the *Rides* Table. This will add the `TABLE_NAME` environment variable so the function can access the table and adds permissions for the function to manipulate records.
+Next drag a wire from the right side of the *RequestUnicorn* Function to the *Rides* Table. This will add the `TABLE_NAME` environment variable so the function can access the table and adds permissions for the function to manipulate records.
 
 ![Function to DDB](./images/04-function-to-ddb.png)
 
@@ -71,7 +71,7 @@ Next drag a wire from the *RequestUnicorn* Function to the *Rides* Table. This w
 
 ### 4. Add a Secrets resource to *RequestUnicorn* Function
 
-Add a Secrets resource from the *Add Resources* menu to allow the *RequestUnicorn* Function to access the Unicorn Stables™ API key.  Drag a wire from the *RequestUnicorn* Function to the new Secrets resource. This adds a permission for the function to read secrets from AWS Secrets Manager. It also adds an environment variable `SECRETS_NAMESPACE` to make it easier to locate the correct secrets for the environment the stack is deployed into.
+Add a Secrets resource from the *Add Resources* menu to allow the *RequestUnicorn* Function to access the Unicorn Stables™ API key. Drag a wire from the right side of the *RequestUnicorn* Function to the new Secrets resource. This adds a permission for the function to read secrets from AWS Secrets Manager. It also adds an environment variable `SECRETS_NAMESPACE` to make it easier to locate the correct secrets for the environment the stack is deployed into.
 
 ![Secrets Manager](./images/04-secrets-add.png)
 
@@ -80,7 +80,7 @@ Add a Secrets resource from the *Add Resources* menu to allow the *RequestUnicor
 
 ### 5. Point *PopulateFrontendContent* Function to the *Api* URL.
 
-Drag a wire from the *PopulateFrontendContent* Function to the *Api* resource. Doing this adds the `API_URL` environment variable to the function. The *PopulateFrontendContent* Function uses the environment variable to generate *js/config.js* as part of the website content.
+Drag a wire from the right side of the *PopulateFrontendContent* Function to the left side of the *Api* resource. Doing this adds the `API_URL` environment variable to the function. The *PopulateFrontendContent* Function uses the environment variable to generate *js/config.js* as part of the website content.
 
 ![S3 Bucket to APIG](./images/04-bucket-to-api.png)
 
@@ -104,6 +104,9 @@ Next locate the *POST /ride* route under *DefinitionBody -> paths -> /ride -> po
 security:
   - WildRydes: []
 ```
+
+> YAML is very unforgiving of indentation mistakes. Make sure your indentation is exactly the same as shown below before committing your changes.
+
 The complete *Api* resource definition look like it does below. *(NOTE: that the order of the properties doesn't matter)*
 ```YAML
   Api:
@@ -155,35 +158,35 @@ Update the *RequestUnicorn* Function code so it is functional. The code accepts 
 
 Start by updating your local *stackery-wild-rydes* GitHub clone (created in module 1) so it has all the changes you've made over the past few workshop modules.
 
-```
-$ cd stackery-wild-rydes     # if not already in the directory.
-$ git pull --rebase origin master
+```bash
+cd stackery-wild-rydes     # if not already in the directory.
+git pull --rebase origin master
 ```
 
 Now copy [src/requestUnicorn/index.js](src/requestUnicorn/index.js) from the workshop directory (also created in module 1) into your project directory.
 
 *Note: Make sure you are still in the stackery-wild-rydes project directory when you run the following command.*
-```
-$ cp ../wild-rydes-workshop/src/requestUnicorn/index.js ./src/requestUnicorn/index.js
+```bash
+cp ../wild-rydes-workshop/src/requestUnicorn/index.js ./src/requestUnicorn/index.js
 ```
 
-```
-$ git add src/requestUnicorn/index.js
-$ git commit -a -m "add requestUnicorn"
-$ git push -v
+```bash
+git add src/requestUnicorn/index.js
+git commit -a -m "add requestUnicorn"
+git push -v
 ```
 
 
 
 ### 8. Deploy updated Wild Rydes
 
-You'll now deploy the updated *stackery-wild-rydes* stack. In the **Edit** view, refresh your stack as you have made remote changes. Click **Deploy** in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the **development** environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**. Once the preparation completes (this should take about 20 seconds), click the **Deploy** button to open AWS CloudFormation. Then click the **Execute** button in the CloudFormation Console.
+You'll now deploy the updated *stackery-wild-rydes* stack. In the **Edit** view, refresh your stack as you have made remote changes. Click **Deploy** in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the **development** environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**. Once the preparation completes (this should take about 20 seconds), click the **Deploy** button to open AWS CloudFormation. Then click the **Execute** button in the CloudFormation Console. Once again, this will take a couple of minutes.
 
 *NOTE: So far we’ve always used the UI for doing deployments. Stackery also provides a CLI if you’re more inclined to use something like that. Read about the [`stackery deploy` command here](https://docs.stackery.io/docs/api/cli/stackery_deploy/).*
 
 ### 9. Request a unicorn
 
-Head back to the *Wild Rydes* website. If the error message from module 2 is still up, refresh the page. Then right click on the map to drop a pin. After that click **Request Unicorn**. A unicorn will fly in from the edge of the screen towards your location pin.
+When your deployment is done, head back to the *Wild Rydes* website (with `/ride.html` added to the address). If the error message from module 2 is still up, refresh the page. Then right click on the map to drop a pin. After that click **Request Unicorn**. A unicorn will fly in from the edge of the screen towards your location pin.
 
 ![Wild Rydes Pickup](./images/04-wild-rydes-pickup.png)
 

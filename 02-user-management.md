@@ -43,9 +43,9 @@ Next, drag a wire from the _UserPoolClient_ resource to the _UserPool_ resource.
 
 ### 3. Configure website content to authenticate users.
 
-Now connect to the _PopulateFrontendContent_ Function to the *UserPool* and *UserPoolClient* resources. Doing so will create environmental variables in the Function’s configuration and those variable values will be used by the _PopulateFrontendContent_ Function to populate the *js/config.js* object which will be stored in the _FrontendContent_ S3 bucket.
+Now connect the _PopulateFrontendContent_ Function to the *UserPool* and *UserPoolClient* resources. Doing so will create environmental variables in the Function’s configuration and those variable values will be used by the _PopulateFrontendContent_ Function to populate the *js/config.js* object which will be stored in the _FrontendContent_ S3 bucket.
 
-Start by connecting the _PopulateFrontendContent_ Function to the _UserPool_ resource. Do this by dragging a wire from the Function to the User Pool. Next, drag a wire from the _PopulateFrontendContent_ Function to the _UserPoolClient_ resource.
+Start by connecting the _PopulateFrontendContent_ Function to the _UserPool_ resource. Do this by dragging a wire from the right side of the Function to the left side of the User Pool. Next, drag another wire from the right side of the _PopulateFrontendContent_ Function to the left side of the _UserPoolClient_ resource.
 
 ![Function To Pool Resources](./images/02-function-to-pool-resources.png)
 
@@ -63,10 +63,12 @@ Commit your updates and deploy the updated AWS stack. Start by clicking the **Co
 
 Next click **Deploy** in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the **development** environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**. Once the preparation completes (this should take about 20 seconds), click the **Deploy** button to open AWS CloudFormation. Then click the **Execute** button in the CloudFormation Console to add the Cognito User Pool and User Pool Client.
 
-### 5. Register as a new user
-In your web browser on the Wild Rydes home page add `/register.html` to the URL to make your way to the application registration page. Enter your email address, create a password, and confirm that password. 
+This will take a few minutes once again. Wait until it completes to continue on to the next step.
 
-*NOTE: Your passord must be at least 8 letters with uppercase and lowercase letters, numbers, and special characters*
+### 5. Register as a new user
+In your web browser on the Wild Rydes home page add `/register.html` to the URL to make your way to the application registration page. Enter your email address, create a password, and confirm that password.
+
+*NOTE: Your password must be at least 8 letters with uppercase and lowercase letters, numbers, and special characters*
 
 ![Wild Rydes Register](./images/02-wild-rydes-register.png)
 

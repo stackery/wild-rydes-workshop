@@ -3,20 +3,20 @@ In this step of the workshop you will create and deploy the *Wild Rydes* fronten
 
 ## AWS Services
 
-<!-- FIXME: link to Stackery resource docs? -->
-
-* AWS S3
-* AWS Lambda
-* AWS Cloudformation
+* [AWS S3](https://docs.stackery.io/docs/api/nodes/ObjectStore/)
+* [AWS Lambda](https://docs.stackery.io/docs/api/nodes/Function/)
+* [AWS Cloudformation](https://docs.aws.amazon.com/cloudformation/index.html)
 
 ## Instructions
+
+> (Optional) If you use the VS Code IDE, parts of steps 1-4 can be completed in VS Code using the Stackery extension. Read the [VS Code setup instructions](vscode-setup-instructions.md) if you would prefer to work in the IDE rather than the browser.
 
 ### 1. Add an Object Store resource
 Add an *Object Store* resource (an AWS S3 Bucket) to serve the website content. Click the **Add Resource** button in the top right of screen to reveal the resources menu. Then click on the *Object Store* resource to add it to the canvas and your application stack. Alternatively you can also drag and place the resource on the canvas.
 
 ![Add Object Store](./images/01-object-store.png)
 
-Next, double-click on the Object Store resource on the canvas to edit its settings. Set the **CLOUDFORMATION LOGICAL ID** fields to `FrontendContent`. Then click **ENABLE WEBSITE HOSTING** and leave the value of **INDEX DOCUMENT** as `index.html`. Finally save the Settings.
+Next, double-click on the Object Store resource on the canvas to edit its settings. Set the **CLOUDFORMATION LOGICAL ID** field to `FrontendContent`. Then click **ENABLE WEBSITE HOSTING** and leave the value of **INDEX DOCUMENT** as `index.html`. Finally save the Settings.
 
 ![Configure Object Store](./images/01-object-store-config.png)
 
@@ -37,7 +37,7 @@ To tell if you've drawn the relationship correctly, double-click on the Function
 
 ![Function S3 Environmental Variables](./images/01-function-s3-env-vars.png)
 
-Next in the Function's settings, set the **LOGICAL ID** field enter the value `PopulateFrontendContent`. Then update the **SOURCE PATH** field to `src/populateFrontendContent`. This path is where Stackery will create a scaffold for the function code inside the Git repository.
+Next in the Function's settings, for the **LOGICAL ID** field enter the value `PopulateFrontendContent`. Then update the **SOURCE PATH** field to `src/populateFrontendContent`. This path is where Stackery will create a scaffold for the function code inside the Git repository.
 
 ![Function Config](./images/01-function-config.png)
 
@@ -61,7 +61,7 @@ Clone your application repository using Git via the command line or favorite IDE
 ![GitHub](./images/01-github.png)
 
 ```
-$ git clone <YOUR_PROJECT_URL>
+git clone <YOUR_PROJECT_URL>
 ```
 
 If you browse the contents of the project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function resource in _src/populateFrontendContent_
@@ -89,21 +89,25 @@ Copy the following files and directories from the workshop to your application s
 * [src/populateFrontendContent/package.json](./src/populateFrontendContent/package.json)
 * [src/populateFrontendContent/static/](./src/populateFrontendContent/static/)
 
-You can do this by running the following commands on Linux or Macos.
+You can do this by running the following commands on Linux or MacOS.
 
+```bash
+cp wild-rydes-workshop/src/populateFrontendContent/index.js stackery-wild-rydes/src/populateFrontendContent
 ```
-$ cp wild-rydes-workshop/src/populateFrontendContent/index.js stackery-wild-rydes/src/populateFrontendContent
-$ cp wild-rydes-workshop/src/populateFrontendContent/package.json stackery-wild-rydes/src/populateFrontendContent
-$ cp -R wild-rydes-workshop/src/populateFrontendContent/static stackery-wild-rydes/src/populateFrontendContent
+```bash
+cp wild-rydes-workshop/src/populateFrontendContent/package.json stackery-wild-rydes/src/populateFrontendContent
+```
+```bash
+cp -R wild-rydes-workshop/src/populateFrontendContent/static stackery-wild-rydes/src/populateFrontendContent
 ```
 
 Finally, commit the new code and push it back up to your git repository.
 
-```
-$ cd stackery-wild-rydes
-$ git add src/populateFrontendContent
-$ git commit -m "Add populateFrontendContent function"
-$ git push
+```bash
+cd stackery-wild-rydes
+git add src/populateFrontendContent
+git commit -m "Add populateFrontendContent function"
+git push
 ```
 
 ### 4. Deploy the stack
