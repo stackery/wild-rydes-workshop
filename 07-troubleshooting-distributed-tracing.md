@@ -41,22 +41,72 @@ When a user requests a unicorn and the selected one is not available (the `Occup
 ### 5. Manually reporting errors
 The `SumRides` function is a stream handler. Stream Handlers are often wrapped with a try/catch block to prevent the stream from getting stuck. The previous error caused an issue with it as well. To view the error in Epsagon (without having the Lambda raising an exception and blocking the stream) we can simply report it.
 
-Change the function code to report the error to Epsagon. First, require Epsagon (no need to install it, Stackery will make sure it is there):
+In your IDE, open `stackery-wild-rides/src/SumRides/index.js` to change the function code to report the error to Epsagon. 
+
+First, require Epsagon (no need to install it, Stackery will make sure it is there):
 
 ```javascript
-const epsagon = require('epsagon')
+const epsagon = require('epsagon');
 ```
 Then, in the catch block of the main handler function, simply call `setError`
 ```javascript
   try {
   // original code
   } catch (e) {
-    epsagon.setError(e)
+    epsagon.setError(e);
   }
 ```
 
+Your function code will now look like this:
+
+```javascript
+const AWS = require('aws-sdk');
+const epsagon = require('epsagon');
+
+const ddb = new AWS.DynamoDB.DocumentClient();
+
+exports.handler = async event => {
+  try {
+    await Promise.all(
+      event.Records
+        .map(record => record.dynamodb.NewImage)
+        .map(countRide)
+    );
+  } catch (e) {
+    epsagon.setError(e);
+  }
+
+};
+
+async function countRide(newImage) {
+  const params = {
+    TableName: process.env.TABLE_NAME,
+    Key: { Name: newImage.Unicorn["M"].Name["S"] },
+    UpdateExpression: "ADD #counter :increment",
+    ExpressionAttributeNames: { '#counter': 'RideCount' },
+    ExpressionAttributeValues: { ':increment': 1 }
+  };
+
+  await ddb.update(params).promise();
+}
+
+```
+
+After you've added the new function code, save, then add, commit, and push to see the new version in Stackery:
+
+```bash
+git pull
+git add -A
+git commit -m "Added Epsagon to SumRides function"
+git push -v
+```
+
+Then, you can follow the steps in [module 5](https://github.com/stackery/wild-rydes-workshop/blob/master/05-production.md#4-deploy-the-stack-to-the-production-environment) to deploy your new function to the production environment.
+
 ### 6. Optional - fix the error
 Fix the error! Don't publish the SNS message when a unicorn is not available!
+
+
 
 ## Next Steps
 
