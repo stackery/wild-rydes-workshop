@@ -3,13 +3,13 @@ In this step of the workshop you will create and deploy the *Wild Rydes* fronten
 
 ## AWS Services
 
-<!-- FIXME: link to Stackery resource docs? -->
-
-* AWS S3
-* AWS Lambda
-* AWS Cloudformation
+* [AWS S3](https://docs.stackery.io/docs/api/nodes/ObjectStore/)
+* [AWS Lambda](https://docs.stackery.io/docs/api/nodes/Function/)
+* [AWS Cloudformation](https://docs.aws.amazon.com/cloudformation/index.html)
 
 ## Instructions
+
+> (Optional) If you use the VS Code IDE, parts of steps 1-4 can be completed in VS Code using the Stackery extension. Read the [VS Code setup instructions](vscode-setup-instructions.md) if you would prefer to work in the IDE rather than the browser.
 
 ### 1. Add an Object Store resource
 Add an *Object Store* resource (an AWS S3 Bucket) to serve the website content. Click the **Add Resource** button in the top right of screen to reveal the resources menu. Then click on the *Object Store* resource to add it to the canvas and your application stack. Alternatively you can also drag and place the resource on the canvas.

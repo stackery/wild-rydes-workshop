@@ -1,5 +1,7 @@
 # Stackery VS Code Integration
 
+Stackery recently released an integration with the VS Code IDE that allows you to visually create infrastructure-as-code templates within the IDE.
+
 To use VS Code for this workshop, perform the following steps after completing the [Intro module](readme.md):
 
 1. [Install VS Code](https://code.visualstudio.com/download)
