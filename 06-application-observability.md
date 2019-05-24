@@ -1,12 +1,10 @@
 # Application Observability
-In this module, you will integrate [Epsagon](https://epsagon.com) with your
-Stackery application.
+In this module, you will integrate [Epsagon](https://epsagon.com) with your Stackery application.
 
 ## Instructions
 
 ### 1. Update the application 
-In this step, we will use a more complex serverless application. To deploy it,
-switch to the `monitoring` branch of this repository:
+In this step, we will use a more complex serverless application. To deploy it, switch to the `monitoring` branch of this repository:
 
 ```bash
 cd ../wild-rydes-workshop/
