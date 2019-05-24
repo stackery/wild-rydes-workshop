@@ -36,7 +36,7 @@ What is causing the error? Find the root cause!
 <details>
 <summary> Open to reveal the solution</summary>
 <br>
-When a user requests a unicorn and the selected one is not available (the OccupiedUnicorns DB reports it as busy), a message is still being dispatched to the `UnicornDispached` SNS! This causes a faulty message to pass downstream and the next function malfunctions.
+When a user requests a unicorn and the selected one is not available (the `OccupiedUnicorns` DB reports it as busy), a message is still being dispatched to the `UnicornDispached` SNS! This causes a faulty message to pass downstream and the next function malfunctions.
 </details>
 
 ### 5. Manually reporting errors
