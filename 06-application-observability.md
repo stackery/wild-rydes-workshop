@@ -10,6 +10,7 @@ In this step, we will use a more complex serverless application. To deploy it, s
 cd ../wild-rydes-workshop/
 git fetch
 git checkout monitoring
+cd ..
 ```
 
 Now copy the content over to your local application:
