@@ -20,8 +20,7 @@ Then, select a successful invocation. Note that you can drill into the data of e
 ### 3. Search for transactions
 Using Epsagon, you can filter the transactions in your system based on the data they contain. Let's give it a shot.
 
-Search for all the transactions where a unicorn with a specific name was dispatched. To do that, we can use the [Event search](https://dashboard.epsagon.com/search). Search for all the
-transactions for your favorite unicorn:
+Search for all the transactions where a unicorn with a specific name was dispatched. To do that, we can use the [Event search](https://dashboard.epsagon.com/search). Search for all the transactions for your favorite unicorn:
 ![Search a unicorn](./images/07-search-unicorn.png)
 
 

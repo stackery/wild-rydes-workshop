@@ -65,7 +65,7 @@ Click the Stackery integration link:
 “Clicking here” will open your Stackery dashboard and place the Epsagon token for you!
 ![Epsagon auto instrumentation](images/06-epsagon-stackery-set-token.png)
 
-A full documentation of this step can be found [here](https://docs.epsagon.com/docs/stackery).
+The full documentation of this step can be found [here](https://docs.epsagon.com/docs/stackery).
 
 
 ### 3. Deploy updated Wild Rydes
