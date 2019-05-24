@@ -129,10 +129,14 @@ Proceed to the next module in this workshop:
 
 ## Troubleshooting
 
-* What if I hit an error while trying to `git clone` the workshop repo?
+### What if I hit an error while trying to `git clone` the workshop repo?
 
 You may see the following error when cloning the repo in your Mac terminal: `xcrun: error: invalid active developer path`. This means that you need XCode installed on your machine (even though we won't be using it in this workshop). To install the necessary tools to run git in the terminal, enter `xcode-select --install` and try cloning again when the installation completes.
 
-* Can't log into GitHub on the terminal
+### Can't log into GitHub on the terminal
 
 If your GitHub account has two-factor authentication enabled, you will need to create an access token to log into your account in the terminal. Go to [github.com/settings/profile](https://github.com/settings/profile), click **Developer Settings**, then **Personal access tokens** and generate a new token. This will be your password when signing in to GitHub in the terminal.
+
+### Prepare or deployment fails in Stackery
+
+There are several reasons a change set can fail to prepare or deploy, including template formatting errors or lacking the required environment parameters. If your stack fails to prepare or deploy at any point during the workshop, please grab a Stackery team member - we'll be happy to help you out!
