@@ -39,7 +39,7 @@ AllowHeaders: '''Authorization,Content-Type'''
 
 When a *POST* request is made to the */ride* endpoint it should trigger a Lambda function to perform an action. You will add this function and connect the *Api* resource to this function so a web request will trigger it.
 
-Add a Function from the *Add Resources* menu and then click on the newly added resources in the visual editor. Change **DISPLAY NAME** and **LOGICAL ID** to `RequestUnicorn` and **SOURCE PATH** to `src/requestUnicorn`.
+Add a Function from the *Add Resources* menu and then click on the newly added resources in the visual editor. Change **LOGICAL ID** to `RequestUnicorn` and **SOURCE PATH** to `src/requestUnicorn`.
 
 ![Function](./images/04-function.png)
 
@@ -59,7 +59,7 @@ Next, draw a line from the *POST /ride* resource inside the *Api* resource to th
 
 ### 3. Add a Table resource for saving ride records
 
-Add a Table resource from the *Add Resources* menu and click on it to open the table's configuration. For **DISPLAY NAME** and **LOGICAL ID** enter `Rides` and for **HASH KEY NAME** enter `RideId` and then save settings.
+Add a Table resource from the *Add Resources* menu and click on it to open the table's configuration. For **LOGICAL ID** enter `Rides` and for **HASH KEY NAME** enter `RideId` and then save settings.
 
 ![DynamoDB Table](./images/04-dynamosb-table.png)
 
