@@ -139,6 +139,14 @@ You may see the following error when cloning the repo in your Mac terminal: `xcr
 
 If your GitHub account has two-factor authentication enabled, you will need to create an access token to log into your account in the terminal. Go to [github.com/settings/profile](https://github.com/settings/profile), click **Developer Settings**, then **Personal access tokens** and generate a new token. This will be your password when signing in to GitHub in the terminal.
 
+### Getting a CORS error when requesting a unicorn
+
+There are a couple of possible causes of CORS errors in this app. One would be not enabling CORS in the API Gateway, which is covered in the [Add a Rest API resource step](https://github.com/stackery/wild-rydes-workshop/blob/master/04-backend-api.md#7-update-requestunicorn-function).
+
+The other is forgetting to copy the new function code for the `RequestUnicorn` function, which is covered in the [Update RequestUnicorn Function step](https://github.com/stackery/wild-rydes-workshop/blob/master/04-backend-api.md#7-update-requestunicorn-function).
+
+If you have completed both steps and are still getting a CORS error in the console, please notify a team member and we'll help you debug.
+
 ### Prepare or deployment fails in Stackery
 
 There are several reasons a change set can fail to prepare or deploy, including template formatting errors or lacking the required environment parameters. If your stack fails to prepare or deploy at any point during the workshop, please grab a Stackery team member - we'll be happy to help you out!
