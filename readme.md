@@ -66,6 +66,8 @@ Finally create a Stackery account and link your AWS and Github accounts to it.
 
 #### Create Stackery Account
 
+> If you are doing the workshop together with team members who will be sharing an AWS account, have only one team member follow this step to create an account. Once the account is set up, go to [User Settings](https://app.stackery.io/settings/users) in Stackery and click **Invite New User** to invite the remaining team members.
+
 Click on the link below to bring you to the Stackery signup page.
 
 * [Create a Stackery account](https://stackery.io/sign-up)
