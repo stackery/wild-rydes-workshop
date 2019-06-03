@@ -37,6 +37,8 @@ To complete this workshop you will need the following:
   * Stackery
   * Epsagon
 
+> Be sure the laptop you are using during the workshop can run a terminal or shell. For example, if you are using a Chromebook, make sure it has the ability to boot into Linux. MacOS, Linux, or Windows laptops should work without any changes required.
+
 At a minimum you will need to create a Stackery account. Follow the instructions below to setup what you need to get started and complete this workshop.
 
 
