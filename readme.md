@@ -37,6 +37,8 @@ To complete this workshop you will need the following:
   * Stackery
   * Epsagon
 
+> Be sure the laptop you are using during the workshop can run a terminal or shell. For example, if you are using a Chromebook, make sure it has the ability to boot into Linux. MacOS, Linux, or Windows laptops should work without any changes required.
+
 At a minimum you will need to create a Stackery account. Follow the instructions below to setup what you need to get started and complete this workshop.
 
 
@@ -65,6 +67,8 @@ Finally create a Stackery account and link your AWS and Github accounts to it.
 
 
 #### Create Stackery Account
+
+> If you are doing the workshop together with team members who will be sharing an AWS account, have only one team member follow this step to create an account. Once the account is set up, go to [User Settings](https://app.stackery.io/settings/users) in Stackery and click **Invite New User** to invite the remaining team members. Each team member can still connect their own Git account, as well as additional AWS accounts as needed.
 
 Click on the link below to bring you to the Stackery signup page.
 
@@ -136,6 +140,14 @@ You may see the following error when cloning the repo in your Mac terminal: `xcr
 ### Can't log into GitHub on the terminal
 
 If your GitHub account has two-factor authentication enabled, you will need to create an access token to log into your account in the terminal. Go to [github.com/settings/profile](https://github.com/settings/profile), click **Developer Settings**, then **Personal access tokens** and generate a new token. This will be your password when signing in to GitHub in the terminal.
+
+### Getting a CORS error when requesting a unicorn
+
+There are a couple of possible causes of CORS errors in this app. One would be not enabling CORS in the API Gateway, which is covered in the [Add a Rest API resource step](https://github.com/stackery/wild-rydes-workshop/blob/master/04-backend-api.md#7-update-requestunicorn-function).
+
+The other is forgetting to copy the new function code for the `RequestUnicorn` function, which is covered in the [Update RequestUnicorn Function step](https://github.com/stackery/wild-rydes-workshop/blob/master/04-backend-api.md#7-update-requestunicorn-function).
+
+If you have completed both steps and are still getting a CORS error in the console, please notify a team member and we'll help you debug.
 
 ### Prepare or deployment fails in Stackery
 
