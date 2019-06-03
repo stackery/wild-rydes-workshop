@@ -39,7 +39,7 @@ AllowHeaders: '''Authorization,Content-Type'''
 
 When a *POST* request is made to the */ride* endpoint it should trigger a Lambda function to perform an action. You will add this function and connect the *Api* resource to this function so a web request will trigger it.
 
-Add a Function from the *Add Resources* menu and then click on the newly added resources in the visual editor. Change **LOGICAL ID** to `RequestUnicorn` and **SOURCE PATH** to `src/requestUnicorn`.
+Add a Function from the *Add Resources* menu and then click on the newly added resources in the visual editor. Change the **LOGICAL ID** to `RequestUnicorn`.
 
 ![Function](./images/04-function.png)
 
@@ -163,16 +163,16 @@ cd stackery-wild-rydes     # if not already in the directory.
 git pull --rebase origin master
 ```
 
-Now copy [src/requestUnicorn/index.js](src/requestUnicorn/index.js) from the workshop directory (also created in module 1) into your project directory.
+Now copy [src/RequestUnicorn/index.js](src/RequestUnicorn/index.js) from the workshop directory (also created in module 1) into your project directory.
 
 *Note: Make sure you are still in the stackery-wild-rydes project directory when you run the following command.*
 ```bash
-cp ../wild-rydes-workshop/src/requestUnicorn/index.js ./src/requestUnicorn/index.js
+cp ../wild-rydes-workshop/src/RequestUnicorn/index.js ./src/RequestUnicorn/index.js
 ```
 
 ```bash
-git add src/requestUnicorn/index.js
-git commit -a -m "add requestUnicorn"
+git add src/RequestUnicorn/index.js
+git commit -a -m "add RequestUnicorn"
 git push -v
 ```
 

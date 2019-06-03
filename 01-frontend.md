@@ -37,7 +37,7 @@ To tell if you've drawn the relationship correctly, double-click on the Function
 
 ![Function S3 Environmental Variables](./images/01-function-s3-env-vars.png)
 
-Next in the Function's settings, for the **LOGICAL ID** field enter the value `PopulateFrontendContent`. Then update the **SOURCE PATH** field to `src/populateFrontendContent`. This path is where Stackery will create a scaffold for the function code inside the Git repository.
+Next in the Function's settings, for the **LOGICAL ID** field enter the value `PopulateFrontendContent`. Stackery will create a scaffold for the function code inside the Git repository.
 
 ![Function Config](./images/01-function-config.png)
 
@@ -53,7 +53,7 @@ Click the **Commit** button on the left side of the screen to review your change
 
 ### 3. Clone the application repository and workshop locally
 
-Clone your application repository using Git via the command line or favorite IDE / development tool to your computer. You will now locally edit the code of the _populateFrontendContent_ function. In the upper left of your screen underneath the stack name is a link to your code repository. Click the link to navigate to it and follow the GitHub instructions for cloning it to your computer.
+Clone your application repository using Git via the command line or favorite IDE / development tool to your computer. You will now locally edit the code of the _PopulateFrontendContent_ function. In the upper left of your screen underneath the stack name is a link to your code repository. Click the link to navigate to it and follow the GitHub instructions for cloning it to your computer.
 
 *NOTE: Do not use the URL in the example screenshot below. Use your own project's URL*
 
@@ -64,13 +64,13 @@ Clone your application repository using Git via the command line or favorite IDE
 git clone <YOUR_PROJECT_URL>
 ```
 
-If you browse the contents of the project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function resource in _src/populateFrontendContent_
+If you browse the contents of the project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function resource in _src/PopulateFrontendContent_
 
 ```
 $ tree stackery-wild-rydes
 stackery-wild-rydes/
 ├── src
-│   └── populateFrontendContent
+│   └── PopulateFrontendContent
 │       ├── README.md
 │       ├── index.js
 │       └── package.json
@@ -85,28 +85,28 @@ git clone https://github.com/stackery/wild-rydes-workshop.git wild-rydes-worksho
 
 Copy the following files and directories from the workshop to your application stack's directory.
 
-* [src/populateFrontendContent/index.js](./src/populateFrontendContent/index.js)
-* [src/populateFrontendContent/package.json](./src/populateFrontendContent/package.json)
-* [src/populateFrontendContent/static/](./src/populateFrontendContent/static/)
+* [src/PopulateFrontendContent/index.js](./src/PopulateFrontendContent/index.js)
+* [src/PopulateFrontendContent/package.json](./src/PopulateFrontendContent/package.json)
+* [src/PopulateFrontendContent/static/](./src/PopulateFrontendContent/static/)
 
 You can do this by running the following commands on Linux or MacOS.
 
 ```bash
-cp wild-rydes-workshop/src/populateFrontendContent/index.js stackery-wild-rydes/src/populateFrontendContent
+cp wild-rydes-workshop/src/PopulateFrontendContent/index.js stackery-wild-rydes/src/PopulateFrontendContent
 ```
 ```bash
-cp wild-rydes-workshop/src/populateFrontendContent/package.json stackery-wild-rydes/src/populateFrontendContent
+cp wild-rydes-workshop/src/PopulateFrontendContent/package.json stackery-wild-rydes/src/PopulateFrontendContent
 ```
 ```bash
-cp -R wild-rydes-workshop/src/populateFrontendContent/static stackery-wild-rydes/src/populateFrontendContent
+cp -R wild-rydes-workshop/src/PopulateFrontendContent/static stackery-wild-rydes/src/PopulateFrontendContent
 ```
 
 Finally, commit the new code and push it back up to your git repository.
 
 ```bash
 cd stackery-wild-rydes
-git add src/populateFrontendContent
-git commit -m "Add populateFrontendContent function"
+git add src/PopulateFrontendContent
+git commit -m "Add PopulateFrontendContent function"
 git push
 ```
 
