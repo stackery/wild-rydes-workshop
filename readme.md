@@ -149,16 +149,6 @@ The other is forgetting to copy the new function code for the `RequestUnicorn` f
 
 If you have completed both steps and are still getting a CORS error in the console, please notify a team member and we'll help you debug.
 
-### "CloudFormation cannot update a stack when a custom-named resource request"
-
-AWS CloudFormation doesn't replace a resource that has a custom name unless that custom name is changed to a different name. To prevent a stack failure and avoid the error message, change any resources with custom names to use different names before you update a stack.
-
-If you omit the identifier, CloudFormation will generate it automatically.
-
-Docs:
-* [Cloudformation custom name](https://aws.amazon.com/premiumsupport/knowledge-center/cloudformation-custom-name/)
-* [AWS Properties](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html)
-
 ### Prepare or deployment fails in Stackery
 
 There are several reasons a change set can fail to prepare or deploy, including template formatting errors or lacking the required environment parameters. If your stack fails to prepare or deploy at any point during the workshop, please grab a Stackery team member - we'll be happy to help you out!
