@@ -39,7 +39,7 @@ AllowHeaders: '''Authorization,Content-Type'''
 
 When a *POST* request is made to the */ride* endpoint it should trigger a Lambda function to perform an action. You will add this function and connect the *Api* resource to this function so a web request will trigger it.
 
-Add a Function from the *Add Resources* menu and then click on the newly added resources in the visual editor. Change the **LOGICAL ID** to `RequestUnicorn`.
+Add a Function from the *Add Resources* menu and then click on the newly added resources in the visual editor. Change the **LOGICAL ID** to `RequestUnicorn` and the **SOURCE PATH** to `src/RequestUnicorn`.
 
 ![Function](./images/04-function.png)
 
