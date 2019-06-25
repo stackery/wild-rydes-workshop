@@ -37,7 +37,7 @@ To tell if you've drawn the relationship correctly, double-click on the Function
 
 ![Function S3 Environmental Variables](./images/01-function-s3-env-vars.png)
 
-Next in the Function's settings, for the **LOGICAL ID** field enter the value `PopulateFrontendContent`. Stackery will create a scaffold for the function code inside the Git repository.
+Next in the Function's settings, for the **LOGICAL ID** field enter the value `PopulateFrontendContent`. Then update the **SOURCE PATH** field to `src/PopulateFrontendContent`. Stackery will create a scaffold for the function code inside the Git repository.
 
 ![Function Config](./images/01-function-config.png)
 
