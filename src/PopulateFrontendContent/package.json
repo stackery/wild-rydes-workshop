@@ -1,5 +1,6 @@
 {
-  "private": true,
+  "name": "populate-frontend-content",
+  "version": "1.0.0",
   "dependencies": {
     "aws-sdk": "~2",
     "cfn-custom-resource": "^4.0.11",
