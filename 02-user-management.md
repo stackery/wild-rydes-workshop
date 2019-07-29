@@ -11,7 +11,7 @@ You’ll now add user management to *Wild Rydes*. By adding AWS Cognito support 
   * User pool clients
 
 ## Instructions
-Return to the visual editor by (if it's no longer running, just enter `stackery edit` in the terminal from the root of your stack).
+Return to the visual editor in the browser (if it's no longer running, just enter `stackery edit` in the terminal from the root of your stack).
 
 ### 1. Add a User Pool resource
 
