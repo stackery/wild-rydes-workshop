@@ -11,7 +11,7 @@ You’ll now add user management to *Wild Rydes*. By adding AWS Cognito support 
   * User pool clients
 
 ## Instructions
-Return to the visual editor by clicking **EDIT** in the left sidebar from the template editor if you have not done so already.
+Return to the visual editor by (if it's no longer running, just enter `stackery edit` in the terminal from the root of your stack).
 
 ### 1. Add a User Pool resource
 
@@ -21,7 +21,7 @@ Add a Cognito User Pool resource to manage *Wild Rydes* users. Click the **Add R
 
 
 
-Now double-click on the *UserPool* resource to open up it’s configuration window. Enable the **AUTO-VERIFY EMAILS** setting and then clock **Save**.
+Now double-click on the *UserPool* resource to open up its configuration window. Enable the **AUTO-VERIFY EMAILS** setting and then click **Save**.
 
 ![User Pool Verify](./images/02-user-pool-verify.png)
 
@@ -59,13 +59,23 @@ Doing these actions will add environmental variable to the function called **USE
 
 ### 4. Deploy the stack again
 
-Commit your updates and deploy the updated AWS stack. Start by clicking the **Commit** button on the left of the screen and then click the **Commit and Push** button.
+Be sure you have saved your resource configurations, then go ahead and close the visual editor as we're done with it for now (you can hit `CTRL+C` in the terminal to stop the local server).
 
-Next click **Deploy** in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the **development** environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**. Once the preparation completes (this should take about 20 seconds), click the **Deploy** button to open AWS CloudFormation. Then click the **Execute** button in the CloudFormation Console to add the Cognito User Pool and User Pool Client.
+Since you have already deployed the stack once, we no longer need the `interactive-setup` flag when deploying again. Instead, enter the following from the root of your stack directory:
 
-This will take a few minutes once again. Wait until it completes to continue on to the next step.
+```bash
+stackery deploy --strategy local -e <your-environment-name> --aws-profile <your-aws-profile-name>
+```
+
+_Note that we're using the `--strategy` flag and setting it to `local` as the stack is not part of a Git repository. If you have linked Git to your Stackery account, you can replace ` --strategy local` with `-r master` (or whatever branch you want to deploy)._
+
+This will take a few minutes once again. Wait until it completes to continue on to the next step. You should see a readout saying the stack was successfully deployed.
 
 ### 5. Register as a new user
+Once again, you can view your deployed stack in the Stackery app. Navigate back to the __View__ tab if you're not there already, then double-click the `FrontendContent` bucket resource and follow the website hosting address link.
+
+![Hosting link](./images/02-s3-link.png)
+
 In your web browser on the Wild Rydes home page add `/register.html` to the URL to make your way to the application registration page. Enter your email address, create a password, and confirm that password.
 
 *NOTE: Your password must be at least 8 letters with uppercase and lowercase letters, numbers, and special characters*
