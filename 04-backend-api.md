@@ -64,7 +64,6 @@ Next drag a wire from the right side of the *RequestUnicorn* Function to the *Ri
 ![Function to DDB](./images/04-function-to-ddb.png)
 
 
-
 ### 4. Add a Secrets resource to *RequestUnicorn* Function
 
 Add a Secrets resource from the *Add Resources* menu to allow the *RequestUnicorn* Function to access the Unicorn Stables™ API key. Drag a wire from the right side of the *RequestUnicorn* Function to the new Secrets resource. This adds a permission for the function to read secrets from AWS Secrets Manager. It also adds an environment variable `SECRETS_NAMESPACE` to make it easier to locate the correct secrets for the environment the stack is deployed into.
