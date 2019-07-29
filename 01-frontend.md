@@ -108,7 +108,7 @@ cd stackery-wild-rydes
 stackery deploy --interactive-setup
 ```
 
-Follow the prompts to continue: hit enter to keep the stack name *stackery-wild-rydes*, then select your AWS profile (if you only have one, it'll likely be called `default` and may be selected automatically). When asked if you would like to create a new environment, hit `y` and enter an environment name - we suggest something like `development`. It's normal to have multiple environments when building serverless apps, such as development, staging, and production.
+Follow the prompts to continue: hit enter to keep the stack name *stackery-wild-rydes*, then select your AWS profile (if you only have one, it'll likely be called `default` and may be selected automatically). When asked if you would like to create a new environment, hit `y` and enter an environment name - we suggest `development`. It's normal to have multiple environments when building serverless apps, such as development, staging, and production.
 
 Once your stack and environment have been created, the deployment process begins. This typically takes a few minutes. When finished, your readout should look something like this:
 

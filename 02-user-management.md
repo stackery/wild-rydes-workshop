@@ -64,7 +64,7 @@ Be sure you have saved your resource configurations, then go ahead and close the
 Since you have already deployed the stack once, we no longer need the `interactive-setup` flag when deploying again. Instead, enter the following from the root of your stack directory:
 
 ```bash
-stackery deploy --strategy local -e <your-environment-name> --aws-profile <your-aws-profile-name>
+stackery deploy --strategy local -e development --aws-profile <your-aws-profile-name>
 ```
 
 _Note that we're using the `--strategy` flag and setting it to `local` as the stack is not part of a Git repository. If you have linked Git to your Stackery account, you can replace ` --strategy local` with `-r master` (or whatever branch you want to deploy)._
