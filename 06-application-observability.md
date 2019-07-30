@@ -23,19 +23,6 @@ cp -a wild-rydes-workshop/src stackery-wild-rydes/src
 cp wild-rydes-workshop/template.yaml stackery-wild-rydes/template.yaml
 ```
 
-Commit and push the changes:
-
-```bash
-cd stackery-wild-rydes
-git add -A
-git commit -m "Added monitoring content"
-git push -v
-```
-
-If you are still in the **Edit** view in Stackery, you'll notice the app has detected your remote changes. Click the **refresh** link to ensure you're on the latest version:
-
-![Refresh](./images/01-refresh.png)
-
 ### 2. Integrate Epsagon
 Next, let's integrate Epsagon to our application. To get started with Epsagon, take the following steps. A more detailed guide can be found at [the Epsagon documentation](https://docs.epsagon.com/docs/quickstart).
 
@@ -71,7 +58,11 @@ The full documentation of this step can be found [here](https://docs.epsagon.com
 
 
 ### 3. Deploy updated Wild Rydes
-You'll now deploy the updated *stackery-wild-rydes* stack. In the **Edit** view, refresh your stack as you have made remote changes. Click **Deploy** in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the **production** environment. For the **branch or SHA** value enter `master` and  then click **Prepare Deployment**. Once the preparation completes (this should take about 20 seconds), click the **Deploy** button to open AWS CloudFormation. Then click the **Execute** button in the CloudFormation Console.
+You'll now deploy the updated *stackery-wild-rydes* stack:
+
+```bash
+stackery deploy --strategy local -e production --aws-profile <your-aws-profile-name>
+```
 
 This will again take a few minutes.
 

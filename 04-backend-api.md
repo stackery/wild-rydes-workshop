@@ -12,7 +12,7 @@ You'll now add the backend service for handling ride requests from *Wild Rydes* 
 
 
 ## Instructions
-Go back to the *stackery-wild-rydes* stack editor. Start by clicking on **STACKS** in the upper left menu bar, then select the *stackery-wild-rydes* stack, and finally clicking on **EDIT** on the left sidebar.
+Go back to the terminal in the root of the *stackery-wild-rydes* stack directory. Re-start the visual editor by typing `stackery edit`.
 
 
 ### 1. Add a Rest API resource
@@ -25,12 +25,8 @@ Double-click on the newly added resource, which should be named *Api*, to open u
 
 
 
-Next check off **ENABLE CORS**. Next to the **CORS ACCESS CONTROL HEADERS** box change the dropdown  menu from `Literal` to `YAML`. You will then add the following to the **CORS ACCESS CONTROL HEADERS** box and then click the **Save** button.
+Next check off **ENABLE CORS**. Scroll down to the bottom and hit the **Save** button.
 
-```
-AllowOrigin: '''*'''
-AllowHeaders: '''Authorization,Content-Type'''
-```
 ![Api CORS](./images/04-api-cors.png)
 
 
@@ -45,7 +41,7 @@ Add a Function from the *Add Resources* menu and then click on the newly added r
 
 
 
-Scroll down to **ENVIRONMENT VARIABLES**. Add one named `UNICORN_STABLE_API`. On the right in the dropdown that says **Literal** change it to **Param** and then enter the value `unicornStableApi`. This will have Stackery pull the value for *unicornStableApi* that you entered in Environment Parameters in the previous module. Then click **Save**.
+Scroll down to **ENVIRONMENT VARIABLES**. Add one named `UNICORN_STABLE_API` in the `Key` field. On the right in the dropdown that says **Literal** change it to **Param** and then enter the value `unicornStableApi`. This will have Stackery pull the value for *unicornStableApi* that you entered in Environment Parameters in the previous module. Then click **Save**.
 
 ![Function environmental Variables](./images/04-function-env.png)
 
@@ -68,14 +64,11 @@ Next drag a wire from the right side of the *RequestUnicorn* Function to the *Ri
 ![Function to DDB](./images/04-function-to-ddb.png)
 
 
-
 ### 4. Add a Secrets resource to *RequestUnicorn* Function
 
 Add a Secrets resource from the *Add Resources* menu to allow the *RequestUnicorn* Function to access the Unicorn Stables™ API key. Drag a wire from the right side of the *RequestUnicorn* Function to the new Secrets resource. This adds a permission for the function to read secrets from AWS Secrets Manager. It also adds an environment variable `SECRETS_NAMESPACE` to make it easier to locate the correct secrets for the environment the stack is deployed into.
 
 ![Secrets Manager](./images/04-secrets-add.png)
-
-
 
 
 ### 5. Point *PopulateFrontendContent* Function to the *Api* URL.
@@ -90,7 +83,11 @@ Drag a wire from the right side of the *PopulateFrontendContent* Function to the
 
 Requests to *POST /ride* must have a valid User Pool authentication token in the `Authorization` header. Unfortunately, this is something that isn't nicely abstracted by AWS SAM yet, so we will manually edit the *Api* resource settings.
 
-Start by changing from the *Visual* to *Template* editor mode by clicking on **Template** in the upper left. In the template editor find the *Api* resource (it will be named *Api* and have a *Type* attribute with the value `AWS::Serverless::Api`). You can use *Ctrl+f* to search the file for this. Add the following authentication configuration under the *Properties* key.
+For this step, we will be directly editing the `template.yaml` template file at the root of our stack. Open that file in your IDE.
+
+![Template file](./images/04-template-file.png)
+
+In the template file, find the *Api* resource (it will be named *Api* and have a *Type* attribute with the value `AWS::Serverless::Api`). You can use *Ctrl+f* to search the file for this. Add the following authentication configuration under the *Properties* key.
 
 ```YAML
 Auth:
@@ -105,9 +102,9 @@ security:
   - WildRydes: []
 ```
 
-> YAML is very unforgiving of indentation mistakes. Make sure your indentation is exactly the same as shown below before committing your changes.
+> YAML is very unforgiving of indentation mistakes. Make sure your indentation is exactly the same as shown below before saving your changes.
 
-The complete *Api* resource definition look like it does below. *(NOTE: that the order of the properties doesn't matter)*
+The complete *Api* resource definition look like it does below. *(NOTE: the order of the properties doesn't matter)*
 ```YAML
   Api:
     Type: AWS::Serverless::Api
@@ -140,10 +137,7 @@ The complete *Api* resource definition look like it does below. *(NOTE: that the
 
 ```
 
-Finally, commit your changes by clicking the **Commit** button and in the popup window clicking **Commit and Push**.
-
-![Commit And Push](./images/04-commit-and-push.png)
-
+Be sure to save your changes to the `template.yaml` file.
 
 
 ### 7. Update *RequestUnicorn* Function.
@@ -156,37 +150,31 @@ Update the *RequestUnicorn* Function code so it is functional. The code accepts 
 * Records the ride to the *Rides* DynamoDB table
 * Returns with the response to the frontend website request
 
-Start by updating your local *stackery-wild-rydes* GitHub clone (created in module 1) so it has all the changes you've made over the past few workshop modules.
+Copy [src/RequestUnicorn/index.js](src/RequestUnicorn/index.js) from the workshop directory (also created in module 1) into your project directory.
 
-```bash
-cd stackery-wild-rydes     # if not already in the directory.
-git pull --rebase origin master
-```
+*Note: Make sure you are still in the stackery-wild-rydes project directory when you run the following command. You can stop the local server with `CTRL+C`, then enter:*
 
-Now copy [src/RequestUnicorn/index.js](src/RequestUnicorn/index.js) from the workshop directory (also created in module 1) into your project directory.
-
-*Note: Make sure you are still in the stackery-wild-rydes project directory when you run the following command.*
 ```bash
 cp ../wild-rydes-workshop/src/RequestUnicorn/index.js ./src/RequestUnicorn/index.js
 ```
 
-```bash
-git add src/RequestUnicorn/index.js
-git commit -a -m "add RequestUnicorn"
-git push -v
-```
+If you open `./src/RequestUnicorn/index.js`, you will see the updated code:
 
-
+![Function code](./images/04-function-code.png)
 
 ### 8. Deploy updated Wild Rydes
 
-You'll now deploy the updated *stackery-wild-rydes* stack. In the **Edit** view, refresh your stack as you have made remote changes. Click **Deploy** in the left sidebar to enter the Deploy view. Next click **Prepare new deployment** for the **development** environment. For the **branch or SHA** value enter `master` and then click **Prepare Deployment**. Once the preparation completes (this should take about 20 seconds), click the **Deploy** button to open AWS CloudFormation. Then click the **Execute** button in the CloudFormation Console. Once again, this will take a couple of minutes.
+You'll now deploy the updated *stackery-wild-rydes* stack:
 
-*NOTE: So far we’ve always used the UI for doing deployments. Stackery also provides a CLI if you’re more inclined to use something like that. Read about the [`stackery deploy` command here](https://docs.stackery.io/docs/api/cli/stackery_deploy/).*
+```bash
+stackery deploy --strategy local -e development --aws-profile <your-aws-profile-name>
+```
+
+Once again, this will take a couple of minutes.
 
 ### 9. Request a unicorn
 
-When your deployment is done, head back to the *Wild Rydes* website (with `/ride.html` added to the address). If the error message from module 2 is still up, refresh the page. Then right click on the map to drop a pin. After that click **Request Unicorn**. A unicorn will fly in from the edge of the screen towards your location pin.
+When your deployment is done, head back to the *Wild Rydes* website (with `/ride.html` added to the address). If the error message from module 2 is still up, refresh the page. Then right click on the map to drop a pin. After that click **Request Unicorn**. A unicorn will fly in from the edge of the screen towards your location pin. Huzzah! 🦄
 
 ![Wild Rydes Pickup](./images/04-wild-rydes-pickup.png)
 

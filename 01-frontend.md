@@ -12,15 +12,13 @@ In this step of the workshop you will create and deploy the *Wild Rydes* fronten
 > (Optional) If you use the VS Code IDE, parts of steps 1-4 can be completed in VS Code using the Stackery extension. Read the [VS Code setup instructions](vscode-setup-instructions.md) if you would prefer to work in the IDE rather than the browser. You will still need a Stackery account, as you need to log into Stackery when using the extension.
 
 ### 1. Add an Object Store resource
-Add an *Object Store* resource (an AWS S3 Bucket) to serve the website content. Click the **Add Resource** button in the top right of screen to reveal the resources menu. Then click on the *Object Store* resource to add it to the canvas and your application stack. Alternatively you can also drag and place the resource on the canvas.
+Add an *Object Store* resource (an AWS S3 Bucket) to serve the website content. With `stackery edit` running in the terminal, click the **Add Resource** button in the top right of the screen to reveal the resources menu. Then click on the *Object Store* resource to add it to the canvas and your application stack. Alternatively you can also drag and place the resource on the canvas.
 
 ![Add Object Store](./images/01-object-store.png)
 
-Next, double-click on the Object Store resource on the canvas to edit its settings. Set the **CLOUDFORMATION LOGICAL ID** field to `FrontendContent`. Then click **ENABLE WEBSITE HOSTING** and leave the value of **INDEX DOCUMENT** as `index.html`. Finally save the Settings.
+Next, double-click on the Object Store resource on the canvas to edit its settings. Set the **CLOUDFORMATION LOGICAL ID** field to `FrontendContent`. Then click **ENABLE WEBSITE HOSTING** and leave the value of **INDEX DOCUMENT** as `index.html`. Be sure to click the button to save the Settings.
 
 ![Configure Object Store](./images/01-object-store-config.png)
-
-Click the **Commit** button on the left side of the screen to review your changes. The click **Commit and Push** to save your changes and push them to GitHub.
 
 ### 2. Add a Function resource
 Add a Function resource (an AWS Lambda Function) to update the website's static content. This function will copy the contents of a directory in the project source code to the Object Store we've just configured. You will also configure this Function resource to be triggered on every deployment of the stack.
@@ -37,49 +35,45 @@ To tell if you've drawn the relationship correctly, double-click on the Function
 
 ![Function S3 Environmental Variables](./images/01-function-s3-env-vars.png)
 
-Next in the Function's settings, for the **LOGICAL ID** field enter the value `PopulateFrontendContent`. Then update the **SOURCE PATH** field to `src/PopulateFrontendContent`. Stackery will create a scaffold for the function code inside the Git repository.
+Next in the Function's settings, for the **LOGICAL ID** field enter the value `PopulateFrontendContent`. Then update the **SOURCE PATH** field to `src/PopulateFrontendContent`. Stackery will create a scaffold for the function code on your local machine.
 
 ![Function Config](./images/01-function-config.png)
-
 
 Scroll further down in the settings and check the **TRIGGER ON FIRST DEPLOY** and **TRIGGER ON EVERY DEPLOY** box. This will create an [AWS CloudFormation CustomResource](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cfn-customresource.html) in the stack that will trigger the function on deployments and updates. After you've done this, click the **Save** Button.
 
 ![Function Config Deploy](./images/01-function-config-deploy.png)
 
-Click the **Commit** button on the left side of the screen to review your changes. The click **Commit and Push** to save your changes and push them to GitHub.
+Your stack should now look like this:
 
-![Commit Function changes](./images/01-function-commit.png)
-
-
-### 3. Clone the application repository and workshop locally
-
-Clone your application repository using Git via the command line or favorite IDE / development tool to your computer. You will now locally edit the code of the _PopulateFrontendContent_ function. In the upper left of your screen underneath the stack name is a link to your code repository. Click the link to navigate to it and follow the GitHub instructions for cloning it to your computer.
-
-*NOTE: Do not use the URL in the example screenshot below. Use your own project's URL*
+![Commit Function changes](./images/01-initial-stack.png)
 
 
-![GitHub](./images/01-github.png)
+### 3. Edit function code locally
 
-```
-git clone <YOUR_PROJECT_URL>
-```
+You will now locally edit the code of the _PopulateFrontendContent_ function.
 
-If you browse the contents of the project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function resource in _src/PopulateFrontendContent_
+If you browse the contents of your project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function resource in _src/PopulateFrontendContent_
 
 ```
 $ tree stackery-wild-rydes
 stackery-wild-rydes/
+├── deployHooks
 ├── src
 │   └── PopulateFrontendContent
-│       ├── README.md
+│       ├── .stackery-config.yaml
 │       ├── index.js
-│       └── package.json
+│       ├── package.json
+│       └── README.md
+├── .stackery-config.yaml
 └── template.yaml
 ```
 
-Next clone this workshop to your computer. You will be copying code from the workshop repository into your own application stack.
+Before we do anything else, we need to get some source code from this workshop to go into that directory.
+
+First, `git clone` this workshop to your computer. You will be copying code from the workshop repository into your own application stack. Open a new terminal tab or window in the same directory, then enter the following:
 
 ```
+cd ..
 git clone https://github.com/stackery/wild-rydes-workshop.git wild-rydes-workshop
 ```
 
@@ -101,47 +95,42 @@ cp wild-rydes-workshop/src/PopulateFrontendContent/package.json stackery-wild-ry
 cp -R wild-rydes-workshop/src/PopulateFrontendContent/static stackery-wild-rydes/src/PopulateFrontendContent
 ```
 
-Finally, commit the new code and push it back up to your git repository.
+You'll notice a new `static` directory in your `src/PopulateFrontendContent/` folder - that's going to be your app frontend that we will deploy in the next step.
 
-```bash
-cd stackery-wild-rydes
-git add src/PopulateFrontendContent
-git commit -m "Add PopulateFrontendContent function"
-git push
-```
 
 ### 4. Deploy the stack
 You'll now deploy the *stackery-wild-rydes* stack to AWS. Stackery will package your code repository and deploy it using AWS CloudFormation.
 
-If you are still in the **Edit** view in Stackery, you'll notice the app has detected your remote changes. Click the **refresh** link to ensure you're on the latest version:
+We'll be using the `stackery deploy` command with the `interactive-setup` flag. This allows us to add our new stack to Stackery, create a new environment to deploy into, and even link our AWS account if needed. In the terminal, enter:
 
-![Refresh](./images/01-refresh.png)
+```bash
+cd stackery-wild-rydes
+stackery deploy --interactive-setup
+```
 
-Then, click the **Deploy** view in the left sidebar to enter the *Deploy* view. Next click **Prepare new deployment** for the **development** environment.
+Follow the prompts to continue: hit enter to keep the stack name *stackery-wild-rydes*, then select your AWS profile (if you only have one, it'll likely be called `default` and may be selected automatically). When asked if you would like to create a new environment, hit `y` and enter an environment name - we suggest `development`. It's normal to have multiple environments when building serverless apps, such as development, staging, and production.
 
-![Deploy](./images/01-deploy.png)
+Once your stack and environment have been created, the deployment process begins. This typically takes a few minutes. When finished, your readout should look something like this:
 
-
-
-For the **branch or SHA** value enter `master` (if it's not already there) and then click **Prepare Deployment**.
-
-![Deploy Prepare](./images/01-deploy-prepare.png)
-
-
-
-Once the preparation completes (this should take about 20 seconds) the **Prepare Deployment** button will now say **Deploy**. Click the button to open AWS CloudFormation. Then click the **Execute** button in the CloudFormation Console to provision the Object Store (S3 Bucket) and Function (Lambda) resources.
-
-![01-cloudformation](./images/01-cloudformation.png)
-
+![01-cloudformation](./images/01-cli.png)
 
 
 ### 5. View the website
 
 Now you can visit your Wild Rydes website that you have deployed.
 
-Once the deployment is complete, switch to the **View** view in the left sidebar of Stackery. Double-click the *FrontendContent* Object Store resource to view its details. On the details slide-in click on the **Website Hosting Address** link to open the website.
+Once the deployment is complete, open the Stackery App in your browser, and navigate to the __Stacks__ view tab:
+
+
+![Deploy View](./images/01-stack-view.png)
+
+Click on the *stackery-wild-rydes* stack. You will be taken to the __Overview__ tab. From there, click on the __View__ link, and you'll see your stack's deployed view:
 
 ![Deploy View](./images/01-deploy-view.png)
+
+Double-click the *FrontendContent* Object Store resource to view its details. On the details slide-in click on the **Website Hosting Address** link to open the website.
+
+![Deploy View](./images/01-deploy-link.png)
 
 
 

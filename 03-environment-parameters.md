@@ -18,9 +18,7 @@ Click on **ENVIRONMENTS** at the top of the Stackery screen to be brought to you
 
 ![Environments](./images/03-environments.png)
 
-
-
-Then on the left sidebar click on **PARAMETERS**. *Environment Parameters* is a JSON formatted key value pair. The current value should be "_{}_". Replace the contents of *Environment Parameters* with the following:
+Then on the left sidebar click on **PARAMETERS**. *Environment Parameters* is a JSON formatted key-value pair. The current value should be "_{"parameterKey": "parameterValue"}_". Replace the contents of *Environment Parameters* with the following:
 
 ```JSON
 {
