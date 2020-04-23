@@ -15,7 +15,7 @@ Resources:
         - ResourceName: PopulateFrontendContent
       CodeUri: src/populateFrontendContent
       Handler: index.handler
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
@@ -109,7 +109,7 @@ Resources:
         - ResourceName: RequestUnicorn
       CodeUri: src/requestUnicorn
       Handler: index.handler
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
