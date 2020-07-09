@@ -69,7 +69,7 @@ Resources:
       Description: !Sub
         - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
         - ResourceName: RequestUnicorn
-      CodeUri: src/requestUnicorn
+      CodeUri: src/RequestUnicorn
       Handler: index.handler
       Runtime: nodejs12.x
       MemorySize: 3008
