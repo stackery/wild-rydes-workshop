@@ -1,0 +1,1 @@
+public/js/config.js
