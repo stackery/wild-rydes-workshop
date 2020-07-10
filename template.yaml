@@ -21,34 +21,36 @@ Resources:
     Type: AWS::Cognito::UserPoolClient
     Properties:
       UserPoolId: !Ref UserPool
-  Api:
-    Type: AWS::Serverless::Api
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
     Properties:
-      Name: !Sub
-        - ${ResourceName} From Stack ${StackTagName} Environment ${EnvironmentTagName}
-        - ResourceName: Api
-      StageName: !Ref EnvironmentAPIGatewayStageName
-      Auth:
-        Authorizers:
-          WildRydes:
-            UserPoolArn: !GetAtt UserPool.Arn
       DefinitionBody:
-        swagger: '2.0'
-        info: {}
+        openapi: '3.0'
+        info:
+          title: !Sub ${AWS::StackName}-HttpApi
+          version: '1.0'
         paths:
           /ride:
             post:
-              x-amazon-apigateway-integration:
-                httpMethod: POST
-                type: aws_proxy
-                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RequestUnicorn.Arn}/invocations
               responses: {}
-              security:
-                - WildRydes: []
-      EndpointConfiguration: REGIONAL
-      Cors:
-        AllowHeaders: '''Authorization,Content-Type'''
-        AllowOrigin: '''*'''
+      FailOnWarnings: true
+      Auth:
+        Authorizers:
+          Authorizer:
+            IdentitySource: $request.header.Authorization
+            JwtConfiguration:
+              issuer: !Sub https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}
+              audience:
+                - !Ref UserPoolClient
+        DefaultAuthorizer: Authorizer
+      CorsConfiguration:
+        AllowOrigins:
+          - '*'
+        AllowHeaders:
+          - Authorization
+          - Content-Type
+        AllowMethods:
+          - '*'
   Rides:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -88,12 +90,14 @@ Resources:
           SECRETS_NAMESPACE: !Sub /${EnvironmentTagName}/
           UNICORN_STABLE_API: !Ref EnvConfigunicornStableApiAsString
       Events:
-        ApiPOSTride:
-          Type: Api
+        HttpApiPOSTride:
+          Type: HttpApi
           Properties:
             Path: /ride
             Method: POST
-            RestApiId: !Ref Api
+            ApiId: !Ref HttpApi
+            PayloadFormatVersion: '2.0'
+            TimeoutInMillis: 29000
   Website:
     Type: AWS::CodeBuild::Project
     Metadata:
@@ -115,7 +119,7 @@ Resources:
           - Name: USER_POOL_ARN
             Value: !GetAtt UserPool.Arn
           - Name: API_URL
-            Value: !Sub https://${Api}.execute-api.${AWS::Region}.amazonaws.com/${Api.Stage}
+            Value: !Sub https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com
       ServiceRole: !GetAtt WebsiteRole.Arn
       Source:
         Type: NO_SOURCE
@@ -262,9 +266,6 @@ Parameters:
   EnvironmentTagName:
     Type: String
     Description: Environment Name (injected by Stackery at deployment time)
-  EnvironmentAPIGatewayStageName:
-    Type: String
-    Description: Environment name used for API Gateway Stage names (injected by Stackery at deployment time)
   EnvConfigunicornStableApiAsString:
     Type: AWS::SSM::Parameter::Value<String>
     Default: /<EnvironmentName>/unicornStableApi

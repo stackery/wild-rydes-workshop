@@ -17,7 +17,7 @@ exports.handler = async (event, context) => {
         // Because we're using a Cognito User Pools authorizer, all of the claims
         // included in the authentication token are provided in the request context.
         // This includes the username as well as other attributes.
-        const username = event.requestContext.authorizer.claims['cognito:username'];
+        const username = event.requestContext.authorizer.jwt.claims['cognito:username'];
 
         // The body field of the event in a proxy integration is a raw string.
         // In order to extract meaningful values, we need to first parse this string
@@ -34,17 +34,11 @@ exports.handler = async (event, context) => {
         // Because this Lambda function is called by an API Gateway proxy integration
         // the result object must use the following structure.
         return {
-            statusCode: 201,
-            body: JSON.stringify({
-                RideId: rideId,
-                Unicorn: unicorn,
-                UnicornName: unicorn.Name,
-                Eta: '30 seconds',
-                Rider: username,
-            }),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-            },
+            RideId: rideId,
+            Unicorn: unicorn,
+            UnicornName: unicorn.Name,
+            Eta: '30 seconds',
+            Rider: username,
         };
     } catch (err) {
         console.error(err);
@@ -157,9 +151,6 @@ function errorResponse(errorMessage, awsRequestId) {
     body: JSON.stringify({
       Error: errorMessage,
       Reference: awsRequestId,
-    }),
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
+    })
   };
 }
