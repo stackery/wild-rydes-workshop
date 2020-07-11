@@ -43,15 +43,15 @@ Next, drag a wire from the _UserPoolClient_ resource to the _UserPool_ resource.
 
 ### 3. Configure website content to authenticate users.
 
-Now connect the _PopulateFrontendContent_ Function to the *UserPool* and *UserPoolClient* resources. Doing so will create environmental variables in the Function’s configuration and those variable values will be used by the _PopulateFrontendContent_ Function to populate the *js/config.js* object which will be stored in the _FrontendContent_ S3 bucket.
+Now connect the _Website_ resource to the *UserPool* and *UserPoolClient* resources. Doing so will create environmental variables in the Website's configuration and those variable values will be used to populate the *js/config.js* object which will be stored in the _FrontendContent_ S3 bucket.
 
-Start by connecting the _PopulateFrontendContent_ Function to the _UserPool_ resource. Do this by dragging a wire from the right side of the Function to the left side of the User Pool. Next, drag another wire from the right side of the _PopulateFrontendContent_ Function to the left side of the _UserPoolClient_ resource.
+Start by connecting the _Website_ resource's _Reference_ connector to the _UserPool_ resource. Do this by dragging a wire from the right side of the _Website_'s _References_ to the left side of the _User Pool_ resource. Next, drag another wire from the right side of the _Website_'s _References_ to the left side of the _UserPoolClient_ resource.
 
-![Function To Pool Resources](./images/02-function-to-pool-resources.png)
+![Website To Pool Resources](./images/02-website-to-pool-resources.png)
 
 
 
-Doing these actions will add environmental variable to the function called **USER_POOL_ID** and **USER_POOL_CLIENT_ID**.
+Doing these actions will add environmental variable to the Website called **USER_POOL_ID** and **USER_POOL_CLIENT_ID**.
 
 ![User Pool Env Vars](./images/02-user-pool-env-vars.png)
 

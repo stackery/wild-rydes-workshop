@@ -15,17 +15,17 @@ You'll now add the backend service for handling ride requests from *Wild Rydes* 
 Go back to the terminal in the root of the *stackery-wild-rydes* stack directory. Re-start the visual editor by typing `stackery edit`.
 
 
-### 1. Add a Rest API resource
-Add a Rest API resource to the application stack. Click **Add Resources** and then click on the Rest Api resource. This will add an AWS API Gateway to your stack which will handle web requests to the backend service.
-
-<!-- FIXME: We should explain CORS -->
-Double-click on the newly added resource, which should be named *Api*, to open up its configuration. Modify the **Routes** setting so there is one route, a `POST` action to the `/ride` endpoint.
+### 1. Add an HTTP API resource
+Add an HTTP API resource to the application stack. Click **Add Resources** and then click on the HTTP API resource. This will add an AWS API Gateway to your stack which will handle web requests to the backend service.
 
 ![Api resource](./images/04-api-resource.png)
 
+<!-- FIXME: We should explain CORS -->
+Double-click on the newly added resource, which should be named *HttpApi*, to open up its configuration. Modify the **Routes** setting so there is one route, a `POST` action to the `/ride` endpoint.
 
+![Api Route](./images/04-api-route.png)
 
-Next check off **ENABLE CORS**. Scroll down to the bottom and hit the **Save** button.
+Next scroll down and check **SET CORS ALLOWED ORIGINS** and enter `- '*'` for **CORS ALLOWED ORIGINS** to allow browser requests from any domain (like our S3 Bucket Website). Check **SET CORS ALLOWED HEADERS** and leave the defaults for **CORS ALLOWED HEADERS** to allow browsers to send requests with Authorization and Content-Type headers. Lastly, check **SET CORS ALLOWED METHODS** and leave the default of `- '*'` for **CORS ALLOWED METHODS** to allow any HTTP method requested by a browser. Scroll down to the bottom and hit the **Save** button.
 
 ![Api CORS](./images/04-api-cors.png)
 
@@ -57,7 +57,7 @@ Next, draw a line from the *POST /ride* resource inside the *Api* resource to th
 
 Add a Table resource from the *Add Resources* menu and click on it to open the table's configuration. For **LOGICAL ID** enter `Rides` and for **HASH KEY NAME** enter `RideId` and then save settings.
 
-![DynamoDB Table](./images/04-dynamosb-table.png)
+![DynamoDB Table](./images/04-dynamodb-table.png)
 
 Next drag a wire from the right side of the *RequestUnicorn* Function to the *Rides* Table. This will add the `TABLE_NAME` environment variable so the function can access the table and adds permissions for the function to manipulate records.
 
@@ -71,73 +71,23 @@ Add a Secrets resource from the *Add Resources* menu to allow the *RequestUnicor
 ![Secrets Manager](./images/04-secrets-add.png)
 
 
-### 5. Point *PopulateFrontendContent* Function to the *Api* URL.
+### 5. Point the *Website* Builder to the *Api* URL.
 
-Drag a wire from the right side of the *PopulateFrontendContent* Function to the left side of the *Api* resource. Doing this adds the `API_URL` environment variable to the function. The *PopulateFrontendContent* Function uses the environment variable to generate *js/config.js* as part of the website content.
+Drag a wire from the right side of the *Website* resource's *References* connector to the left side of the *Api* resource. Doing this adds the `API_URL` environment variable to the website builder. The *Website* resource uses the environment variable to generate *js/config.js* as part of the website content.
 
-![S3 Bucket to APIG](./images/04-bucket-to-api.png)
+![S3 Bucket to APIG](./images/04-website-to-api.png)
 
 
 
 ### 6. Authorize requests using the User Pool Client
 
-Requests to *POST /ride* must have a valid User Pool authentication token in the `Authorization` header. Unfortunately, this is something that isn't nicely abstracted by AWS SAM yet, so we will manually edit the *Api* resource settings.
+Requests to *POST /ride* must have a valid User Pool authentication token in the `Authorization` header. Open the *HttpApi* resource, create an authorizer named `Authorizer`, and set it as the **DEFAULT AUTHORIZER**. This will ensure that requests made to every route of the API must be authorized with a JWT token in the `Authorization` HTTP header. Scroll to the bottom and save the settings.
 
-For this step, we will be directly editing the `template.yaml` template file at the root of our stack. Open that file in your IDE.
+![Template file](./images/04-authorizer.png)
 
-![Template file](./images/04-template-file.png)
+This will create a new *Authorizer* connection point for the *HttpApi* resource. Drag a wire from the right side of the *Authorizer* of the *HttpApi* resource to the left side of the *UserPoolClient* resource. This will require JWT authorization tokens in API requets to match those from our *UserPoolClient* resource.
 
-In the template file, find the *Api* resource (it will be named *Api* and have a *Type* attribute with the value `AWS::Serverless::Api`). You can use *Ctrl+f* to search the file for this. Add the following authentication configuration under the *Properties* key.
-
-```YAML
-Auth:
-  Authorizers:
-    WildRydes:
-        UserPoolArn: !GetAtt UserPool.Arn
-```
-
-Next locate the *POST /ride* route under *DefinitionBody -> paths -> /ride -> post* path in the YAML and add the following *security* property:
-```YAML
-security:
-  - WildRydes: []
-```
-
-> YAML is very unforgiving of indentation mistakes. Make sure your indentation is exactly the same as shown below before saving your changes.
-
-The complete *Api* resource definition look like it does below. *(NOTE: the order of the properties doesn't matter)*
-```YAML
-  Api:
-    Type: AWS::Serverless::Api
-    Properties:
-      Auth:
-        Authorizers:
-          WildRydes:
-            UserPoolArn: !GetAtt UserPool.Arn
-      Name: !Sub
-        - ${ResourceName} From Stack ${StackTagName} Environment ${EnvironmentTagName}
-        - ResourceName: Api
-      StageName: !Ref EnvironmentAPIGatewayStageName
-      DefinitionBody:
-        swagger: '2.0'
-        info: {}
-        paths:
-          /ride:
-            post:
-              security:
-                - WildRydes: []
-              x-amazon-apigateway-integration:
-                httpMethod: POST
-                type: aws_proxy
-                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${RequestUnicorn.Arn}/invocations
-              responses: {}
-      EndpointConfiguration: REGIONAL
-      Cors:
-        AllowOrigin: '''*'''
-        AllowHeaders: '''Authorization,Content-Type'''
-
-```
-
-Be sure to save your changes to the `template.yaml` file.
+![Template file](./images/04-authorizer-user-pool-client.png)
 
 
 ### 7. Update *RequestUnicorn* Function.

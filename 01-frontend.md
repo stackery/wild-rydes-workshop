@@ -5,6 +5,7 @@ In this step of the workshop you will create and deploy the *Wild Rydes* fronten
 
 * [AWS S3](https://docs.stackery.io/docs/api/nodes/ObjectStore/)
 * [AWS Lambda](https://docs.stackery.io/docs/api/nodes/Function/)
+* [AWS CodeBuild for deploying static website content](https://docs.stackery.io/docs/api/nodes/Website/)
 * [AWS Cloudformation](https://docs.aws.amazon.com/cloudformation/index.html)
 
 ## Instructions
@@ -20,55 +21,29 @@ Next, double-click on the Object Store resource on the canvas to edit its settin
 
 ![Configure Object Store](./images/01-object-store-config.png)
 
-### 2. Add a Function resource
-Add a Function resource (an AWS Lambda Function) to update the website's static content. This function will copy the contents of a directory in the project source code to the Object Store we've just configured. You will also configure this Function resource to be triggered on every deployment of the stack.
+### 2. Add a Website resource
+Add a Website resource (an AWS CodeBuild Project) to build the website's static content. This function will copy the contents of a directory in the project source code to the Object Store we've just configured.
 
-From the *Add Resources* menu (found buy clicking *Add Resource*), click a Function resource to add it to the stack.
+From the *Add Resources* menu (found buy clicking *Add Resource*), click a Website resource to add it to the stack.
 
-![Function Resource](./images/01-function.png)
+![Website Resource](./images/01-website.png)
 
-Next drag a wire from the Function to the *FrontendContent* Object Store. **Make sure to drag the wire from the right end of the Function resource and connect it to the left end of the Object Store resource**. The line you are dragging should be a dotted line and not a solid line if you've done this correctly. This distinction is necessary because we want to indicate that the Function resource needs permissions to access the Object Store resource, not that the Object Store resource is an event trigger for the Function.
+Next drag a wire from the Website resource's Destination Object Store to the *FrontendContent* Object Store. **Make sure to drag the wire to the connector on the left side of the Object Store resource**.
 
-![Function Relationship](./images/01-function-relationship.png)
+![Website Relationship](./images/01-website-relationship.png)
 
-To tell if you've drawn the relationship correctly, double-click on the Function resource and scroll down to **ENVIRONMENT VARIABLES**. You should see the variables `BUCKET_NAME` and `BUCKET_ARN` defined.
+Double-click on the Website resource to view its settings. The default settings work well for our use case, where it will run `npm run build` in the `src/site` directory, then upload all the files from `src/site/public` to the destination object store.
 
-![Function S3 Environmental Variables](./images/01-function-s3-env-vars.png)
-
-Next in the Function's settings, for the **LOGICAL ID** field enter the value `PopulateFrontendContent`. Then update the **SOURCE PATH** field to `src/PopulateFrontendContent`. Stackery will create a scaffold for the function code on your local machine.
-
-![Function Config](./images/01-function-config.png)
-
-Scroll further down in the settings and check the **TRIGGER ON FIRST DEPLOY** and **TRIGGER ON EVERY DEPLOY** box. This will create an [AWS CloudFormation CustomResource](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cfn-customresource.html) in the stack that will trigger the function on deployments and updates. After you've done this, click the **Save** Button.
-
-![Function Config Deploy](./images/01-function-config-deploy.png)
+![Website Config](./images/01-website-config.png)
 
 Your stack should now look like this:
 
-![Commit Function changes](./images/01-initial-stack.png)
+![Commit Website changes](./images/01-initial-stack.png)
 
 
-### 3. Edit function code locally
+### 3. Edit website code locally
 
-You will now locally edit the code of the _PopulateFrontendContent_ function.
-
-If you browse the contents of your project directory you will notice the repository has a scaffold for the _PopulateFrontendContent_ Function resource in _src/PopulateFrontendContent_
-
-```
-$ tree stackery-wild-rydes
-stackery-wild-rydes/
-├── deployHooks
-├── src
-│   └── PopulateFrontendContent
-│       ├── .stackery-config.yaml
-│       ├── index.js
-│       ├── package.json
-│       └── README.md
-├── .stackery-config.yaml
-└── template.yaml
-```
-
-Before we do anything else, we need to get some source code from this workshop to go into that directory.
+You will now locally edit the website source code. To simplify this task we will grab the source code from this workshop repository.
 
 First, `git clone` this workshop to your computer. You will be copying code from the workshop repository into your own application stack. Open a new terminal tab or window in the same directory, then enter the following:
 
@@ -77,25 +52,17 @@ cd ..
 git clone https://github.com/stackery/wild-rydes-workshop.git wild-rydes-workshop
 ```
 
-Copy the following files and directories from the workshop to your application stack's directory.
+We will copy the following files and directories from the workshop to your application stack's directory using the commands below.
 
-* [src/PopulateFrontendContent/index.js](./src/PopulateFrontendContent/index.js)
-* [src/PopulateFrontendContent/package.json](./src/PopulateFrontendContent/package.json)
-* [src/PopulateFrontendContent/static/](./src/PopulateFrontendContent/static/)
+* Static assets: [src/site/public](./src/site/public)
+* Build dependencies: [src/site/package.json](./src/site/package.json)
+* Build script: [src/site/build.js](./src/site/build.js)
 
-You can do this by running the following commands on Linux or MacOS.
+You can do this by running the following command on Linux or MacOS.
 
 ```bash
-cp wild-rydes-workshop/src/PopulateFrontendContent/index.js stackery-wild-rydes/src/PopulateFrontendContent
+cp -R wild-rydes-workshop/src/site stackery-wild-rydes/src
 ```
-```bash
-cp wild-rydes-workshop/src/PopulateFrontendContent/package.json stackery-wild-rydes/src/PopulateFrontendContent
-```
-```bash
-cp -R wild-rydes-workshop/src/PopulateFrontendContent/static stackery-wild-rydes/src/PopulateFrontendContent
-```
-
-You'll notice a new `static` directory in your `src/PopulateFrontendContent/` folder - that's going to be your app frontend that we will deploy in the next step.
 
 
 ### 4. Deploy the stack

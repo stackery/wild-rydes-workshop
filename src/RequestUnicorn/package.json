@@ -1,7 +1,4 @@
 {
   "name": "request-unicorn",
-  "version": "1.0.0",
-  "dependencies": {
-    "aws-sdk": "~2"
-  }
+  "version": "1.0.0"
 }
