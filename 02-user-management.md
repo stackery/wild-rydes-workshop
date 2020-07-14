@@ -59,15 +59,11 @@ Doing these actions will add environmental variable to the Website called **USER
 
 ### 4. Deploy the stack again
 
-Be sure you have saved your resource configurations, then go ahead and close the visual editor as we're done with it for now (you can hit `CTRL+C` in the terminal to stop the local server).
-
-Since you have already deployed the stack once, we no longer need the `interactive-setup` flag when deploying again. Instead, enter the following from the root of your stack directory:
-
 ```bash
-stackery deploy --strategy local -e development --aws-profile <your-aws-profile-name>
+git commit template.yaml -m 'Add user management'
+git push origin HEAD
+stackery deploy --env-name development
 ```
-
-_Note that we're using the `--strategy` flag and setting it to `local` as the stack is not part of a Git repository. If you have linked Git to your Stackery account, you can replace ` --strategy local` with `-r master` (or whatever branch you want to deploy)._
 
 This will take a few minutes once again. Wait until it completes to continue on to the next step. You should see a readout saying the stack was successfully deployed.
 

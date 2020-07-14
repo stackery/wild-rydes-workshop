@@ -117,7 +117,10 @@ If you open `./src/RequestUnicorn/index.js`, you will see the updated code:
 You'll now deploy the updated *stackery-wild-rydes* stack:
 
 ```bash
-stackery deploy --strategy local -e development --aws-profile <your-aws-profile-name>
+git add template.yaml src/ReqestUnicorn
+git commit -m 'Add RequestUnicorn function'
+git push origin HEAD
+stackery deploy --env-name development
 ```
 
 Once again, this will take a couple of minutes.

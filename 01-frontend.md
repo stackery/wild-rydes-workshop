@@ -66,16 +66,19 @@ cp -R wild-rydes-workshop/src/site stackery-wild-rydes/src
 
 
 ### 4. Deploy the stack
-You'll now deploy the *stackery-wild-rydes* stack to AWS. Stackery will package your code repository and deploy it using AWS CloudFormation.
+You'll now deploy the *stackery-wild-rydes* stack to AWS. Stackery will package your code in an AWS CodeBuild project and deploy it using AWS CloudFormation.
 
-We'll be using the `stackery deploy` command with the `interactive-setup` flag. This allows us to add our new stack to Stackery, create a new environment to deploy into, and even link our AWS account if needed. In the terminal, enter:
+We'll be using the `stackery deploy` command. In the terminal, enter:
 
 ```bash
 cd stackery-wild-rydes
-stackery deploy --interactive-setup
+git add template.yaml src
+git commit -m "Website infrastructure"
+git push origin HEAD
+stackery deploy
 ```
 
-Follow the prompts to continue: hit enter to keep the stack name *stackery-wild-rydes*, then select your AWS profile (if you only have one, it'll likely be called `default` and may be selected automatically). When asked if you would like to create a new environment, hit `y` and enter an environment name - we suggest `development`. It's normal to have multiple environments when building serverless apps, such as development, staging, and production.
+Follow the prompts to continue: select your AWS profile (if you only have one, it'll likely be called `default` and may be selected automatically). When asked if you would like to create a new environment, hit `y` and enter an environment name - we suggest `development`. It's normal to have multiple environments when building serverless apps, such as development, staging, and production.
 
 Once your stack and environment have been created, the deployment process begins. This typically takes a few minutes. When finished, your readout should look something like this:
 
