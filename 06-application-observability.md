@@ -68,6 +68,22 @@ Click on the [System map](https://platform.lumigo.io/system-map) to have an over
 Explore the different functions' stats and invocations in your account using the [Functions](https://platform.lumigo.io/functions) page:
 ![Wild Rydes functions](images/06-lumigo-functions.png)
 
+Click into any of the functions to get more details on it:
+![Lumigo function](images/06-lumigo-function-details.png)
+
+Also, don't forget to check out the [Transactions](https://platform.lumigo.io/transactions) page to see the recent transactions that Lumigo has traced:
+![Lumigo traces](images/06-lumigo-traces.png)
+
+In this page, if you click on one of the transactions then you can see what happened on that transaction alongside the logs for all the participating functions
+![Lumigo trace details](images/06-lumigo-trace-details.png)
+
+If you click on any of the icons in the graph, you can see even more information about that service, including any request and response to and fro the service.
+![Lumigo operation](images/06-lumigo-operation.png)
+This makes it easy for you to understand what **actually happened** during this transaction without spraying your code with trace statements!
+
+Oh, and one final thing, click on `Timeline` shows you where the time was spent on this transaction to help you identify culprits when performance issues arise.
+![Lumigo timeline](images/06-lumigo-timeline.png)
+
 ## Next Steps
 Proceed to the next module in this workshop:
 
