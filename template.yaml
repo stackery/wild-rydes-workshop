@@ -15,7 +15,7 @@ Resources:
         - ResourceName: PopulateFrontendContent
       CodeUri: src/populateFrontendContent
       Handler: index.handler
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
@@ -111,7 +111,7 @@ Resources:
         - ResourceName: RequestUnicorn
       CodeUri: src/requestUnicorn
       Handler: index.handler
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
@@ -151,7 +151,7 @@ Resources:
         - ResourceName: UploadReceipt
       CodeUri: src/UploadReceipt
       Handler: index.handler
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
@@ -192,7 +192,7 @@ Resources:
         - ResourceName: SumRides
       CodeUri: src/SumRides
       Handler: index.handler
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
@@ -235,7 +235,7 @@ Resources:
         - ResourceName: CalcSalaries
       CodeUri: src/CalcSalaries
       Handler: index.handler
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       MemorySize: 1024
       Timeout: 6
       Tracing: Active
@@ -279,7 +279,7 @@ Resources:
         - ResourceName: MailObject
       CodeUri: src/MailObject
       Handler: index.handler
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
@@ -324,7 +324,7 @@ Resources:
         - ResourceName: RecordRide
       CodeUri: src/RecordRide
       Handler: index.handler
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
