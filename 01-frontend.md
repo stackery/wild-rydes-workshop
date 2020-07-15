@@ -48,8 +48,7 @@ You will now locally edit the website source code. To simplify this task we will
 First, `git clone` this workshop to your computer. You will be copying code from the workshop repository into your own application stack. Open a new terminal tab or window in the same directory, then enter the following:
 
 ```
-cd ..
-git clone https://github.com/stackery/wild-rydes-workshop.git wild-rydes-workshop
+git clone https://github.com/stackery/wild-rydes-workshop.git ../wild-rydes-workshop
 ```
 
 We will copy the following files and directories from the workshop to your application stack's directory using the commands below.
@@ -61,7 +60,7 @@ We will copy the following files and directories from the workshop to your appli
 You can do this by running the following command on Linux or MacOS.
 
 ```bash
-cp -R wild-rydes-workshop/src/site stackery-wild-rydes/src
+cp -R ../wild-rydes-workshop/src/site src/
 ```
 
 
