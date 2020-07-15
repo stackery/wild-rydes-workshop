@@ -37,7 +37,7 @@ To complete this workshop you will need the following:
 * Accounts
   * AWS
   * Stackery
-  * Epsagon
+  * Lumigo
 
 > Be sure the laptop you are using during the workshop can run a terminal or shell. For example, if you are using a Chromebook, make sure it has the ability to boot into Linux. MacOS, Linux, or Windows laptops should work without any changes required.
 
