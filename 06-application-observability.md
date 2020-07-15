@@ -49,9 +49,13 @@ Next, we will link Lumigo to our AWS account. To do so all that is required is d
 ![Lumigo connect AWS](./images/06-lumigo-connect-aws.png)
 
 ### Integrate Lumigo with Auto-Tracing
-Next, you should land at the instrumentation step, which will let us trace our functions:
+Next, you should land at the instrumentation step, which will let us choose functions to trace:
 
 ![Lumigo auto instrumentation](./images/06-lumigo-auto-instrumentation.png)
+
+You can also do this after the initial setup too. Just head over to the [Functions](https://platform.lumigo.io/functions) page at any time, and you can auto-trace any function there:
+
+![Lumigo auto trace](./images/06-lumigo-auto-trace.png)
 
 Lumigo will automatically start monitoring your application. Order some unicorn rides, and let's see what's going on in Lumigo!
 
