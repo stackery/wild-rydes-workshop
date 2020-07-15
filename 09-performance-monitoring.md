@@ -41,3 +41,30 @@ This is how Lumigo represents an unfinished HTTP request because the function ti
 Click on that row to see more information about it, and you can see that the request to `https://hzi3xi7agi.execute-api.us-east-1.amazonaws.com/development/unicorn/Norman` never completed and that's why our function timed out (3 times!).
 
 ![](images/09-lumigo-calcsalaries-timedout.png)
+
+### 3. Explore
+Lumigo lets you explore and query all the data that they record on your system. If you go to the [Explore](https://platform.lumigo.io/search) page you can see the datat Lumigo has recorded.
+
+![](images/09-lumigo-explore.png)
+
+If you want to find other things that are slow (e.g. taking more than 500ms) then you can use a flexible query language to explore all the data Lumigo has for your application.
+
+For example, try entering the query `duration: >500` in the `Search Query` box and hit `Search`. You might see something like this:
+
+![](images/09-lumigo-explore-duration.png)
+
+Here, you can see the `CalcSalaries` invocations that timed out, but you can also see successful operations that were just a bit slower than you'd like.
+
+Take the top row on `hzi3xi7agi.execute-api.us-east-1.amazonaws.com` for instance. If you click on the row to expand it, you can see that this HTTP request took a whole 4 second to complete!
+
+![](images/09-lumigo-explore-slow-http.png)
+
+If you click on the hyperlinked resource name it'll take you to the [Transactions](https://platform.lumigo.io/transactions) view of the transaction that HTTP request was part of.
+
+You can see that this slow HTTP request was part of the `CalcSalaries` function. From the logs you can see it timed out the first time, but then succeeded on retry, although the retry also took over 5s.
+
+![](images/09-lumigo-explore-slow-http-transaction.png)
+
+Clicking on the `Timeline` tab shows me where the slow HTTP request comes in.
+
+![](images/09-lumigo-explore-slow-http-transaction-timeline.png)
