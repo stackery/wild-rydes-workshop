@@ -23,6 +23,14 @@ cp -a wild-rydes-workshop/src stackery-wild-rydes/src
 cp wild-rydes-workshop/template.yaml stackery-wild-rydes/template.yaml
 ```
 
+You'll now deploy the updated *stackery-wild-rydes* stack:
+
+```bash
+stackery deploy -e production --aws-profile <your-aws-profile-name>
+```
+
+This will again take a few minutes.
+
 ### 2. Integrate Lumigo
 Next, let's integrate Lumigo to our application. To get started with Lumigo, take the following steps. A more detailed guide can be found at [the Lumigo documentation](https://docs.lumigo.io/docs/create-an-account).
 
@@ -45,19 +53,9 @@ Next, you should land at the instrumentation step, which will let us trace our f
 
 ![Lumigo auto instrumentation](./images/06-lumigo-auto-instrumentation.png)
 
-
-### 3. Deploy updated Wild Rydes
-You'll now deploy the updated *stackery-wild-rydes* stack:
-
-```bash
-stackery deploy --strategy local -e production --aws-profile <your-aws-profile-name>
-```
-
-This will again take a few minutes.
-
 Lumigo will automatically start monitoring your application. Order some unicorn rides, and let's see what's going on in Lumigo!
 
-### 4. View your application
+### 3. View your application
 Lumigo will trace the invocations of your application. The first thing we will use it for is to get an understanding of how our application looks in real life.
 
 Click on the [System map](https://platform.lumigo.io/system-map) to have an overview of your application's architecture:
