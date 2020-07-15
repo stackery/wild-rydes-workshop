@@ -8,6 +8,7 @@ The application architecture uses the following AWS services.
 * [API Gateway](https://aws.amazon.com/api-gateway/) - Backend HTTP interface
 * [DynamoDB](https://aws.amazon.com/dynamodb/) - NoSQL datastore
 * [S3](https://aws.amazon.com/s3/) - Object store for hosting frontend.
+* [AWS CodeBuild for deploying static website content](https://docs.stackery.io/docs/api/nodes/Website/)
 * [Cognito](https://aws.amazon.com/cognito/) - user management, authentication, and authorization.
 
 Before you begin this workshop please make sure you have completed the steps in the *Setup / Prerequisites* section of this documentation.
@@ -96,21 +97,28 @@ Once you have completed all these steps you should be ready to use Stackery!
 
 ### 3. Create the Wild Rydes stack.
 
-Create a stack named `stackery-wild-rydes` using a blank stack template.
+Navigate to the stack list page in Stackery: https://app.stackery.io/stacks. Next, select a Git provider to store the stack we're creating. You can name the stack anything you like, say *stackery-wild-rydes*. Make sure to create a new repo, provide any further Git provider-specific settings, and start from a *Blank* template.
 
-In your terminal, enter:
+![Create Stack](./images/00-create-stack.png)
 
-```bash
-stackery init --stack-name stackery-wild-rydes
-```
-
-This will create a directory called `stackery-wild-rydes` that includes a blank `template.yaml` file as well as a config file. The `template.yaml` is an AWS SAM formatted template on which we will create our infrastructure-as-code.
-
-To start editing the template, `cd` to the `stackery-wild-rydes` directory you just created, and enter:
+In your terminal or IDE, clone your new git repo:
 
 ```bash
-stackery edit
+# Fill in your repo URL below, like git@github.com:stackery/stackery-wild-rydes.git
+git clone <repo URL>
 ```
+
+This will create a directory called `stackery-wild-rydes` that includes a blank `template.yaml` file. The `template.yaml` is an AWS SAM formatted template in which we will create our infrastructure-as-code.
+
+If you have [VS Code](https://code.visualstudio.com/) you can install the Stackery extension which makes template editing a breeze. Click [here](https://marketplace.visualstudio.com/items?itemName=stackery.stackery) to open the extension in the marketplace and install it.
+
+To start editing the template, either:
+* In VS Code with the Stackery extension, open the template.yaml file and click the Stackery icon in the top right toolbar
+    ![VS Code Stackery Extension Edit Button](./images/00-vscode-edit.png)
+* `cd` to the `stackery-wild-rydes` directory you just created, and enter:
+    ```bash
+    stackery edit
+    ```
 
 You may see a login screen:
 

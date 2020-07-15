@@ -31,7 +31,7 @@ Now click on **SECRETS** in the left sidebar. *Environment Secrets* section. Cli
 You'll now deploy the *stackery-wild-rydes* stack to the production *environment*. In the terminal in the root of your stack, enter:
 
 ```bash
-stackery deploy --strategy local -e production --aws-profile <your-aws-profile-name>
+stackery deploy -e production
 ```
 
 This will take a few minutes again.
