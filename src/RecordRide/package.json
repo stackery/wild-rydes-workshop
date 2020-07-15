@@ -1,4 +1,5 @@
 {
+  "name": "request-unicorn",
   "private": true,
   "dependencies": {
     "aws-sdk": "~2"
