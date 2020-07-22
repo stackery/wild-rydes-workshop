@@ -9,7 +9,7 @@ If you go to the [Alerts](https://platform.lumigo.io/alerts-configurations) page
 
 ![Default Alerts](images/08-lumigo-default-alerts.png)
 
-By virtual of enabling auto-trace on our functions, our functions have been configured with these default alerts.
+By enabling `auto-trace` on our functions, they have been configured with these default alerts.
 
 ![Default Alert Functions](images/08-lumigo-default-alert-functions.png)
 

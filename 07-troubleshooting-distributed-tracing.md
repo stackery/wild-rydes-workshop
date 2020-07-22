@@ -10,7 +10,7 @@ Here, we will simulate users using the application. Send some consecutive reques
 ### 2. Inspect the transactions using Lumigo
 With Lumigo, we can trace the entire flow of the data throughout the application. We will start with a successful transaction.
 
-First, go to the [Functions](https://platform.lumigo.io/functions) page and search for the `stackery-wild-rydes-lumigo-dev-RequestUnicorn` function.
+First, go to the [Functions](https://platform.lumigo.io/functions) page and search for the `RequestUnicorn` function.
 
 ![](images/07-lumigo-find-requestunicorn-function.png)
 
@@ -24,7 +24,7 @@ Here, there are multiple participating functions that are triggered by SNS and D
 
 ![](images/07-lumigo-requestunicorn-transaction-view.png)
 
-If you want to drill even digger, e.g. if you want to see what message was published to SNS, then click on the SNS icon in the graph.
+If you want to drill even deeper, e.g. if you want to see what message was published to SNS, then click on the SNS icon in the graph.
 
 This opens up a dialogue and shows you the information that has been captured for this request, including the SNS message body.
 
@@ -32,7 +32,7 @@ This opens up a dialogue and shows you the information that has been captured fo
 
 So if you're seeing weird behaviour in the SNS functions or the data being written into the DynamoDB table doesn't make sense, then you can easily trace back to what was sent to SNS in the first place.
 
-Not more guessing, no more regret that you didn't log the SNS body as a debug message, let Lumigo handle that for you so you can focus on the business logic. After all, isn't that the promise of serverless?
+No more guessing, no more regret that you didn't log the SNS body as a debug message, let Lumigo handle that for you so you can focus on the business logic. After all, isn't that the promise of serverless?
 
 You can click on every icon in the graph to see what information Lumigo has collected on these requests. Generally speaking, Lumigo cobellects the request and response for every operation you make from Lambda. However, you wouldn't want your application secrets or otherwise sensitive data to be recorded in another service, would you?
 
@@ -40,7 +40,7 @@ To protect your security, Lumigo doesn't collect the payload data for Secrets Ma
 
 ![](images/07-lumigo-requestunicorn-transaction-secretsmanager.png)
 
-Similarly, HTTP request bodies and some HTTP headers (such as `x-api-key` in the screenshot) are automatically scrubbed or redacted so they're never recorded in Lumigo.
+Similarly, HTTP request bodies and some HTTP headers (such as `x-api-key` in the screenshot) are never sent outside of your account.
 
 You can also supply your own secret mask to redact other secrets/sensitive data in your application. See the [Lumigo documentation](https://docs.lumigo.io/docs/secret-masking) for more details.
 
