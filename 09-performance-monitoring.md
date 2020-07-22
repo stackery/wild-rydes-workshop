@@ -42,8 +42,14 @@ Click on that row to see more information about it, and you can see that the req
 
 ![](images/09-lumigo-calcsalaries-timedout.png)
 
+In this case, we started by asking the question "has there been any issues?" in the [Issues](https://platform.lumigo.io/issues) page and then navigate to the relevant transactions to debug the problem.
+
+What many performance problems don't result in issues such as timeouts. But even when the functions don't time out (which results in a 502 error to the caller), slow responses can still negatively impact user experience, which in turn, can [affect your sales revenue](https://www.gigaspaces.com/blog/amazon-found-every-100ms-of-latency-cost-them-1-in-sales/), user retention and other important business KPIs.
+
+Luckily, Lumigo makes it easy for you to catch those problems too.
+
 ### 3. Explore
-Lumigo lets you explore and query all the data that they record on your system. If you go to the [Explore](https://platform.lumigo.io/search) page you can see the datat Lumigo has recorded.
+Lumigo lets you explore and query all the data that it records on your system. If you go to the [Explore](https://platform.lumigo.io/search) page you can see the data Lumigo has recorded.
 
 ![](images/09-lumigo-explore.png)
 
@@ -59,7 +65,7 @@ Take the top row on `hzi3xi7agi.execute-api.us-east-1.amazonaws.com` for instanc
 
 ![](images/09-lumigo-explore-slow-http.png)
 
-If you click on the hyperlinked resource name it'll take you to the [Transactions](https://platform.lumigo.io/transactions) view of the transaction that HTTP request was part of.
+If you click on the hyperlinked resource name it'll take you to the [Transaction](https://platform.lumigo.io/transactions) view which that HTTP request was part of.
 
 You can see that this slow HTTP request was part of the `CalcSalaries` function. From the logs you can see it timed out the first time, but then succeeded on retry, although the retry also took over 5s.
 
@@ -68,3 +74,31 @@ You can see that this slow HTTP request was part of the `CalcSalaries` function.
 Clicking on the `Timeline` tab shows me where the slow HTTP request comes in.
 
 ![](images/09-lumigo-explore-slow-http-transaction-timeline.png)
+
+### 4. Finding other latencies problems
+
+The most likely performance problem in a serverless application comes from slow integration points - i.e. other services that your Lambda functions have to call. These can include AWS services such as DynamoDB and SNS, but can also be external endpoints, like the `http://hzi3xi7agi.execute-api.us-east-1.amazonaws.com/` endpoint we configured as parameter in earlier modules.
+
+In the Lumigo [Dashboard](https://platform.lumigo.io/dashboard), there's a `Services Latency` widget on the bottom right.
+
+![](images/09-lumigo-services-latency.png)
+
+Notice that the `p99` latency for `hzi3xi7agi.execute-api.us-east-1.amazonaws.com` is really high! So something's definitely up with that service.
+
+If you click on the `p99` value (not the service url), it will take you to the [Explore](https://platform.lumigo.io/search) page. The page is already prefilled with a query that shows you the slowest queries.
+
+![](images/09-lumigo-explore-slow-http-expand-3.png)
+
+We can see that this endpoint took a whole 4.5s to respond on this occassion From here, we can navigate to the relevant transaction by clicking on `Resource` name.
+
+![](images/09-lumigo-explore-slow-transaction.png)
+
+As you can see, this invocation completed successfully, but it took 4799.85ms, not the kinda user experience we want to give to our users!
+
+Looking at the `Timeline` of this transaction, you can see that, not only did that one request took 4.5s, other requests to the same service also took hundreds of ms to respond.
+
+![](images/09-lumigo-explore-slow-transaction-timeline.png)
+
+## Request a demo
+
+If you want to see a more in-depth demo of what Lumigo can do for you, please get in touch with [me](mailto:yan@lumigo.io) and we can arrange something at a time that suits you.
