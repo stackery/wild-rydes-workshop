@@ -6,6 +6,8 @@ const AWS = require('aws-sdk');
 const ddb = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event, context) => {
+    console.log(JSON.stringify(event, undefined, 2));
+
     try {
         if (!event.requestContext.authorizer) {
           return errorResponse('Authorization not configured', context.awsRequestId);
