@@ -14,7 +14,6 @@ exports.handler = async (event, context) => {
         }
 
         const rideId = toUrlString(randomBytes(16));
-        console.log('Received event (', rideId, '): ', event);
 
         // Because we're using a Cognito User Pools authorizer, all of the claims
         // included in the authentication token are provided in the request context.
