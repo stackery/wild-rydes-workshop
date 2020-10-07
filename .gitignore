@@ -1,3 +1,4 @@
 .DS_Store
 .aws-sam
 .stackery
+.envrc
