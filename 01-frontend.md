@@ -60,7 +60,7 @@ We will copy the following files and directories from the workshop to your appli
 You can do this by running the following command on Linux or MacOS.
 
 ```bash
-cp -R ../wild-rydes-workshop/src/site src/
+cp -R ../wild-rydes-workshop/src/site src/site
 ```
 
 
